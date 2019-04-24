@@ -124,8 +124,10 @@ public:
     SDL_Surface* images[512];
     int imageCounter;
 
+#ifdef TODO
     //Sounds
     Mix_Chunk* sound[512];
+#endif
     int soundCounter;
 
     //Tasten

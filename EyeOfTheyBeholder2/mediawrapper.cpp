@@ -10,6 +10,7 @@
 
 void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool fullscreen)
 {
+#ifdef TODO
     //SDL screen_game erzeugen
     screen_game = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 32, 0, 0, 0, 0);
 
@@ -48,6 +49,7 @@ void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool f
     //Surfaces initialisieren
     for (int s = 0; s < 512; s++)
         images[s] = NULL;
+#endif
 }
 
 //
@@ -108,6 +110,7 @@ bool MEDIAWrapper::imageLoaded(int nr)
 void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palette, int posX, int posY, int width, int height,
     bool transp, bool sprite)
 {
+#ifdef TODO
     FILE *palfile, *source;
     unsigned char pal[768];
     unsigned char src[64000];
@@ -123,7 +126,7 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
     //
 
     palfile = NULL;
-    palfile = fopen(palette, "rb");
+    palfile = fopen(palette.c_str(), "rb");
     if (palfile == NULL) {
         printf("palette not found: %s\n", palette);
         this->sleep(2000);
@@ -145,7 +148,7 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
     //
 
     source = NULL;
-    source = fopen(filename, "rb");
+    source = fopen(filename.c_str(), "rb");
     if (source == NULL) {
         printf("file not found: %s\n", filename);
         sleep(2000);
@@ -243,6 +246,7 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
     ;
     SDL_BlitSurface(tempImage, &rcSrc, images[imageID], &rcDst);
     SDL_FreeSurface(tempImage);
+#endif
 }
 
 //WORD Wert aus CPS File auslesen
@@ -322,6 +326,7 @@ int MEDIAWrapper::format80decode(unsigned char image_in[], unsigned char image_o
 
 void MEDIAWrapper::drawImage(int imageID, int posX, int posY, int fromPosX, int fromPosY, int width, int height)
 {
+#ifdef TODO
     SDL_Rect rcDest = { posX, posY, 0, 0 };
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
     if (width > 0 && height > 0) {
@@ -337,6 +342,7 @@ void MEDIAWrapper::drawImage(int imageID, int posX, int posY, int fromPosX, int 
             SDL_BlitSurface(images[imageID], NULL, screen_game, &rcDest);
         }
     }
+#endif
 }
 
 //
@@ -357,12 +363,14 @@ void MEDIAWrapper::createImage(int imageID, int paletteSourceImageID, int width,
 void MEDIAWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height,
     int transpR, int transpG, int transpB)
 {
+#ifdef TODO
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
     SDL_Rect rcDst = { toPosX, toPosY, 0, 0 };
     if (transpR != -1 && transpG != -1 && transpB != -1)
         SDL_SetColorKey(images[imageFromID], SDL_SRCCOLORKEY, SDL_MapRGB(images[imageFromID]->format, transpR, transpG, transpB));
     SDL_BlitSurface(images[imageFromID], &rcSrc, images[imageToID], &rcDst);
-    //SDL_SaveBMP(images[imageToID], "data/out.bmp");
+//SDL_SaveBMP(images[imageToID], "data/out.bmp");
+#endif
 }
 
 //
@@ -444,21 +452,21 @@ void MEDIAWrapper::drawText(int fontID, int posX, int posY, int r, int g, int b,
     if (fontID < 4) {
         posY += 1;
         if (center)
-            posX = (this->screen_game->w / 2) - (SFont_TextWidth(font[0], text) / 2);
+            posX = (this->screen_game->w / 2) - (SFont_TextWidth(font[0], text.c_str()) / 2);
         if (r == 0 && g == 0 && b == 0)
-            SFont_Write(screen_game, font[0], posX, posY, text);
+            SFont_Write(screen_game, font[0], posX, posY, text.c_str());
         if (r == 0 && g == 0 && b == 255)
-            SFont_Write(screen_game, font[1], posX, posY, text);
+            SFont_Write(screen_game, font[1], posX, posY, text.c_str());
         if (r == 255 && g == 255 && b == 255)
-            SFont_Write(screen_game, font[2], posX, posY, text);
+            SFont_Write(screen_game, font[2], posX, posY, text.c_str());
         if (r == 116 && g == 232 && b == 252)
-            SFont_Write(screen_game, font[3], posX, posY, text);
+            SFont_Write(screen_game, font[3], posX, posY, text.c_str());
     } else {
         //schwarzen Schatten zeichnen
-        SFont_BigWrite(screen_game, font[7], posX - 1, posY + 1, text);
+        SFont_BigWrite(screen_game, font[7], posX - 1, posY + 1, text.c_str());
 
         //Font zeichnen
-        SFont_BigWrite(screen_game, font[fontID], posX, posY, text);
+        SFont_BigWrite(screen_game, font[fontID], posX, posY, text.c_str());
     }
 }
 
@@ -487,9 +495,12 @@ void MEDIAWrapper::sleep(int ms)
 
 void MEDIAWrapper::loadSound(int nr, std::string path)
 {
+#ifdef TODO
+
     char realpath[128];
     sprintf_s(realpath, "%s.ogg", path);
     sound[nr] = Mix_LoadWAV(realpath);
+#endif
 }
 
 //
@@ -498,10 +509,12 @@ void MEDIAWrapper::loadSound(int nr, std::string path)
 
 void MEDIAWrapper::freeSound(int nr)
 {
+#ifdef TODO
     if (sound[nr] != NULL) {
         Mix_FreeChunk(sound[nr]);
         sound[nr] = NULL;
     }
+#endif
 }
 
 //
@@ -510,7 +523,9 @@ void MEDIAWrapper::freeSound(int nr)
 
 void MEDIAWrapper::playSound(int nr)
 {
+#ifdef TODO
     Mix_PlayChannel(-1, sound[nr], 0);
+#endif
 }
 
 //
@@ -519,8 +534,10 @@ void MEDIAWrapper::playSound(int nr)
 
 void MEDIAWrapper::stopSound(int nr)
 {
+#ifdef TODO
     if (sound[nr] != NULL)
         Mix_HaltChannel(nr);
+#endif
 }
 
 //
@@ -529,9 +546,11 @@ void MEDIAWrapper::stopSound(int nr)
 
 bool MEDIAWrapper::isPlaying(int nr)
 {
+#ifdef TODO
     if (sound[nr] != NULL)
         return true;
     else
+#endif
         return false;
 }
 
@@ -541,7 +560,9 @@ bool MEDIAWrapper::isPlaying(int nr)
 
 void MEDIAWrapper::refresh()
 {
+#ifdef TODO
     SDL_UpdateRect(screen, 0, 0, screen->w, screen->h);
+#endif
 }
 
 //
@@ -692,6 +713,7 @@ void MEDIAWrapper::drawPixel(int posX, int posY, int palOffset, int imageID = -1
 
 void MEDIAWrapper::updateVideo()
 {
+#ifdef TODO
     // Skalierung nur nötig wenn Auflösung != screen_game
     if (this->screenWidth > 320 && this->screenHeight > 200) {
         SDL_Rect from = { 0, 0, 0, 0 };
@@ -728,6 +750,7 @@ void MEDIAWrapper::updateVideo()
     }
 
     SDL_UpdateRect(screen, 0, 0, screen->w, screen->h);
+#endif
 }
 
 //
@@ -736,7 +759,9 @@ void MEDIAWrapper::updateVideo()
 
 void MEDIAWrapper::setGamma(int r, int g, int b)
 {
+#ifdef TODO
     SDL_SetGamma(r, g, b);
+#endif
 }
 
 //

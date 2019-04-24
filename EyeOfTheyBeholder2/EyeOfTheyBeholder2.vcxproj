@@ -32,7 +32,6 @@
     <ClCompile Include="mediawrapper.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="SFont.c" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="spectalum.cpp" />
   </ItemGroup>
   <ItemGroup>

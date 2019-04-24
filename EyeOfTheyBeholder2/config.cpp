@@ -17,7 +17,7 @@ void CConfig::openConf(std::string fileName)
     sprintf_s(realFileName, "\\eob2\\%s", fileName);
     file = fopen(realFileName, "r");
 #else
-    file = fopen(fileName, "r");
+    file = fopen(fileName.c_str(), "r");
 #endif
 
     if (!file) {

@@ -1,4 +1,5 @@
 #pragma once
+#include "char.h"
 
 class CEvent;
 class CMap;
@@ -6,7 +7,6 @@ class CConfig;
 class MEDIAWrapper;
 class CLanguage;
 class CItem;
-class CChar;
 
 class C3DEngine {
 public:

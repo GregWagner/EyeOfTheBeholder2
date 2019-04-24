@@ -1,6 +1,7 @@
+#pragma warning(disable : 4996)
+
 #include "3DEngine.h"
 
-#include "char.h"
 #include "config.h"
 #include "event.h"
 #include "item.h"

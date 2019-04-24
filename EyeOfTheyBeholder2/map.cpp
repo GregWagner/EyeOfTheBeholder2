@@ -1,3 +1,5 @@
+#pragma warning(disable : 4996)
+
 #include "map.h"
 #include "mazeobjects.h"
 #include <cstdio>

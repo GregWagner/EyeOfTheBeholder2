@@ -1,3 +1,5 @@
+#pragma warning(disable : 4996)
+
 #include "mediawrapper.h"
 #include <cstdio>
 #include <cstring>

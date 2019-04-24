@@ -12,13 +12,7 @@ void CConfig::openConf(std::string fileName)
     FILE* file;
     char filedata[8192];
 
-#ifdef WINCE
-    char realFileName[128];
-    sprintf_s(realFileName, "\\eob2\\%s", fileName);
-    file = fopen(realFileName, "r");
-#else
     file = fopen(fileName.c_str(), "r");
-#endif
 
     if (!file) {
         this->fullscreen = true;

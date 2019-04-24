@@ -123,13 +123,7 @@ void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
         char fileName[256];
         sprintf_s(fileName, "maps/map_%d/map.dat", mapID);
 
-#ifdef WINCE
-        char realFileName[128];
-        sprintf_s(realFileName, "\\eob2\\%s", fileName);
-        file = fopen(realFileName, "r");
-#else
         file = fopen(fileName, "r");
-#endif
 
         //Inhalt Zeilenweise einlesen
         while (!feof(file)) {

@@ -519,12 +519,8 @@ void C3DEngine::updateView()
     //Refresh
     mediaObject.refresh();
 
-#ifdef WINCE
-//
-#else
     //Bildschirmrefresh
     mediaObject.updateVideo();
-#endif
 }
 
 //

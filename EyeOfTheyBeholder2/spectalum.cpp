@@ -3,19 +3,6 @@
 #include "3DEngine.h"
 #include <iostream>
 
-#ifdef WINCE
-int wmain(int argc, char* argv[])
-{
-    C3DEngine spectalum;
-    spectalum.initViewArea();
-    //if(spectalum.playIntro())
-    //{
-    spectalum.loadMap(spectalum.configuration.startMapID);
-    spectalum.run();
-    //}
-    return 0;
-}
-#else
 int main(int argc, char* argv[])
 {
     C3DEngine spectalum;
@@ -28,4 +15,3 @@ int main(int argc, char* argv[])
     //}
     return 0;
 }
-#endif

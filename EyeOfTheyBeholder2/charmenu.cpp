@@ -283,11 +283,6 @@ void CCharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
     short memory;
     short ppc_offset = 0;
 
-//Platz für Extra Attack-Button beim Pocket PC
-#ifdef WINCE
-    ppc_offset = 7;
-#endif
-
     //Char 0
     if (posX >= 217 && posX <= 246 && posY >= 12 && posY <= 26) {
         if (buttonLeft && posX <= 246 - ppc_offset) {
@@ -928,18 +923,6 @@ void CCharMenu::update()
             drawItemOverlayNotReachable(288, 63);
         if (attackInProgress[menuPosID[3]][1] || character[menuPosID[3]]->currenthp <= 10)
             drawItemOverlayNotReachable(288, 79);
-
-//beim PocketPC Extra-Attack Button einblenden
-#ifdef WINCE
-        drawAttackButton(240, 11);
-        drawAttackButton(240, 27);
-        drawAttackButton(312, 11);
-        drawAttackButton(312, 27);
-        drawAttackButton(240, 63);
-        drawAttackButton(240, 79);
-        drawAttackButton(312, 63);
-        drawAttackButton(312, 79);
-#endif
 
         //wenn der Char gerade Schaden nimmt Schadensanzeige
 

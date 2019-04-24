@@ -14,13 +14,8 @@ void CMazeObjects::init(short maze_id)
 
     this->level_id = maze_id;
 
-#ifdef WINCE
-    sprintf_s(realpath, "/eob2/original/LEVEL%d.INF", maze_id);
-    loadINF(realpath);
-#else
     sprintf_s(realpath, "original/LEVEL%d.INF", maze_id);
     loadINF(realpath);
-#endif
 
     //leere Bilder für die 4 Wandebenen generieren und weiß (transparenz-farbe) füllen
     mediaObject->createImage(260, 0, 176, 120);
@@ -130,13 +125,8 @@ void CMazeObjects::loadINF(char* file)
         maz_filename[i] = toupper(inf_src[0x5 + i]);
     maz_filename[12] = '\0';
 
-#ifdef WINCE
-    sprintf_s(realpath, "/eob2/original/%s", maz_filename);
-    loadMAZ(realpath);
-#else
     sprintf_s(realpath, "original/%s", maz_filename);
     loadMAZ(realpath);
-#endif
 
     //VMP und VCN Daten laden - Level-Filename steht in Bytes 0x12 - 0x19
     unsigned char graphics_filename[8];
@@ -145,21 +135,12 @@ void CMazeObjects::loadINF(char* file)
     graphics_filename[7] = '\0';
     sprintf_s(current_pal, "original/%s.PAL", graphics_filename);
 
-#ifdef WINCE
-    sprintf_s(realpath, "/eob2/original/%s.VMP", graphics_filename);
-    loadVMP(realpath);
-    sprintf_s(realpath, "/eob2/original/%s.VCN", graphics_filename);
-    loadVCN(realpath);
-    sprintf_s(realpath, "/eob2/original/%s.PAL", graphics_filename);
-    mediaObject->loadPal(realpath);
-#else
     sprintf_s(realpath, "original/%s.VMP", graphics_filename);
     loadVMP(realpath);
     sprintf_s(realpath, "original/%s.VCN", graphics_filename);
     loadVCN(realpath);
     sprintf_s(realpath, "original/%s.PAL", graphics_filename);
     mediaObject->loadPal(realpath);
-#endif
 
     //
     // Dekorationsdaten für die Wände auslesen
@@ -310,11 +291,7 @@ void CMazeObjects::loadINF(char* file)
         deco_info[i].image_id = 264 + i;
 
 //.DEC File laden
-#ifdef WINCE
-        sprintf_s(realpath, "/eob2/%s", deco_info[i].dec_file_name);
-#else
         sprintf_s(realpath, "%s", deco_info[i].dec_file_name);
-#endif
         source = fopen(realpath, "rb");
         if (source == nullptr) {
             printf("file not found: %s\n", file);

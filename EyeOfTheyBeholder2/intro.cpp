@@ -568,12 +568,8 @@ void CIntro::play()
             //Screen Update
             mediaObject->refresh();
 
-#ifdef WINCE
-//
-#else
             //Bildschirmrefresh
             mediaObject->updateVideo();
-#endif
 
             tick2 = tick1 + 100;
             currentFrame++;

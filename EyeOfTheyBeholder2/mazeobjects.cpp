@@ -14,10 +14,10 @@ void CMazeObjects::init(short maze_id)
     this->level_id = maze_id;
 
 #ifdef WINCE
-    sprintf(realpath, "/eob2/original/LEVEL%d.INF", maze_id);
+    sprintf_s(realpath, "/eob2/original/LEVEL%d.INF", maze_id);
     loadINF(realpath);
 #else
-    sprintf(realpath, "original/LEVEL%d.INF", maze_id);
+    sprintf_s(realpath, "original/LEVEL%d.INF", maze_id);
     loadINF(realpath);
 #endif
 
@@ -130,10 +130,10 @@ void CMazeObjects::loadINF(char* file)
     maz_filename[12] = '\0';
 
 #ifdef WINCE
-    sprintf(realpath, "/eob2/original/%s", maz_filename);
+    sprintf_s(realpath, "/eob2/original/%s", maz_filename);
     loadMAZ(realpath);
 #else
-    sprintf(realpath, "original/%s", maz_filename);
+    sprintf_s(realpath, "original/%s", maz_filename);
     loadMAZ(realpath);
 #endif
 
@@ -142,21 +142,21 @@ void CMazeObjects::loadINF(char* file)
     for (int i = 0; i < 7; i++)
         graphics_filename[i] = toupper(inf_src[0x12 + i]);
     graphics_filename[7] = '\0';
-    sprintf(current_pal, "original/%s.PAL", graphics_filename);
+    sprintf_s(current_pal, "original/%s.PAL", graphics_filename);
 
 #ifdef WINCE
-    sprintf(realpath, "/eob2/original/%s.VMP", graphics_filename);
+    sprintf_s(realpath, "/eob2/original/%s.VMP", graphics_filename);
     loadVMP(realpath);
-    sprintf(realpath, "/eob2/original/%s.VCN", graphics_filename);
+    sprintf_s(realpath, "/eob2/original/%s.VCN", graphics_filename);
     loadVCN(realpath);
-    sprintf(realpath, "/eob2/original/%s.PAL", graphics_filename);
+    sprintf_s(realpath, "/eob2/original/%s.PAL", graphics_filename);
     mediaObject->loadPal(realpath);
 #else
-    sprintf(realpath, "original/%s.VMP", graphics_filename);
+    sprintf_s(realpath, "original/%s.VMP", graphics_filename);
     loadVMP(realpath);
-    sprintf(realpath, "original/%s.VCN", graphics_filename);
+    sprintf_s(realpath, "original/%s.VCN", graphics_filename);
     loadVCN(realpath);
-    sprintf(realpath, "original/%s.PAL", graphics_filename);
+    sprintf_s(realpath, "original/%s.PAL", graphics_filename);
     mediaObject->loadPal(realpath);
 #endif
 
@@ -241,13 +241,13 @@ void CMazeObjects::loadINF(char* file)
             //13 Bytes für Decoration-Image Dateinamen
             for (int i = pos; i < pos + 13; i++)
                 filename[i - pos] = toupper(inf_src[i]);
-            sprintf(deco_info[count_deco_info].image_name, "original/%s.CPS", filename);
+            sprintf_s(deco_info[count_deco_info].image_name, "original/%s.CPS", filename);
             pos += 13;
 
             //13 Bytes für Rectangle-Daten Dateinamen
             for (int i = pos; i < pos + 13; i++)
                 filename[i - pos] = toupper(inf_src[i]);
-            sprintf(deco_info[count_deco_info].dec_file_name, "original/%s", filename);
+            sprintf_s(deco_info[count_deco_info].dec_file_name, "original/%s", filename);
             pos += 13;
 
             //0xFB = Rectangle Datensätze folgen
@@ -273,13 +273,13 @@ void CMazeObjects::loadINF(char* file)
                 //13 Bytes für Decoration-Image Dateinamen
                 for (int i = pos; i < pos + 13; i++)
                     filename[i - pos] = toupper(inf_src[i]);
-                sprintf(deco_info[count_deco_info].image_name, "original/%s.CPS", filename);
+                sprintf_s(deco_info[count_deco_info].image_name, "original/%s.CPS", filename);
                 pos += 13;
 
                 //13 Bytes für Rectangle-Daten Dateinamen
                 for (int i = pos; i < pos + 13; i++)
                     filename[i - pos] = toupper(inf_src[i]);
-                sprintf(deco_info[count_deco_info].dec_file_name, "original/%s", filename);
+                sprintf_s(deco_info[count_deco_info].dec_file_name, "original/%s", filename);
                 pos += 13;
 
                 //0xFB = Rectangle Datensätze folgen
@@ -310,9 +310,9 @@ void CMazeObjects::loadINF(char* file)
 
 //.DEC File laden
 #ifdef WINCE
-        sprintf(realpath, "/eob2/%s", deco_info[i].dec_file_name);
+        sprintf_s(realpath, "/eob2/%s", deco_info[i].dec_file_name);
 #else
-        sprintf(realpath, "%s", deco_info[i].dec_file_name);
+        sprintf_s(realpath, "%s", deco_info[i].dec_file_name);
 #endif
         source = fopen(realpath, "rb");
         if (source == nullptr) {

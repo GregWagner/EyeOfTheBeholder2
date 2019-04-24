@@ -30,7 +30,7 @@ void CItem::init(MEDIAWrapper* mediaObject, CEvent* mapEvent, CLanguage* languag
 
     //Item Bezeichnungen
     for (short i = 0; i < 112; i++)
-        sprintf(itemName[i], "%s", languageData->text[43 + i]);
+        sprintf_s(itemName[i], "%s", languageData->text[43 + i]);
 
     //0 Mauspfeil
     largePicID[0] = 0;

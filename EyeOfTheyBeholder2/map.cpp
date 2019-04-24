@@ -120,11 +120,11 @@ void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit = false)
         // Mapfile öffnen
         FILE* file;
         char fileName[256];
-        sprintf(fileName, "maps/map_%d/map.dat", mapID);
+        sprintf_s(fileName, "maps/map_%d/map.dat", mapID);
 
 #ifdef WINCE
         char realFileName[128];
-        sprintf(realFileName, "\\eob2\\%s", fileName);
+        sprintf_s(realFileName, "\\eob2\\%s", fileName);
         file = fopen(realFileName, "r");
 #else
         file = fopen(fileName, "r");

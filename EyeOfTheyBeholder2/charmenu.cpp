@@ -268,7 +268,7 @@ void CCharMenu::mouseState(short posX, short posY, bool buttonLeft = true)
 
     if (this->mouseItem != nullptr && mouseItemOld != *this->mouseItem && *this->mouseItem != 0) {
         char temp[256];
-        sprintf(temp, "%s %s", item->itemName[*this->mouseItem], languageData->text[42]);
+        sprintf_s(temp, "%s %s", item->itemName[*this->mouseItem], languageData->text[42]);
         mapEvent->statusMessage(temp);
     }
 }
@@ -949,7 +949,7 @@ void CCharMenu::update()
         for (short i = 0; i < 4; i++) {
             if (character[menuPosID[i]]->damageTaken) {
                 damageTakenTimer[menuPosID[i]] = mediaObject->getMilliSeconds() + 1000;
-                sprintf(damageTakenValue[menuPosID[i]], "%i", character[menuPosID[i]]->damageTakenValue);
+                sprintf_s(damageTakenValue[menuPosID[i]], "%i", character[menuPosID[i]]->damageTakenValue);
                 character[menuPosID[i]]->damageTaken = false;
             }
             if (mediaObject->getMilliSeconds() < damageTakenTimer[menuPosID[i]]) {
@@ -988,19 +988,19 @@ void CCharMenu::update()
                 if (attackInProgress[menuPosID[i]][0]) {
                     damageDoneTimer[menuPosID[i]][0] = mediaObject->getMilliSeconds() + 1000;
                     if (character[menuPosID[i]]->damageDoneValue[0] == 0) {
-                        sprintf(damageDoneValue[menuPosID[i]][0], "%s", languageData->text[179]);
+                        sprintf_s(damageDoneValue[menuPosID[i]][0], "%s", languageData->text[179]);
                         x_offset = 8;
                     } else
-                        sprintf(damageDoneValue[menuPosID[i]][0], "%i", character[menuPosID[i]]->damageDoneValue[0]);
+                        sprintf_s(damageDoneValue[menuPosID[i]][0], "%i", character[menuPosID[i]]->damageDoneValue[0]);
                     character[menuPosID[i]]->damageDone[0] = false;
                 }
                 if (attackInProgress[menuPosID[i]][1]) {
                     damageDoneTimer[menuPosID[i]][1] = mediaObject->getMilliSeconds() + 1000;
                     if (character[menuPosID[i]]->damageDoneValue[1] == 0) {
-                        sprintf(damageDoneValue[menuPosID[i]][1], "%s", languageData->text[179]);
+                        sprintf_s(damageDoneValue[menuPosID[i]][1], "%s", languageData->text[179]);
                         x_offset = 8;
                     } else
-                        sprintf(damageDoneValue[menuPosID[i]][1], "%i", character[menuPosID[i]]->damageDoneValue[1]);
+                        sprintf_s(damageDoneValue[menuPosID[i]][1], "%i", character[menuPosID[i]]->damageDoneValue[1]);
                     character[menuPosID[i]]->damageDone[1] = false;
                 }
             }
@@ -1092,7 +1092,7 @@ void CCharMenu::update()
         for (short i = 0; i < 3; i++)
             if (character[menuPosID[charID]]->itemBelt[i] == 16)
                 character[menuPosID[charID]]->arrows++;
-        sprintf(arrows, "%d", character[menuPosID[charID]]->arrows);
+        sprintf_s(arrows, "%d", character[menuPosID[charID]]->arrows);
         mediaObject->drawText(0, 233, 62, 0xFF, 0xFF, 0xFF, arrows);
         //Items im Inventar zeichnen
         short row, col;
@@ -1145,37 +1145,37 @@ void CCharMenu::update()
         //String "STRENGTH"
         mediaObject->drawText(0, 187, 78, 0x00, 0x00, 0x00, languageData->text[3]);
         //Char Stärke
-        sprintf(temp, "%d/%d", character[menuPosID[charID]]->strength, character[menuPosID[charID]]->maxstrength);
+        sprintf_s(temp, "%d/%d", character[menuPosID[charID]]->strength, character[menuPosID[charID]]->maxstrength);
         mediaObject->drawText(0, 279, 78, 0xFF, 0xFF, 0xFF, temp);
         //String "INT"
         mediaObject->drawText(0, 187, 86, 0x00, 0x00, 0x00, languageData->text[4]);
         //Char Int
-        sprintf(temp, "%d", character[menuPosID[charID]]->intelligence);
+        sprintf_s(temp, "%d", character[menuPosID[charID]]->intelligence);
         mediaObject->drawText(0, 279, 86, 0xFF, 0xFF, 0xFF, temp);
         //String "WISDOM"
         mediaObject->drawText(0, 187, 94, 0x00, 0x00, 0x00, languageData->text[5]);
         //Char Wisdom
-        sprintf(temp, "%d", character[menuPosID[charID]]->wisdom);
+        sprintf_s(temp, "%d", character[menuPosID[charID]]->wisdom);
         mediaObject->drawText(0, 279, 94, 0xFF, 0xFF, 0xFF, temp);
         //String "DEX"
         mediaObject->drawText(0, 187, 102, 0x00, 0x00, 0x00, languageData->text[6]);
         //Char Dex
-        sprintf(temp, "%d", character[menuPosID[charID]]->dext);
+        sprintf_s(temp, "%d", character[menuPosID[charID]]->dext);
         mediaObject->drawText(0, 279, 102, 0xFF, 0xFF, 0xFF, temp);
         //String "CONST"
         mediaObject->drawText(0, 187, 110, 0x00, 0x00, 0x00, languageData->text[7]);
         //Char Const
-        sprintf(temp, "%d", character[menuPosID[charID]]->constitution);
+        sprintf_s(temp, "%d", character[menuPosID[charID]]->constitution);
         mediaObject->drawText(0, 279, 110, 0xFF, 0xFF, 0xFF, temp);
         //String "ChARISMA"
         mediaObject->drawText(0, 187, 118, 0x00, 0x00, 0x00, languageData->text[8]);
         //Char Charisma
-        sprintf(temp, "%d", character[menuPosID[charID]]->charisma);
+        sprintf_s(temp, "%d", character[menuPosID[charID]]->charisma);
         mediaObject->drawText(0, 279, 118, 0xFF, 0xFF, 0xFF, temp);
         //String "ARMOR CLASS"
         mediaObject->drawText(0, 187, 126, 0x00, 0x00, 0x00, languageData->text[9]);
         //Char armor class
-        sprintf(temp, "%d", character[menuPosID[charID]]->armorclass);
+        sprintf_s(temp, "%d", character[menuPosID[charID]]->armorclass);
         mediaObject->drawText(0, 279, 126, 0xFF, 0xFF, 0xFF, temp);
         //String "EXP"
         mediaObject->drawText(0, 243, 138, 0x00, 0x00, 0x00, languageData->text[10]);
@@ -1184,10 +1184,10 @@ void CCharMenu::update()
         //Char Klasse
         mediaObject->drawText(0, 187, 146, 0x00, 0x00, 0x00, character[menuPosID[charID]]->charclass);
         //Char Exp
-        sprintf(temp, "%d", character[menuPosID[charID]]->exp);
+        sprintf_s(temp, "%d", character[menuPosID[charID]]->exp);
         mediaObject->drawText(0, 237, 146, 0xFF, 0xFF, 0xFF, temp);
         //Char LVL
-        sprintf(temp, "%d", character[menuPosID[charID]]->lvl);
+        sprintf_s(temp, "%d", character[menuPosID[charID]]->lvl);
         mediaObject->drawText(0, 279, 146, 0xFF, 0xFF, 0xFF, temp);
     }
     if (menuStyle == 3) {

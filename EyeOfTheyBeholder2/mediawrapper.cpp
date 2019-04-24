@@ -58,7 +58,7 @@ void MEDIAWrapper::loadImage(int imageID, char* path)
 
     this->freeImage(imageID);
 
-    sprintf(realpath, "%s.bmp", path);
+    sprintf_s(realpath, "%s.bmp", path);
     images[imageID] = SDL_LoadBMP(realpath);
 }
 
@@ -483,7 +483,7 @@ void MEDIAWrapper::sleep(int ms)
 void MEDIAWrapper::loadSound(int nr, char* path)
 {
     char realpath[128];
-    sprintf(realpath, "%s.ogg", path);
+    sprintf_s(realpath, "%s.ogg", path);
     sound[nr] = Mix_LoadWAV(realpath);
 }
 

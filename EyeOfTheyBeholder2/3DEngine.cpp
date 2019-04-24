@@ -8,6 +8,7 @@
 #include "map.h"
 #include "mediawrapper.h"
 #include <cstdio>
+#include <cstdlib>
 
 //
 // 3D window initialisation, loading of bitmaps eg.
@@ -68,11 +69,11 @@ void C3DEngine::initViewArea()
     character[0].menuPos = 0;
     character[0].charID = 0;
     character[0].imageID = 0;
-    sprintf(character[0].name, "%s", "SHADUM");
-    sprintf(character[0].charclass, "%s", "PALADIN");
-    sprintf(character[0].social, "%s", "LAWFUL GOOD");
-    sprintf(character[0].race, "%s", "HUMAN");
-    sprintf(character[0].gender, "%s", "MALE");
+    sprintf_s(character[0].name, "%s", "SHADUM");
+    sprintf_s(character[0].charclass, "%s", "PALADIN");
+    sprintf_s(character[0].social, "%s", "LAWFUL GOOD");
+    sprintf_s(character[0].race, "%s", "HUMAN");
+    sprintf_s(character[0].gender, "%s", "MALE");
     character[0].hp = character[0].currenthp = 100;
     character[0].food = character[0].currentfood = 100;
     character[0].strength = 18;
@@ -92,11 +93,11 @@ void C3DEngine::initViewArea()
     character[1].menuPos = 1;
     character[1].charID = 1;
     character[1].imageID = 1;
-    sprintf(character[1].name, "%s", "ZORG");
-    sprintf(character[1].charclass, "%s", "FIGHTER");
-    sprintf(character[1].social, "%s", "TRUE NEUTRAL");
-    sprintf(character[1].race, "%s", "DWARF");
-    sprintf(character[1].gender, "%s", "MALE");
+    sprintf_s(character[1].name, "%s", "ZORG");
+    sprintf_s(character[1].charclass, "%s", "FIGHTER");
+    sprintf_s(character[1].social, "%s", "TRUE NEUTRAL");
+    sprintf_s(character[1].race, "%s", "DWARF");
+    sprintf_s(character[1].gender, "%s", "MALE");
     character[1].hp = character[1].currenthp = 60;
     character[1].food = character[1].currentfood = 100;
     character[1].strength = 18;
@@ -116,11 +117,11 @@ void C3DEngine::initViewArea()
     character[2].menuPos = 2;
     character[2].charID = 2;
     character[2].imageID = 2;
-    sprintf(character[2].name, "%s", "MERLIN");
-    sprintf(character[2].charclass, "%s", "CLERIC");
-    sprintf(character[2].social, "%s", "CHAOTIC GOOD");
-    sprintf(character[2].race, "%s", "HUMAN");
-    sprintf(character[2].gender, "%s", "MALE");
+    sprintf_s(character[2].name, "%s", "MERLIN");
+    sprintf_s(character[2].charclass, "%s", "CLERIC");
+    sprintf_s(character[2].social, "%s", "CHAOTIC GOOD");
+    sprintf_s(character[2].race, "%s", "HUMAN");
+    sprintf_s(character[2].gender, "%s", "MALE");
     character[2].hp = character[2].currenthp = 80;
     character[2].food = character[2].currentfood = 100;
     character[2].strength = 15;
@@ -140,11 +141,11 @@ void C3DEngine::initViewArea()
     character[3].menuPos = 3;
     character[3].charID = 3;
     character[3].imageID = 31;
-    sprintf(character[3].name, "%s", "VALERIA");
-    sprintf(character[3].charclass, "%s", "MAGE");
-    sprintf(character[3].social, "%s", "GOOD");
-    sprintf(character[3].race, "%s", "ELF");
-    sprintf(character[3].gender, "%s", "FEMALE");
+    sprintf_s(character[3].name, "%s", "VALERIA");
+    sprintf_s(character[3].charclass, "%s", "MAGE");
+    sprintf_s(character[3].social, "%s", "GOOD");
+    sprintf_s(character[3].race, "%s", "ELF");
+    sprintf_s(character[3].gender, "%s", "FEMALE");
     character[3].hp = character[3].currenthp = 50;
     character[3].food = character[3].currentfood = 100;
     character[3].strength = 12;
@@ -1729,7 +1730,7 @@ void C3DEngine::handleGameWindowClick(int mousePosX, int mousePosY)
 
     if (mouseItemOld != mouseItem && mouseItem != 0) {
         char temp[256];
-        sprintf(temp, "%s %s", item.itemName[mouseItem], languageData.text[42]);
+        sprintf_s(temp, "%s %s", item.itemName[mouseItem], languageData.text[42]);
         mapEvent->statusMessage(temp);
     }
 }

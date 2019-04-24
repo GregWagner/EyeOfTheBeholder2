@@ -1,12 +1,15 @@
 #pragma once
-#include "char.h"
 
-class CEvent;
-class CMap;
-class CConfig;
-class MEDIAWrapper;
-class CLanguage;
-class CItem;
+#include "char.h"
+#include "charmenu.h"
+#include "config.h"
+#include "event.h"
+#include "intro.h"
+#include "item.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
+#include "monster.h"
 
 class C3DEngine {
 public:
@@ -17,7 +20,7 @@ public:
     void initViewArea();
 
     //Karte laden
-    void loadMap(short mapID, bool savedMap);
+    void loadMap(short mapID, bool savedMap = false);
 
     //Intro spielen
     bool playIntro();

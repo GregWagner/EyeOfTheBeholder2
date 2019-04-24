@@ -1,7 +1,4 @@
 #include "event.h"
-#include "char.h"
-#include "map.h"
-#include "mediawrapper.h"
 #include <cstdio>
 
 void CEvent::init(CMap* map, MEDIAWrapper* mediaObject)

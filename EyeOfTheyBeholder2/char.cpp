@@ -1,6 +1,4 @@
 #include "char.h"
-#include "map.h"
-#include "mediawrapper.h"
 #include <cstdio>
 #include <cstdlib>
 

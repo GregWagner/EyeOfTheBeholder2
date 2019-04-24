@@ -2,6 +2,7 @@
 
 #include "SFont.h"
 #include <SDL.h>
+#include <string>
 
 //
 // class initialisation
@@ -25,10 +26,12 @@ public:
     void copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int transpR, int transpG, int transpB);
 
     //Bild zu Bild blitten mit Größenänderung
-    bool copyScaledImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int toWidth, int toHeight, int transpR, int transpG, int transpB, bool mirror);
+    bool copyScaledImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height,
+        int toWidth, int toHeight, int transpR = -1, int transpG = -1, int transpB = -1, bool mirror = false);
 
     //Original CPS Bild laden
-    void loadCPS(int imageID, char* filename, char* palette, int posX, int posY, int width, int height, bool transp, bool sprite);
+    void loadCPS(int imageID, std::string filename, std::string palette, int posX = 0, int posY = 0, int width = 320, int height = 200,
+        bool transp = false, bool sprite = false);
 
     //WORD Wert aus CPS File auslesen
     int getWord(unsigned char string[64000], int pos);
@@ -37,7 +40,7 @@ public:
     int format80decode(unsigned char image_in[], unsigned char image_out[]);
 
     //Sound laden
-    void loadSound(int nr, char path[128]);
+    void loadSound(int nr, std::string path);
 
     //Sound freigeben
     void freeSound(int nr);
@@ -60,8 +63,8 @@ public:
     //Bild zeichnen
     void drawImage(int imageID, int posX, int posY, int fromPosX = 0, int fromPosY = 0, int width = 0, int height = 0);
 
-    //Text zeichnen
-    void drawText(int fontID, int posX, int posY, int r, int g, int b, char* text, bool center = false);
+    //Text zeichnenz
+    void drawText(int fontID, int posX, int posY, int r, int g, int b, std::string text, bool center = false);
 
     //Bildschirm Refresh
     void refresh();
@@ -70,7 +73,7 @@ public:
     void updateVideo();
 
     //Viereck zeichnen
-    void fillRect(int posX, int posY, int width, int height, int r, int g, int b, int imageID);
+    void fillRect(int posX, int posY, int width, int height, int r, int g, int b, int imageID = -1);
 
     //Palette laden für spätere Pixel Aktionen
     void loadPal(char* filename);

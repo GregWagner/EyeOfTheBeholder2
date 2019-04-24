@@ -1,10 +1,9 @@
 #pragma once
-
-class CMap;
-class MEDIAWrapper;
-class CLanguage;
-class CEvent;
-class CChar;
+#include "char.h"
+#include "event.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
 
 class CMonster {
 public:

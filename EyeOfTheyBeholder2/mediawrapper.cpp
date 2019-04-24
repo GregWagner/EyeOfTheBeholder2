@@ -105,7 +105,8 @@ bool MEDIAWrapper::imageLoaded(int nr)
 // CPS Bild laden
 //
 
-void MEDIAWrapper::loadCPS(int imageID, char* filename, char* palette, int posX = 0, int posY = 0, int width = 320, int height = 200, bool transp = false, bool sprite = false)
+void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palette, int posX, int posY, int width, int height,
+    bool transp, bool sprite)
 {
     FILE *palfile, *source;
     unsigned char pal[768];
@@ -367,7 +368,8 @@ void MEDIAWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int f
 // Bild zu Bild blitten mit Größenänderung
 //
 
-bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int toWidth, int toHeight, int transpR = -1, int transpG = -1, int transpB = -1, bool mirror = false)
+bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY,
+    int width, int height, int toWidth, int toHeight, int transpR, int transpG, int transpB, bool mirror)
 {
     if (toWidth != width || toHeight != height || mirror) {
         SDL_Rect from = { 0, 0, 0, 0 };
@@ -436,7 +438,7 @@ typedef struct tColorRGBA {
 // Text zeichen
 //
 
-void MEDIAWrapper::drawText(int fontID, int posX, int posY, int r, int g, int b, char* text, bool center)
+void MEDIAWrapper::drawText(int fontID, int posX, int posY, int r, int g, int b, std::string text, bool center)
 {
     if (fontID < 4) {
         posY += 1;
@@ -482,7 +484,7 @@ void MEDIAWrapper::sleep(int ms)
 // Sound laden
 //
 
-void MEDIAWrapper::loadSound(int nr, char* path)
+void MEDIAWrapper::loadSound(int nr, std::string path)
 {
     char realpath[128];
     sprintf_s(realpath, "%s.ogg", path);
@@ -622,7 +624,7 @@ void MEDIAWrapper::updateKeys()
 // gefülltest Viereck zeichnen
 //
 
-void MEDIAWrapper::fillRect(int posX, int posY, int width, int height, int r, int g, int b, int imageID = -1)
+void MEDIAWrapper::fillRect(int posX, int posY, int width, int height, int r, int g, int b, int imageID)
 {
     SDL_Rect dstrect = { posX, posY, width, height };
     SDL_FillRect(imageID == -1 ? screen_game : images[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? screen_game->format : images[imageID]->format, r, g, b));

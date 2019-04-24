@@ -1,7 +1,6 @@
 #pragma warning(disable : 4996)
 
 #include "mazeobjects.h"
-#include "mediawrapper.h"
 #include <cstdio>
 #include <ctype.h>
 

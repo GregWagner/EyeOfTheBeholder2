@@ -1,9 +1,9 @@
 #pragma once
 
-class MEDIAWrapper;
-class CLanguage;
-class CMap;
-class CChar;
+#include "char.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
 
 class CEvent {
 public:

@@ -1,13 +1,6 @@
 #pragma warning(disable : 4996)
 
 #include "3DEngine.h"
-
-#include "config.h"
-#include "event.h"
-#include "item.h"
-#include "language.h"
-#include "map.h"
-#include "mediawrapper.h"
 #include <cstdio>
 #include <cstdlib>
 
@@ -221,7 +214,7 @@ bool C3DEngine::playIntro()
 // Karte laden mit allen Grafiken und Koordinaten usw.
 //
 
-void C3DEngine::loadMap(short mapID, bool savedMap = false)
+void C3DEngine::loadMap(short mapID, bool savedMap)
 {
     //existiert Karte als Statusbackup dieses jetzt initialisieren
     if (savestatus_gameMap[mapID] != nullptr && !savedMap) {

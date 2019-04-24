@@ -1,11 +1,11 @@
 #pragma once
 
-class CEvent;
-class CChar;
-class MEDIAWrapper;
-class CMap;
-class CLanguage;
-class CItem;
+#include "char.h"
+#include "event.h"
+#include "item.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
 
 class CCharMenu {
 public:

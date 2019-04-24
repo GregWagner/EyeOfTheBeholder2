@@ -1,7 +1,6 @@
 #pragma once
-
-class MEDIAWrapper;
-class CLanguage;
+#include "language.h"
+#include "mediawrapper.h"
 
 class CIntro {
 public:

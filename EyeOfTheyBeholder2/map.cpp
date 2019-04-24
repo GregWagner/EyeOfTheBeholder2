@@ -1,7 +1,6 @@
 #pragma warning(disable : 4996)
 
 #include "map.h"
-#include "mazeobjects.h"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -64,7 +63,7 @@ bool CMap::isSolidWall(short direction, short wallpos)
 // Initialisierung
 //
 
-void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit = false)
+void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
 {
     /*
 		Parameter fastinit bedeutet daß NUR die Bilder der Karte geladen werden müssen

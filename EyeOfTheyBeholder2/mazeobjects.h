@@ -1,6 +1,6 @@
 #pragma once
 
-class MEDIAWrapper;
+#include "mediawrapper.h"
 
 class CMazeObjects {
 public:

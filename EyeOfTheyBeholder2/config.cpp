@@ -1,40 +1,8 @@
 #pragma warning(disable : 4996)
 
-/**********************************
-Class CConfig
-***********************************/
-#include <string>
+#include "config.h"
 
-//
-// class initialisation
-//
-
-class CConfig {
-public:
-    //Konfigurationsfile einlesen
-    void openConf(char* fileName);
-
-    //Werte zuweisen
-    void setValue(short key, short val);
-
-    //Sprache
-    short language;
-
-    //Fullscreen
-    bool fullscreen;
-
-    //Auflösung
-    short resolution;
-
-    //Start Map
-    short startMapID;
-};
-
-//
-// Konfigurationsfile lesen und Werte zuordnen
-//
-
-void CConfig::openConf(char* fileName)
+void CConfig::openConf(std::string fileName)
 {
     this->fullscreen = false;
     this->language = 0;

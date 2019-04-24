@@ -1,0 +1,23 @@
+//bug warning: dont fill the first and the last 3 rows of the map data!!
+//dont change any linebreaks or spaces!!
+//max 999 different wall types can be used, so values from 01 to 999 are OK
+
+[MAPSTART]
+3	//player start perspective, 0=N /\, 1=S \/, 2=E >, 3=W <
+0509   	//player start position 243 - 445
+[MAPEND]
+
+// Map Position - Item ID - left (1) or right (2) with north-view
+[ITEMDATA]
+0503 038 1
+0502 044 1
+0470 073 1
+[ITEMDATAEND]
+
+[EVENTDATA]
+0510 0005 0004 0497 0000 0000 0000 0000 0000 0000 0000 0000 //change map
+[EVENTDATAEND]
+
+[MONSTERDATA]
+
+[MONSTERDATAEND]

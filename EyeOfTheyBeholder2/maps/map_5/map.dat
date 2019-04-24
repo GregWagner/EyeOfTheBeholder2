@@ -1,0 +1,31 @@
+//bug warning: dont fill the first and the last 3 rows of the map data!!
+//dont change any linebreaks or spaces!!
+//max 999 different wall types can be used, so values from 01 to 999 are OK
+
+[MAPSTART]
+3	//player start perspective, 0=N /\, 1=S \/, 2=E >, 3=W <
+302   	//player start position (default 302)
+[MAPEND]
+
+[ITEMDATA]
+
+
+[ITEMDATAEND]
+
+
+[EVENTDATA]
+0299 0006 0000 0000 0001 0000 0000 0000 0000 0000 0000 0000 //darkmoon door
+0265 0007 1111 0005 0083 0052 0011 0000 0000 0000 0000 0001 //hidden wall with button
+0304 0005 0004 0367 0001 0000 0000 0000 0000 0000 0000 0000 //change map - forest
+0301 0004 0004 0196 0005 2000 0000 0000 0004 0000 0000 0001 //clerics hello
+
+2000 0004 0004 0201 0003 2001 0000 0001 0000 0000 0000 0001 //clerics hello
+2001 0004 0004 0204 0006 0000 0000 0001 0000 0000 0000 0001 //clerics hello
+
+[EVENTDATAEND]
+
+
+[MONSTERDATA]
+0269 0002 0001 0001
+0269 0002 0001 0001
+[MONSTERDATAEND]

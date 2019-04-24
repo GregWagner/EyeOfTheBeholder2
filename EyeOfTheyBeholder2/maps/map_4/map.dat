@@ -1,0 +1,49 @@
+//bug warning: dont fill the first and the last 3 rows of the map data!!
+//dont change any linebreaks or spaces!!
+//max 999 different wall types can be used, so values from 01 to 999 are OK
+
+[MAPSTART]
+1	//player start perspective (default 1), 0=N /\, 1=S \/, 2=E >, 3=W <
+171   	//player start position (default 171)
+[MAPEND]
+
+// Map Position - Item ID - left (1) or right (2) with north-view
+[ITEMDATA]
+0205 019 1
+0394 019 1
+0433 015 1
+0401 019 1
+0373 019 1
+0311 016 1
+0311 016 2
+[ITEMDATAEND]
+
+[EVENTDATA]
+0210 0002 0155 0002 0001 0000 0000 0000 0000 0000 0000 0001 //message "graveyard"
+0434 0002 0162 0002 0002 0000 0000 0000 0000 0000 0000 0001 //message "look at the trees..."
+0529 0004 0001 0036 0002 2003 0000 0000 0002 0000 0000 0000 //dungeon found - message
+0208 0003 0061 0000 0157 0001 0091 0044 0065 0057 0049 0001 //grave dig
+0145 0003 0061 0000 0157 0001 0091 0044 0065 0057 0049 0001 //grave dig
+0147 0003 0061 0000 0157 0001 0091 0044 0065 0057 0049 0001 //grave dig
+0213 0003 0061 0000 0157 0001 0091 0044 0065 0057 0049 0001 //grave dig
+0244 0003 0061 0000 0157 0001 0091 0044 0065 0057 0049 0001 //grave dig
+0364 0004 0002 0158 0004 2000 2001 0000 0001 0000 0000 0001 //woman found
+0335 0004 0003 0182 0001 2002 0000 0000 0003 0001 0000 0000 //darkmoon found
+
+2000 0001 0399 0000 0002 0169 0009 0000 0000 0000 0000 0001 //woman lead to temple
+2001 0004 0002 0167 0002 0000 0000 0001 0000 0000 0000 0001 //woman good bye
+2002 0005 0005 0302 0003 0000 0000 0000 0000 0000 0000 0000 //change map - temple
+2003 0005 0001 0509 0003 0000 0000 0000 0000 0000 0000 0000 //change map - dungeon
+[EVENTDATAEND]
+
+
+//0=N /\, 1=S \/, 2=E >, 3=W <
+//Monster: map-position monstertype-id monster-face friendly-or-not
+//Type 0001: wolf
+[MONSTERDATA]
+0329 0001 0000 0000
+0460 0001 0000 0000
+0400 0001 0000 0000
+0338 0001 0000 0000
+0309 0001 0000 0000
+[MONSTERDATAEND]

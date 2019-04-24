@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_DEPRECATE
 
-#include "3DEngine.cpp"
+#include "3DEngine.h"
 #include <iostream>
 
 #ifdef WINCE

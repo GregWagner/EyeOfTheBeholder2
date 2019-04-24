@@ -30,7 +30,6 @@
     <ClCompile Include="map.cpp" />
     <ClCompile Include="mazeobjects.cpp" />
     <ClCompile Include="mediawrapper.cpp" />
-    <ClCompile Include="mediawrapper_ce.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="SFont.c" />
     <ClCompile Include="Source.cpp" />

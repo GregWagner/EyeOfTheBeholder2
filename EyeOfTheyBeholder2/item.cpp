@@ -1,4 +1,7 @@
 #include "item.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
 
 void CItem::init(MEDIAWrapper* mediaObject, CEvent* mapEvent, CLanguage* languageData)
 {

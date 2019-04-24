@@ -1,5 +1,13 @@
 #pragma once
 
+class CEvent;
+class CMap;
+class CConfig;
+class MEDIAWrapper;
+class CLanguage;
+class CItem;
+class CChar;
+
 class C3DEngine {
 public:
     //allgemeine Debug-Funktion zum Testen diverser Aktionen

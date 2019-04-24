@@ -1,4 +1,7 @@
 #include "charmenu.h"
+#include "item.h"
+#include "language.h"
+#include "mediawrapper.h"
 
 void CCharMenu::initMenu(MEDIAWrapper* mediaObject, CEvent* mapEvent)
 {

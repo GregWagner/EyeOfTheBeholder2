@@ -1,5 +1,8 @@
 #pragma once
 
+class MEDIAWrapper;
+class CLanguage;
+
 class CIntro {
 public:
     //Init

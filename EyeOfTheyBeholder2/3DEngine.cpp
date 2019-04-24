@@ -1,5 +1,13 @@
 #include "3DEngine.h"
 
+#include "char.h"
+#include "config.h"
+#include "event.h"
+#include "item.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
+
 //
 // 3D window initialisation, loading of bitmaps eg.
 //

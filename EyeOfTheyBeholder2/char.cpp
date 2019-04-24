@@ -1,4 +1,7 @@
 #include "char.h"
+#include "map.h"
+#include "mediawrapper.h"
+#include <cstdio>
 
 void CChar::init(MEDIAWrapper* mediaObject, CMap* gameMap)
 {
@@ -20,7 +23,6 @@ void CChar::init(MEDIAWrapper* mediaObject, CMap* gameMap)
     this->doDamageToMonster = -1;
     this->menuPos = 0;
 }
-
 //
 // Schaden hinzufügen (diesem Char)
 //

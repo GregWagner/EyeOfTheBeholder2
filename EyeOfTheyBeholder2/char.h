@@ -1,5 +1,8 @@
 #pragma once
 
+class CMap;
+class MEDIAWrapper;
+
 class CChar {
 public:
     //Init

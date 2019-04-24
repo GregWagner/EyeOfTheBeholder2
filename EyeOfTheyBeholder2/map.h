@@ -1,5 +1,8 @@
 #pragma once
 
+class MEDIAWrapper;
+class CMazeObjects;
+
 class CMap {
 public:
     //Init

@@ -1,5 +1,5 @@
 #include "mediawrapper.h"
-
+#include <cstdio>
 //
 // Fenster erzeugen
 //

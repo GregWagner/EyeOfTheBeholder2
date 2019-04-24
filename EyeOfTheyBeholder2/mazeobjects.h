@@ -1,5 +1,7 @@
 #pragma once
 
+class MEDIAWrapper;
+
 class CMazeObjects {
 public:
     void init(short maze_id);

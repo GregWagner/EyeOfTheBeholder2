@@ -1,5 +1,10 @@
 #pragma once
 
+class MEDIAWrapper;
+class CLanguage;
+class CMap;
+class CChar;
+
 class CEvent {
 public:
     //Init

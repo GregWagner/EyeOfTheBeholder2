@@ -1,5 +1,9 @@
 #pragma once
 
+class CMap;
+class CEvent;
+class CLanguage;
+
 class CItem {
 public:
     //Init

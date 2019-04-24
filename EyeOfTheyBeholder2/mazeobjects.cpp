@@ -1,5 +1,6 @@
 #include "mazeobjects.h"
-
+#include "mediawrapper.h"
+#include <cstdio>
 //
 // Wall initialisation
 //

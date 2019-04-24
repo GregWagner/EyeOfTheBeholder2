@@ -1,4 +1,6 @@
 #include "intro.h"
+#include "language.h"
+#include "mediawrapper.h"
 
 void CIntro::init(MEDIAWrapper* mediaObject)
 {

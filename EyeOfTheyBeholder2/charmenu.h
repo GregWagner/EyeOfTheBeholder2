@@ -1,5 +1,12 @@
 #pragma once
 
+class CEvent;
+class CChar;
+class MEDIAWrapper;
+class CMap;
+class CLanguage;
+class CItem;
+
 class CCharMenu {
 public:
     //Init

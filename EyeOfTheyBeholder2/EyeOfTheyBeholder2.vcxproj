@@ -32,8 +32,24 @@
     <ClCompile Include="mediawrapper.cpp" />
     <ClCompile Include="mediawrapper_ce.cpp" />
     <ClCompile Include="monster.cpp" />
+    <ClCompile Include="SFont.c" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="spectalum.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3DEngine.h" />
+    <ClInclude Include="char.h" />
+    <ClInclude Include="charmenu.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="event.h" />
+    <ClInclude Include="intro.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="language.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="mazeobjects.h" />
+    <ClInclude Include="mediawrapper.h" />
+    <ClInclude Include="monster.h" />
+    <ClInclude Include="SFont.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

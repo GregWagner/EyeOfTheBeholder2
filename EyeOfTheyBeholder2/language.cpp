@@ -2,7 +2,7 @@
 
 #include "language.h"
 #include <cstdio>
-#include <cstring>
+#include <string>
 
 void CLanguage::init(short language = 0)
 {
@@ -11,7 +11,7 @@ void CLanguage::init(short language = 0)
 
     // Sprachfile öffnen
     FILE* file;
-    char* fileName;
+    std::string fileName;
     if (language == 0)
         fileName = "data/english.lang";
     if (language == 1)
@@ -22,7 +22,7 @@ void CLanguage::init(short language = 0)
     sprintf_s(realFileName, "\\eob2\\%s", fileName);
     file = fopen(realFileName, "r");
 #else
-    file = fopen(fileName, "r");
+    file = fopen(fileName.c_str(), "r");
 #endif
 
     //Inhalt Zeilenweise einlesen

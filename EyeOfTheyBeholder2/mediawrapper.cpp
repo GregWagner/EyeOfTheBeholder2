@@ -354,7 +354,8 @@ void MEDIAWrapper::createImage(int imageID, int paletteSourceImageID, int width,
 // Bild zu Bild blitten
 //
 
-void MEDIAWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int transpR = -1, int transpG = -1, int transpB = -1)
+void MEDIAWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height,
+    int transpR, int transpG, int transpB)
 {
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
     SDL_Rect rcDst = { toPosX, toPosY, 0, 0 };

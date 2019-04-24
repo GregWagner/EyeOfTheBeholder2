@@ -23,7 +23,8 @@ public:
     void saveBMP(int imageID);
 
     //Bild zu Bild blitten
-    void copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int transpR, int transpG, int transpB);
+    void copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height,
+        int transpR = -1, int transpG = -1, int transpB = -1);
 
     //Bild zu Bild blitten mit Größenänderung
     bool copyScaledImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height,

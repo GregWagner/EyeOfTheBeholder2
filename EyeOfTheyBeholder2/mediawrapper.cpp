@@ -22,7 +22,7 @@ void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool f
         screen = SDL_SetVideoMode(width, height, 16, SDL_FULLSCREEN); //z.B. SDL_FULLSCREEN
     else
         screen = SDL_SetVideoMode(width, height, 16, 0); //z.B. SDL_FULLSCREEN
-    SDL_WM_SetCaption("Spectalum", "");
+    SDL_WM_SetCaption("Eye Of the Beholder Remake", "");
 
     font[0] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 0, 0, 0);
     font[1] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 0, 0, 255);

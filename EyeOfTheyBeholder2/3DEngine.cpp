@@ -17,7 +17,7 @@ void C3DEngine::initViewArea()
     mapEvent = new CEvent;
 
     //Konfiguration laden
-    configuration.openConf("spectalum.conf");
+    configuration.openConf("eob2.conf");
 
     //Media Wrapper
     if (configuration.resolution == 0)

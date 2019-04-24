@@ -1,6 +1,8 @@
 #include "map.h"
 #include "mazeobjects.h"
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 //
 // Basis Setup

@@ -1,5 +1,6 @@
 #include "language.h"
 #include <cstdio>
+#include <cstring>
 
 void CLanguage::init(short language = 0)
 {

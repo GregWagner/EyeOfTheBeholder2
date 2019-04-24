@@ -2,6 +2,7 @@
 #include "map.h"
 #include "mediawrapper.h"
 #include <cstdio>
+#include <cstdlib>
 
 void CChar::init(MEDIAWrapper* mediaObject, CMap* gameMap)
 {

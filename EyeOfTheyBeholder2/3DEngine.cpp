@@ -7,6 +7,7 @@
 #include "language.h"
 #include "map.h"
 #include "mediawrapper.h"
+#include <cstdio>
 
 //
 // 3D window initialisation, loading of bitmaps eg.

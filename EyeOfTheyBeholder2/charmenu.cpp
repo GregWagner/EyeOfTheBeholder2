@@ -2,6 +2,7 @@
 #include "item.h"
 #include "language.h"
 #include "mediawrapper.h"
+#include <cstdio>
 
 void CCharMenu::initMenu(MEDIAWrapper* mediaObject, CEvent* mapEvent)
 {

@@ -2,6 +2,7 @@
 #include "language.h"
 #include "map.h"
 #include "mediawrapper.h"
+#include <cstdio>
 
 void CItem::init(MEDIAWrapper* mediaObject, CEvent* mapEvent, CLanguage* languageData)
 {

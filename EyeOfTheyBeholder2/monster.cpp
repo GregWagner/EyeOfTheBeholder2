@@ -4,6 +4,7 @@
 #include "language.h"
 #include "map.h"
 #include "mediawrapper.h"
+#include <cstdlib>
 
 void CMonster::init(CMap* gameMap, MEDIAWrapper* mediaObject, CLanguage* languageData, CEvent* mapEvent, short monsterType, short monsterPos, short mapId, short monsterFace, short friendly)
 {

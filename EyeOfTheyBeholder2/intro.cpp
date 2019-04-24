@@ -586,7 +586,7 @@ void CIntro::play()
             running = 0;
 
         //auf Mausclick reagieren
-        mediaObject->getMouseState(NULL, NULL);
+        mediaObject->getMouseState(nullptr, nullptr);
         if (mediaObject->getMouseLeft() || mediaObject->getMouseRight())
             running = 0;
 

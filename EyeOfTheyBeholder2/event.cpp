@@ -2,9 +2,9 @@
 
 void CEvent::init(CMap* map, MEDIAWrapper* mediaObject)
 {
-    this->mediaObject = NULL;
+    this->mediaObject = nullptr;
     this->mediaObject = mediaObject;
-    languageData = NULL;
+    languageData = nullptr;
     eventTyp = -1;
     mapPos = 0;
     clickedMapPos = 0;
@@ -13,7 +13,7 @@ void CEvent::init(CMap* map, MEDIAWrapper* mediaObject)
     showGameWindow = false;
     mapChange = false;
     newMapID = warpToPos = faceTo = 0;
-    this->map = NULL;
+    this->map = nullptr;
     this->map = map;
     mousePosX = mousePosY = 0;
     mouseClicked = false;
@@ -184,7 +184,7 @@ void CEvent::update()
         if (progress == 0) {
 
             //Character Namen vor Text setzen wenn nötig
-            if (languageData != NULL && map != NULL) {
+            if (languageData != nullptr && map != nullptr) {
                 if (map->mapEventParam[mapPos][2] > 0)
                     sprintf(line, "\"%s\": %s", chars[map->mapEventParam[mapPos][3]]->name, languageData->text[map->mapEventParam[mapPos][0]]);
                 else

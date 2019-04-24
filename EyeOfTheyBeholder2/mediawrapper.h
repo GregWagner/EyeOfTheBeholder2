@@ -1,7 +1,7 @@
 #pragma once
 
+#include "SFont.h"
 #include <SDL.h>
-#include <SFont.h>
 
 //
 // class initialisation

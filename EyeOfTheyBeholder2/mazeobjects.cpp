@@ -45,11 +45,11 @@ void CMazeObjects::loadMAZ(char* file)
     // File einlesen
     //
 
-    FILE* source = NULL;
+    FILE* source = nullptr;
     int filesize;
 
     source = fopen(file, "rb");
-    if (source == NULL) {
+    if (source == nullptr) {
         printf("file not found: %s\n", file);
     }
 
@@ -85,11 +85,11 @@ void CMazeObjects::loadINF(char* file)
     // File einlesen
     //
 
-    FILE* source = NULL;
+    FILE* source = nullptr;
     int filesize;
 
     source = fopen(file, "rb");
-    if (source == NULL) {
+    if (source == nullptr) {
         printf("file not found: %s\n", file);
     }
 
@@ -312,7 +312,7 @@ void CMazeObjects::loadINF(char* file)
         sprintf(realpath, "%s", deco_info[i].dec_file_name);
 #endif
         source = fopen(realpath, "rb");
-        if (source == NULL) {
+        if (source == nullptr) {
             printf("file not found: %s\n", file);
         }
 
@@ -384,11 +384,11 @@ void CMazeObjects::loadVMP(char* file)
     // File einlesen
     //
 
-    FILE* source = NULL;
+    FILE* source = nullptr;
     int filesize;
 
     source = fopen(file, "rb");
-    if (source == NULL) {
+    if (source == nullptr) {
         printf("file not found: %s\n", file);
     }
 

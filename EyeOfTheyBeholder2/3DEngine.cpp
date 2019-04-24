@@ -8,8 +8,8 @@ void C3DEngine::initViewArea()
 {
     //allg. Setup
     for (short i = 0; i < 32; i++)
-        savestatus_gameMap[i] = NULL;
-    gameMap = NULL;
+        savestatus_gameMap[i] = nullptr;
+    gameMap = nullptr;
     mapEvent = new CEvent;
 
     //Konfiguration laden
@@ -180,7 +180,7 @@ void C3DEngine::initViewArea()
 
     //Monster Setup
     for (short m = 0; m < 128; m++)
-        monster[m] = NULL;
+        monster[m] = nullptr;
 
     mediaObject.drawText(0, 20, 140, 255, 255, 255, "PLEASE WAIT ...", false);
     mediaObject.refresh();
@@ -213,9 +213,9 @@ bool C3DEngine::playIntro()
 void C3DEngine::loadMap(short mapID, bool savedMap = false)
 {
     //existiert Karte als Statusbackup dieses jetzt initialisieren
-    if (savestatus_gameMap[mapID] != NULL && !savedMap) {
+    if (savestatus_gameMap[mapID] != nullptr && !savedMap) {
         this->currentMapID = mapID;
-        if (gameMap == NULL)
+        if (gameMap == nullptr)
             gameMap = new CMap;
         *gameMap = *savestatus_gameMap[mapID];
         gameMap->init(mapID, &mediaObject, true);
@@ -228,10 +228,10 @@ void C3DEngine::loadMap(short mapID, bool savedMap = false)
     else {
         //Karte initialisieren
         this->currentMapID = mapID;
-        if (gameMap != NULL) {
+        if (gameMap != nullptr) {
             gameMap->clear();
         }
-        gameMap = NULL;
+        gameMap = nullptr;
         delete (gameMap);
         gameMap = new CMap;
         gameMap->init(mapID, &mediaObject);
@@ -246,9 +246,9 @@ void C3DEngine::loadMap(short mapID, bool savedMap = false)
     for (int i = 0; i < 149; i++)
         mediaObject.freeImage(i);
     for (short m = 0; m < gameMap->monsterCount; m++) {
-        if (monster[m] != NULL) {
-            monster[m] = NULL;
+        if (monster[m] != nullptr) {
             delete (monster[m]);
+            monster[m] = nullptr;
         }
         monster[m] = new CMonster;
         monster[m]->init(gameMap, &mediaObject, &languageData, mapEvent, gameMap->monsterInfo[m][1], gameMap->monsterInfo[m][0], gameMap->monsterInfo[m][2], gameMap->monsterInfo[m][3], gameMap->monsterInfo[m][4]);
@@ -257,10 +257,10 @@ void C3DEngine::loadMap(short mapID, bool savedMap = false)
     }
 
     //Events initialisieren
-    if (mapEvent != NULL) {
+    if (mapEvent != nullptr) {
         mapEvent->clear();
-        mapEvent = NULL;
         delete (mapEvent);
+        mapEvent = nullptr;
     }
     mapEvent = new CEvent;
     for (short i = 0; i < 4; i++)
@@ -298,7 +298,7 @@ void C3DEngine::loadGame()
     //GameMap Objekt
     if (gameMap) {
         gameMap->clear();
-        gameMap = NULL;
+        gameMap = nullptr;
         delete (gameMap);
         gameMap = new CMap;
     }
@@ -311,9 +311,9 @@ void C3DEngine::loadGame()
     //bereits besuchte Karten
     for (short i = 1; i < 32; i++) {
         if (mapSaved[i] == 1) {
-            if (savestatus_gameMap[i] != NULL)
+            if (savestatus_gameMap[i] != nullptr)
                 savestatus_gameMap[i]->clear();
-            savestatus_gameMap[i] = NULL;
+            savestatus_gameMap[i] = nullptr;
             delete (savestatus_gameMap[i]);
             savestatus_gameMap[i] = new CMap;
             savestatus_gameMap[i]->loadMap(saveFile);
@@ -364,7 +364,7 @@ void C3DEngine::saveGame()
     for (int i = 0; i < 33; i++)
         mapSaved[i] = 0;
     for (short i = 1; i <= 32; i++) {
-        if (savestatus_gameMap[i] != NULL)
+        if (savestatus_gameMap[i] != nullptr)
             mapSaved[i] = 1;
         else
             mapSaved[i] = 0;
@@ -469,7 +469,7 @@ void C3DEngine::updateView()
         //auf Kartenwechsel prüfen
         if (mapEvent->mapChange) {
             //Kartenstatus sichern
-            savestatus_gameMap[this->currentMapID] = NULL;
+            savestatus_gameMap[this->currentMapID] = nullptr;
             savestatus_gameMap[this->currentMapID] = new CMap;
             *savestatus_gameMap[this->currentMapID] = *gameMap;
 
@@ -480,21 +480,21 @@ void C3DEngine::updateView()
 
             //Monster löschen
             for (short m = 0; m < 128; m++) {
-                if (monster[m] != NULL) {
-                    monster[m] = NULL;
+                if (monster[m] != nullptr) {
                     delete (monster[m]);
+                    monster[m] = nullptr;
                 }
             }
 
             //Events löschen
             mapEvent->clear();
-            mapEvent = NULL;
+            mapEvent = nullptr;
             delete (mapEvent);
 
             //Karte löschen und aktuellen Status sichern
             gameMap->clear();
-            gameMap = NULL;
             delete (gameMap);
+            gameMap = nullptr;
 
             //neue Karte laden
             loadMap(mapID);

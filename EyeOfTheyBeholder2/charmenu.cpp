@@ -262,7 +262,7 @@ void CCharMenu::mouseState(short posX, short posY, bool buttonLeft = true)
     else if (menuStyle == 5 && buttonLeft)
         handleRestMenu(posX, posY);
 
-    if (this->mouseItem != NULL && mouseItemOld != *this->mouseItem && *this->mouseItem != 0) {
+    if (this->mouseItem != nullptr && mouseItemOld != *this->mouseItem && *this->mouseItem != 0) {
         char temp[256];
         sprintf(temp, "%s %s", item->itemName[*this->mouseItem], languageData->text[42]);
         mapEvent->statusMessage(temp);

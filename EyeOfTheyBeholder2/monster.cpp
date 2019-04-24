@@ -544,7 +544,7 @@ void CMonster::doDamage(short damage)
 
         //Chars Erfahrung hinzugeben
         for (short i = 0; i < 4; i++)
-            if (character[i] != NULL)
+            if (character[i] != nullptr)
                 character[i]->exp += this->exp_gain;
     }
 }

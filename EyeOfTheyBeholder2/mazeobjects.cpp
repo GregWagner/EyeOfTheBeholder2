@@ -1,8 +1,5 @@
 #pragma warning(disable : 4996)
 
-/**********************************
-Class CMazeObjects
-***********************************/
 #include "mazeobjects.h"
 #include <cstdio>
 #include <ctype.h>
@@ -11,23 +8,15 @@ Class CMazeObjects
 #include <sstream>
 #include <sys/stat.h>
 
-//
 // Wall initialisation
-//
-
 void CMazeObjects::init(short maze_id)
 {
     char realpath[128];
 
     this->level_id = maze_id;
 
-#ifdef WINCE
-    sprintf_s(realpath, "/eob2/original/LEVEL%d.INF", maze_id);
-    loadINF(realpath);
-#else
     sprintf_s(realpath, "original/LEVEL%d.INF", maze_id);
     loadINF(realpath);
-#endif
 
     //leere Bilder für die 4 Wandebenen generieren und weiß (transparenz-farbe) füllen
     mediaObject->createImage(260, 0, 176, 120);
@@ -46,16 +35,10 @@ void CMazeObjects::init(short maze_id)
     loadWallBackground(true, 164);
 }
 
-//
 // MAZ File mit INF-Verweisen laden
-//
-
 void CMazeObjects::loadMAZ(char* file)
 {
-    //
     // File einlesen
-    //
-
     FILE* source = NULL;
     int filesize;
 
@@ -84,22 +67,18 @@ void CMazeObjects::loadMAZ(char* file)
     }
 }
 
-//
 // INF File mit Level Definitionen laden
-//
-
 void CMazeObjects::loadINF(char* file)
 {
+    std::cout << "Entering " << __FUNCTION__ << '\n';
     char realpath[128];
 
-    //
     // File einlesen
-    //
-
     FILE* source = NULL;
     int filesize;
 
     source = fopen(file, "rb");
+    std::cout << "Opening INF file: " << file << '\n';
     if (source == NULL) {
         printf("file not found: %s\n", file);
     }
@@ -137,41 +116,30 @@ void CMazeObjects::loadINF(char* file)
         maz_filename[i] = toupper(inf_src[0x5 + i]);
     maz_filename[12] = '\0';
 
-#ifdef WINCE
-    sprintf_s(realpath, "/eob2/original/%s", maz_filename);
-    loadMAZ(realpath);
-#else
     sprintf_s(realpath, "original/%s", maz_filename);
+    std::cout << "Opening MAZ file: " << maz_filename << '\n';
     loadMAZ(realpath);
-#endif
 
     //VMP und VCN Daten laden - Level-Filename steht in Bytes 0x12 - 0x19
     unsigned char graphics_filename[8];
     for (int i = 0; i < 7; i++)
         graphics_filename[i] = toupper(inf_src[0x12 + i]);
     graphics_filename[7] = '\0';
+    std::cout << "Setting Current PAL to: " << graphics_filename << '\n';
     sprintf_s(current_pal, "original/%s.PAL", graphics_filename);
+    std::cout << "Current PAL: " << current_pal << '\n';
 
-#ifdef WINCE
-    sprintf_s(realpath, "/eob2/original/%s.VMP", graphics_filename);
-    loadVMP(realpath);
-    sprintf_s(realpath, "/eob2/original/%s.VCN", graphics_filename);
-    loadVCN(realpath);
-    sprintf_s(realpath, "/eob2/original/%s.PAL", graphics_filename);
-    mediaObject->loadPal(realpath);
-#else
     sprintf_s(realpath, "original/%s.VMP", graphics_filename);
+    std::cout << "Opening VMP file: " << realpath << '\n';
     loadVMP(realpath);
     sprintf_s(realpath, "original/%s.VCN", graphics_filename);
+    std::cout << "Opening VCN file: " << realpath << '\n';
     loadVCN(realpath);
     sprintf_s(realpath, "original/%s.PAL", graphics_filename);
+    std::cout << "Opening PAL file: " << realpath << '\n';
     mediaObject->loadPal(realpath);
-#endif
 
-    //
     // Dekorationsdaten für die Wände auslesen
-    //
-
     //einige hardcoded offsets
     unsigned short decoration_offset;
     switch (level_id) {
@@ -316,12 +284,8 @@ void CMazeObjects::loadINF(char* file)
         mediaObject->loadCPS(264 + i, deco_info[i].image_name, current_pal, 0, 0, 320, 200, true, false);
         deco_info[i].image_id = 264 + i;
 
-//.DEC File laden
-#ifdef WINCE
-        sprintf_s(realpath, "/eob2/%s", deco_info[i].dec_file_name);
-#else
+        //.DEC File laden
         sprintf_s(realpath, "%s", deco_info[i].dec_file_name);
-#endif
         source = fopen(realpath, "rb");
         if (source == NULL) {
             printf("file not found: %s\n", file);
@@ -383,18 +347,15 @@ void CMazeObjects::loadINF(char* file)
             dec_pos += 2;
         }
     }
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
-//
 // VMP File mit VNC-Definitionen laden
-//
-
 void CMazeObjects::loadVMP(char* file)
 {
-    //
-    // File einlesen
-    //
+    std::cout << "Entering " << __FUNCTION__ << '\n';
 
+    // File einlesen
     FILE* source = NULL;
     int filesize;
 
@@ -420,18 +381,15 @@ void CMazeObjects::loadVMP(char* file)
             pos += 2;
         }
     }
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
-//
 // VCN File mit Grafikdaten laden
-//
-
 void CMazeObjects::loadVCN(char* file)
 {
-    //
-    // File einlesen
-    //
+    std::cout << "Entering " << __FUNCTION__ << '\n';
 
+    // File einlesen
     FILE* source = NULL;
     int filesize;
 
@@ -483,21 +441,17 @@ void CMazeObjects::loadVCN(char* file)
     pos = 0;
     for (int p = 18; p < 34; p++)
         vcn_wall_palette[pos++] = vcn_src[p];
+
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
-//
 // Bytes in einem WORD swappen
-//
-
 unsigned short CMazeObjects::getSwappedWord(unsigned char byte_0, unsigned char byte_1)
 {
     return (byte_1 << 8) | byte_0;
 }
 
-//
 // 8x8 Pixel Block mit aktueller Palette zeichnen
-//
-
 void CMazeObjects::drawBlock(short block_nr, short posX, short posY, bool wall_palette, bool x_flipp, int imageID)
 {
     //Startbyte in VCN Data, jeder Block umfasst 4x8 Byte (32 Byte) - los gehts bei Pos. 0x42
@@ -545,10 +499,7 @@ void CMazeObjects::drawBlock(short block_nr, short posX, short posY, bool wall_p
     }
 }
 
-//
 // Wall-Hintergrund zeichnen - wenn nötig x-flipped
-//
-
 void CMazeObjects::loadWallBackground(bool flipped, int imageID)
 {
     //Hintergrund-Tile Daten beginnen bei 0x02 des VMP Files
@@ -591,10 +542,7 @@ void CMazeObjects::loadWallBackground(bool flipped, int imageID)
     }
 }
 
-//
 // einzelne Wand zeichnen
-//
-
 struct WallData {
     int baseOffset;
     int visibleWidthInBlocks;
@@ -654,7 +602,6 @@ struct WallData {
 
 bool CMazeObjects::renderWall(int wallSetID, int viewportPos, int imageID)
 {
-
     viewportPos -= 1;
 
     if (wallSetID != -1 && viewportPos != 25) {
@@ -882,10 +829,7 @@ bool CMazeObjects::renderWall(int wallSetID, int viewportPos, int imageID)
     return true;
 }
 
-//
 // Wandfront zeichnen - level 4 (ganz hinten) bis 1 (neben Player)
-//
-
 void CMazeObjects::renderWalls(int level, int playerPos, int playerFace)
 {
     /*
@@ -900,7 +844,6 @@ void CMazeObjects::renderWalls(int level, int playerPos, int playerFace)
 	=================================================
 
 	- playerFace: 0=N /\, 1=S \/, 2=E >, 3=W <
-
 	*/
 
     switch (playerFace) {
@@ -1094,14 +1037,10 @@ void CMazeObjects::renderWalls(int level, int playerPos, int playerFace)
     }
 }
 
-//
 // .MAZ Wall ID in reale Wall ID umwandeln
-//
-
 signed char CMazeObjects::getRealWallID(int maz_id, int wall_id, int maz_pos)
 {
-    /*
-	
+    /*	
 	MAZ Value	WallMappingIndex Value
 	0									keine Wand
 	1			0						Wand Type 1
@@ -1112,7 +1051,6 @@ signed char CMazeObjects::getRealWallID(int maz_id, int wall_id, int maz_pos)
 	=================================================
 
 	- playerFace: 0=N /\, 1=S \/, 2=E >, 3=W <
-
 	*/
 
     current_pos = maz_pos;
@@ -1160,10 +1098,7 @@ signed char CMazeObjects::getRealWallID(int maz_id, int wall_id, int maz_pos)
     return -1;
 }
 
-//
 // Wand Dekoration rendern
-//
-
 int CMazeObjects::computeDecoration(int maz_id)
 {
     // *Bug-Alarm* Deco-Anpassungen für (unerklärliche) fehlende Dekos
@@ -1200,10 +1135,7 @@ int CMazeObjects::computeDecoration(int maz_id)
     return -1;
 }
 
-//
 // Türen zeichnen
-//
-
 int CMazeObjects::renderDoor(int maz_id, int wall_id)
 {
     wall_id -= 1;

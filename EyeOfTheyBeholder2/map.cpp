@@ -7,6 +7,7 @@ Class CMap
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
 
 //
 // Basis Setup
@@ -68,6 +69,7 @@ bool CMap::isSolidWall(short direction, short wallpos)
 
 void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
 {
+    std::cout << "Entering " << __FUNCTION__ << '\n';
     /*
 		Parameter fastinit bedeutet daß NUR die Bilder der Karte geladen werden müssen
 	*/
@@ -126,14 +128,8 @@ void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
         char fileName[256];
         sprintf_s(fileName, "maps/map_%d/map.dat", mapID);
 
-#ifdef WINCE
-        char realFileName[128];
-        sprintf_s(realFileName, "\\eob2\\%s", fileName);
-        file = fopen(realFileName, "r");
-#else
         file = fopen(fileName, "r");
-#endif
-
+        std::cout << "Opening map file: " << fileName << '\n';
         //Inhalt Zeilenweise einlesen
         while (!feof(file)) {
 
@@ -308,6 +304,7 @@ void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
     }
 
     loadBaseData(mapID);
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
 //

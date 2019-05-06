@@ -79,7 +79,7 @@ public:
     unsigned short current_pos;
 
     //aktuelle Palette
-    char current_pal[16];
+    char current_pal[32];
 
     //steuern ob nach Wand noch eine Dekoration gerendert werden soll
     bool do_decoration;

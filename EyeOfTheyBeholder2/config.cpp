@@ -4,13 +4,15 @@
 Class CConfig
 ***********************************/
 #include "config.h"
-
+#include <iostream>
 //
 // Konfigurationsfile lesen und Werte zuordnen
 //
 
 void CConfig::openConf(std::string fileName)
 {
+    std::cout << "Entering " << __FUNCTION__ << '\n';
+
     this->fullscreen = false;
     this->language = 0;
     this->resolution = 0;
@@ -19,14 +21,8 @@ void CConfig::openConf(std::string fileName)
     FILE* file;
     char filedata[8192];
 
-#ifdef WINCE
-    char realFileName[128];
-    sprintf_s(realFileName, "\\eob2\\%s", fileName);
-    file = fopen(realFileName, "r");
-#else
     file = fopen(fileName.c_str(), "r");
-#endif
-
+    std::cout << "Opening configuration file: " << fileName << '\n';
     if (!file) {
         this->fullscreen = true;
         this->language = 0;
@@ -34,6 +30,7 @@ void CConfig::openConf(std::string fileName)
         printf("Configuration file not found!\n");
         exit(0);
     } else {
+        printf("Configuration file found\n");
         //Inhalt in Variable zeilenweise einlesen
         char data[128][128];
         char key[128][128];
@@ -85,6 +82,7 @@ void CConfig::openConf(std::string fileName)
         }
         fclose(file);
     }
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
 //

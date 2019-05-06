@@ -49,10 +49,10 @@ public:
     void drawCompass();
 
     //Tastatur Events
-    void keyDown();
-    void keyUp();
-    void keyLeft();
-    void keyRight();
+    void mDownKey();
+    void mUpKey();
+    void mLeftKey();
+    void mRightKey();
 
     //Maus Events
     void mouseState();

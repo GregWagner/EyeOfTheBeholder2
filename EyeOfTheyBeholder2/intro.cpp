@@ -591,7 +591,7 @@ void CIntro::play()
         mediaObject->updateKeys();
 
         //auf Taste ESC reagieren
-        if (mediaObject->keyEsc)
+        if (mediaObject->mEscapeKey)
             running = 0;
 
         //auf Mausclick reagieren
@@ -605,7 +605,7 @@ void CIntro::play()
     }
 
     //Ausgangswerte setzen
-    mediaObject->keyEsc = false;
+    mediaObject->mEscapeKey = false;
     mediaObject->stopSound(0);
     mediaObject->setGamma(1, 1, 1);
     for (int i = 0; i <= 33; i++)

@@ -107,29 +107,35 @@ public:
     int getMilliSeconds();
 
     //SDL screen
-    SDL_Surface* screen_game;
-    SDL_Surface* screen;
+    SDL_Surface* mScreenGame;
+    SDL_Window* mWindow;
+    SDL_Renderer* mRenderer;
+    SDL_Texture* mTexture;
 
     //zu SDL Farben konvertierte 6Bit EOB-Palette
-    SDL_Color current_colors[256];
+    SDL_Color mCurrentColors[256];
 
     //Auflösung
-    int screenWidth;
-    int screenHeight;
+    int mScreenWidth;
+    int mScreenHeight;
 
     //Fonts
-    SFont_Font* font[10];
+    SFont_Font* mFont[10];
 
     //Grafikspeicher
-    SDL_Surface* images[512];
-    int imageCounter;
+    SDL_Surface* mImages[512];
+    int mImageCounter;
 
     //Sounds
 #ifdef SDL_V1
-    Mix_Chunk* sound[512];
+    Mix_Chunk* mSound[512];
 #endif
-    int soundCounter;
+    int mSoundCounter;
 
     //Tasten
-    bool keyEsc, keyLeft, keyRight, keyUp, keyDown;
+    bool mEscapeKey {};
+    bool mLeftKey {};
+    bool mRightKey {};
+    bool mUpKey {};
+    bool mDownKey {};
 };

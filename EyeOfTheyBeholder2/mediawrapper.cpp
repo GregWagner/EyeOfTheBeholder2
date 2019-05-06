@@ -1,9 +1,5 @@
 #pragma warning(disable : 4996)
 
-/**********************************
-Class MEDIAWrapper
-***********************************/
-
 #include "mediawrapper.h"
 #include <cstdio>
 #include <cstring>
@@ -12,56 +8,64 @@ Class MEDIAWrapper
 #include <string>
 #include <sys/stat.h>
 
-//
 // Fenster erzeugen
-//
-
 void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool fullscreen)
 {
-    //SDL screen_game erzeugen
-    screen_game = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 32, 0, 0, 0, 0);
+    // initialize SDL
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        return;
+    }
 
-    //SDL screen erzeugen
-    this->screenWidth = width;
-    this->screenHeight = height;
+    // create the window where we will draw
+    if (fullscreen) {
+        mWindow = SDL_CreateWindow("Spectalum", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+            0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL);
+    } else {
+        mWindow = SDL_CreateWindow("Spectalum", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+            width, height, SDL_WINDOW_OPENGL);
+    }
 
-    if (fullscreen)
-        screen = SDL_SetVideoMode(width, height, 16, SDL_FULLSCREEN); //z.B. SDL_FULLSCREEN
-    else
-        screen = SDL_SetVideoMode(width, height, 16, 0); //z.B. SDL_FULLSCREEN
-    SDL_WM_SetCaption("Spectalum", "");
+    // call SDL_CreateRenderer in order for draw calls to affect this window
+    mRenderer = SDL_CreateRenderer(mWindow, -1, 0);
+    /*
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear"); // make the scaled rendering look smoother.
+    SDL_RenderSetLogicalSize(mRenderer, 640, 480);
+    */
 
-    font[0] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 0, 0, 0);
-    font[1] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 0, 0, 255);
-    font[2] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 254, 254, 254);
-    font[3] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 116, 232, 252);
-    font[4] = SFont_InitBigFont(SDL_LoadBMP("data/font2.bmp"), 254, 254, 254);
-    font[5] = SFont_InitBigFont(SDL_LoadBMP("data/font2.bmp"), 252, 84, 84);
-    font[6] = SFont_InitBigFont(SDL_LoadBMP("data/font2.bmp"), 84, 252, 252);
-    font[7] = SFont_InitBigFont(SDL_LoadBMP("data/font2.bmp"), 0, 0, 0);
+    mTexture = SDL_CreateTexture(mRenderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING,
+        640, 480);
 
-    //Mauszeiger ausschalten
+    // SDL screen_game erzeugen
+    mScreenGame = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 32, 0, 0, 0, 0);
+
+    // SDL screen erzeugen
+    this->mScreenWidth = width;
+    this->mScreenHeight = height;
+
+    mFont[0] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 0, 0, 0);
+    mFont[1] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 0, 0, 255);
+    mFont[2] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 254, 254, 254);
+    mFont[3] = SFont_InitFont(SDL_LoadBMP("data/font1.bmp"), 116, 232, 252);
+    mFont[4] = SFont_InitBigFont(SDL_LoadBMP("data/font2.bmp"), 254, 254, 254);
+    mFont[5] = SFont_InitBigFont(SDL_LoadBMP("data/font2.bmp"), 252, 84, 84);
+    mFont[6] = SFont_InitBigFont(SDL_LoadBMP("data/font2.bmp"), 84, 252, 252);
+    mFont[7] = SFont_InitBigFont(SDL_LoadBMP("data/font2.bmp"), 0, 0, 0);
+
+    // Mauszeiger ausschalten
     SDL_ShowCursor(SDL_DISABLE);
 
+#ifdef SDL_V1
     //Audio Init
     Mix_OpenAudio(24000, AUDIO_S16SYS, 2, 1024);
+#endif
 
-    //Key Init
-    this->keyEsc = false;
-    this->keyDown = false;
-    this->keyLeft = false;
-    this->keyRight = false;
-    this->keyUp = false;
-
-    //Surfaces initialisieren
-    for (int s = 0; s < 512; s++)
-        images[s] = NULL;
+    // Surfaces initialisieren
+    for (int s = 0; s < 512; s++) {
+        mImages[s] = NULL;
+    }
 }
 
-//
 // Bild laden
-//
-
 void MEDIAWrapper::loadImage(int imageID, char* path)
 {
     char realpath[128];
@@ -69,52 +73,41 @@ void MEDIAWrapper::loadImage(int imageID, char* path)
     this->freeImage(imageID);
 
     sprintf_s(realpath, "%s.bmp", path);
-    images[imageID] = SDL_LoadBMP(realpath);
+    mImages[imageID] = SDL_LoadBMP(realpath);
 }
 
-//
 // Surface als BMP File abspeichern
-//
-
 void MEDIAWrapper::saveBMP(int imageID)
 {
-    if (images[imageID] != NULL)
-        SDL_SaveBMP(images[imageID], "out.bmp");
+    if (mImages[imageID] != NULL)
+        SDL_SaveBMP(mImages[imageID], "out.bmp");
     else
         printf("error saving image: %d\n", imageID);
 }
 
-//
 // Bild aus Speicher löschen
-//
-
 void MEDIAWrapper::freeImage(int i)
 {
-    if (images[i] != NULL) {
-        SDL_FreeSurface(images[i]);
+    if (mImages[i] != NULL) {
+        SDL_FreeSurface(mImages[i]);
     }
 
-    images[i] = NULL;
-    delete (images[i]);
+    delete (mImages[i]);
+    mImages[i] = NULL;
 }
 
-//
 // prüfen ob Bild bereits erstellt wurde
-//
-
 bool MEDIAWrapper::imageLoaded(int nr)
 {
-    if (images[nr] != NULL)
+    if (mImages[nr] != NULL)
         return true;
     return false;
 }
 
-//
 // CPS Bild laden
-//
-
 void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palette, int posX, int posY, int width, int height, bool transp, bool sprite)
 {
+    std::cout << "Entering " << __FUNCTION__ << '\n';
     FILE *palfile, *source;
     unsigned char pal[768];
     unsigned char src[64000];
@@ -125,40 +118,37 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
 
     this->freeImage(imageID);
 
-    //
     // Palette laden
-    //
-
     palfile = NULL;
     palfile = fopen(palette.c_str(), "rb");
+    std::cout << "Opening palette file: " << palette << '\n';
     if (palfile == NULL) {
-        printf("palette not found: %s\n", palette);
+        printf("palette not found: %s\n", palette.c_str());
         this->sleep(2000);
         this->quit();
     }
+    printf("palette found: %s\n", palette.c_str());
     fseek(palfile, 0, SEEK_END);
     filesize = ftell(palfile);
     fseek(palfile, 0, SEEK_SET);
     if (filesize != 768) {
-        printf("no valid PAL file: %s\n", palette);
+        printf("no valid PAL file: %s\n", palette.c_str());
         this->sleep(2000);
         this->quit();
     }
     fread(pal, 1, 768, palfile);
     fclose(palfile);
 
-    //
     // CPS File laden
-    //
-
     source = NULL;
     source = fopen(filename.c_str(), "rb");
+    std::cout << "Opening CPS file: " << filename << '\n';
     if (source == NULL) {
-        printf("file not found: %s\n", filename);
+        printf("file not found: %s\n", filename.c_str());
         sleep(2000);
         this->quit();
     }
-
+    printf("CPS FIle found: %s\n", filename.c_str());
     fseek(source, 0, SEEK_END);
     filesize = ftell(source);
     fseek(source, 0, SEEK_SET);
@@ -177,10 +167,7 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
     for (int i = 10; i < 64000; i++)
         srcdata[i - 10] = src[i];
 
-    //
     // SDL Surface erstellen
-    //
-
     SDL_Color colors[256];
     int colorcount = 0;
     for (int i = 0; i < 768; i += 3) {
@@ -200,10 +187,13 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
     colors[255].b = 1;
 
     SDL_Surface* tempImage = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 8, 0, 0, 0, 0);
+#ifdef SDL_V1
     SDL_SetPalette(tempImage, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
+#endif
+    SDL_SetPaletteColors(tempImage->format->palette, colors, 0, 256);
     SDL_Rect dstrect;
 
-    //CPS Daten decodieren
+    // CPS Daten decodieren
     format80decode(srcdata, dest);
 
     //Transparent Pixel setzen
@@ -244,15 +234,16 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
         }
     }
 
-    images[imageID] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0, 0, 0, 0);
+    mImages[imageID] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0, 0, 0, 0);
     SDL_Rect rcSrc = { posX, posY, width, height };
     SDL_Rect rcDst = { 0, 0, width, height };
     ;
-    SDL_BlitSurface(tempImage, &rcSrc, images[imageID], &rcDst);
+    SDL_BlitSurface(tempImage, &rcSrc, mImages[imageID], &rcDst);
     SDL_FreeSurface(tempImage);
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
-//WORD Wert aus CPS File auslesen
+// WORD Wert aus CPS File auslesen
 int MEDIAWrapper::getWord(unsigned char string[64000], int pos)
 {
     return (string[pos + 1] << 8) + string[pos];
@@ -323,58 +314,47 @@ int MEDIAWrapper::format80decode(unsigned char image_in[], unsigned char image_o
     return (writep - image_out);
 }
 
-//
 //Bild zeichnen
-//
-
 void MEDIAWrapper::drawImage(int imageID, int posX, int posY, int fromPosX, int fromPosY, int width, int height)
 {
     SDL_Rect rcDest = { posX, posY, 0, 0 };
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
     if (width > 0 && height > 0) {
-        if (imageID >= 0 && images[imageID]) {
+        if (imageID >= 0 && mImages[imageID]) {
             //weiss transparent setzen
-            SDL_SetColorKey(images[imageID], SDL_SRCCOLORKEY, SDL_MapRGB(images[imageID]->format, 255, 255, 255));
-            SDL_BlitSurface(images[imageID], &rcSrc, screen_game, &rcDest);
+            SDL_SetColorKey(mImages[imageID], SDL_TRUE, SDL_MapRGB(mImages[imageID]->format, 255, 255, 255));
+            SDL_BlitSurface(mImages[imageID], &rcSrc, mScreenGame, &rcDest);
         }
     } else {
-        if (imageID >= 0 && images[imageID]) {
+        if (imageID >= 0 && mImages[imageID]) {
             //weiss transparent setzen
-            SDL_SetColorKey(images[imageID], SDL_SRCCOLORKEY, SDL_MapRGB(images[imageID]->format, 255, 255, 255));
-            SDL_BlitSurface(images[imageID], NULL, screen_game, &rcDest);
+            SDL_SetColorKey(mImages[imageID], SDL_TRUE, SDL_MapRGB(mImages[imageID]->format, 255, 255, 255));
+            SDL_BlitSurface(mImages[imageID], NULL, mScreenGame, &rcDest);
         }
     }
 }
 
-//
 // leeres Bild erstellen
-//
 void MEDIAWrapper::createImage(int imageID, int paletteSourceImageID, int width, int height)
 {
-    if (images[imageID] != NULL)
-        images[imageID] = NULL;
+    if (mImages[imageID] != NULL)
+        mImages[imageID] = NULL;
 
-    images[imageID] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0, 0, 0, 0);
+    mImages[imageID] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0, 0, 0, 0);
 }
 
-//
 // Bild zu Bild blitten
-//
-
 void MEDIAWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int transpR, int transpG, int transpB)
 {
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
     SDL_Rect rcDst = { toPosX, toPosY, 0, 0 };
     if (transpR != -1 && transpG != -1 && transpB != -1)
-        SDL_SetColorKey(images[imageFromID], SDL_SRCCOLORKEY, SDL_MapRGB(images[imageFromID]->format, transpR, transpG, transpB));
-    SDL_BlitSurface(images[imageFromID], &rcSrc, images[imageToID], &rcDst);
+        SDL_SetColorKey(mImages[imageFromID], SDL_TRUE, SDL_MapRGB(mImages[imageFromID]->format, transpR, transpG, transpB));
+    SDL_BlitSurface(mImages[imageFromID], &rcSrc, mImages[imageToID], &rcDst);
     //SDL_SaveBMP(images[imageToID], "data/out.bmp");
 }
 
-//
 // Bild zu Bild blitten mit Größenänderung
-//
-
 bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int toWidth, int toHeight, int transpR, int transpG, int transpB, bool mirror)
 {
     if (toWidth != width || toHeight != height || mirror) {
@@ -403,7 +383,7 @@ bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX,
                             to.y = toPosY + (y - fromPosY) * yfactor - yf;
                             to.w = 1;
                             to.h = 1;
-                            SDL_BlitSurface(images[imageFromID], &from, images[imageToID], &to);
+                            SDL_BlitSurface(mImages[imageFromID], &from, mImages[imageToID], &to);
                         }
                 }
             } else {
@@ -419,7 +399,7 @@ bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX,
                             to.y = toPosY + (y - fromPosY) * yfactor - yf;
                             to.w = 1;
                             to.h = 1;
-                            SDL_BlitSurface(images[imageFromID], &from, images[imageToID], &to);
+                            SDL_BlitSurface(mImages[imageFromID], &from, mImages[imageToID], &to);
                         }
                 }
             }
@@ -427,7 +407,7 @@ bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX,
     } else {
         SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
         SDL_Rect rcDst = { 0, 0, 0, 0 };
-        SDL_BlitSurface(images[imageFromID], &rcSrc, images[imageToID], &rcDst);
+        SDL_BlitSurface(mImages[imageFromID], &rcSrc, mImages[imageToID], &rcDst);
     }
 
     return true;
@@ -440,129 +420,108 @@ typedef struct tColorRGBA {
     Uint8 a;
 } tColorRGBA;
 
-//
 // Text zeichen
-//
-
 void MEDIAWrapper::drawText(int fontID, int posX, int posY, int r, int g, int b, std::string text, bool center)
 {
     if (fontID < 4) {
         posY += 1;
         if (center)
-            posX = (this->screen_game->w / 2) - (SFont_TextWidth(font[0], text) / 2);
+            posX = (this->mScreenGame->w / 2) - (SFont_TextWidth(mFont[0], text.c_str()) / 2);
         if (r == 0 && g == 0 && b == 0)
-            SFont_Write(screen_game, font[0], posX, posY, text);
+            SFont_Write(mScreenGame, mFont[0], posX, posY, text.c_str());
         if (r == 0 && g == 0 && b == 255)
-            SFont_Write(screen_game, font[1], posX, posY, text);
+            SFont_Write(mScreenGame, mFont[1], posX, posY, text.c_str());
         if (r == 255 && g == 255 && b == 255)
-            SFont_Write(screen_game, font[2], posX, posY, text);
+            SFont_Write(mScreenGame, mFont[2], posX, posY, text.c_str());
         if (r == 116 && g == 232 && b == 252)
-            SFont_Write(screen_game, font[3], posX, posY, text);
+            SFont_Write(mScreenGame, mFont[3], posX, posY, text.c_str());
     } else {
         //schwarzen Schatten zeichnen
-        SFont_BigWrite(screen_game, font[7], posX - 1, posY + 1, text);
+        SFont_BigWrite(mScreenGame, mFont[7], posX - 1, posY + 1, text.c_str());
 
         //Font zeichnen
-        SFont_BigWrite(screen_game, font[fontID], posX, posY, text);
+        SFont_BigWrite(mScreenGame, mFont[fontID], posX, posY, text.c_str());
     }
 }
 
-//
 // SDL beenden
-//
-
 void MEDIAWrapper::quit()
 {
     SDL_Quit();
     exit(0);
 }
 
-//
 // x ms warten
-//
-
 void MEDIAWrapper::sleep(int ms)
 {
     SDL_Delay(ms);
 }
 
-//
 // Sound laden
-//
-
 void MEDIAWrapper::loadSound(int nr, std::string path)
 {
     char realpath[128];
     sprintf_s(realpath, "%s.ogg", path);
-    sound[nr] = Mix_LoadWAV(realpath);
+#ifdef SDL_V1
+    mSound[nr] = Mix_LoadWAV(realpath);
+#endif
 }
 
-//
 // Sound löschen
-//
-
 void MEDIAWrapper::freeSound(int nr)
 {
-    if (sound[nr] != NULL) {
-        Mix_FreeChunk(sound[nr]);
-        sound[nr] = NULL;
+#ifdef SDL_V1
+    if (mSound[nr] != NULL) {
+        Mix_FreeChunk(mSound[nr]);
+        mSound[nr] = NULL;
     }
+#endif
 }
 
-//
 // Sound abspielen
-//
-
 void MEDIAWrapper::playSound(int nr)
 {
-    Mix_PlayChannel(-1, sound[nr], 0);
+#ifdef SDL_V1
+    Mix_PlayChannel(-1, mSound[nr], 0);
+#endif
 }
 
-//
 // Sound stoppen
-//
-
 void MEDIAWrapper::stopSound(int nr)
 {
-    if (sound[nr] != NULL)
+#ifdef SDL_V1
+    if (mSound[nr] != NULL)
         Mix_HaltChannel(nr);
+#endif
 }
 
-//
 // Sound spielt
-//
-
 bool MEDIAWrapper::isPlaying(int nr)
 {
-    if (sound[nr] != NULL)
+#ifdef SDL_V1
+    if (mSound[nr] != NULL)
         return true;
     else
         return false;
+#endif
+    return false;
 }
 
-//
 // Screen Refresh
-//
-
 void MEDIAWrapper::refresh()
 {
-    SDL_UpdateRect(screen, 0, 0, screen->w, screen->h);
+
+    SDL_RenderPresent(mRenderer);
 }
 
-//
 // Maus Koordinaten zurückgeben
-//
-
 void MEDIAWrapper::getMouseState(int* x, int* y)
 {
     SDL_PumpEvents();
     SDL_GetMouseState(x, y);
 }
 
-//
 // prüfen ob linke Maustaste gedrückt wurde
-//
-
 bool MEDIAWrapper::getMouseLeft()
 {
     SDL_PumpEvents();
@@ -572,10 +531,7 @@ bool MEDIAWrapper::getMouseLeft()
         return false;
 }
 
-//
 // prüfen ob rechte Maustaste gedrückt wurde
-//
-
 bool MEDIAWrapper::getMouseRight()
 {
     SDL_PumpEvents();
@@ -585,70 +541,56 @@ bool MEDIAWrapper::getMouseRight()
         return false;
 }
 
-//
 // Taste down
-//
-
 void MEDIAWrapper::updateKeys()
 {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
-            //
             // Tastatur Events
-            //
-
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
             case SDLK_ESCAPE:
-                this->keyEsc = true;
+                this->mEscapeKey = true;
                 break;
             case SDLK_DOWN:
-                this->keyDown = true;
+                this->mDownKey = true;
                 break;
             case SDLK_UP:
-                this->keyUp = true;
+                this->mUpKey = true;
                 break;
             case SDLK_LEFT:
-                this->keyLeft = true;
+                this->mLeftKey = true;
                 break;
             case SDLK_RIGHT:
-                this->keyRight = true;
+                this->mRightKey = true;
                 break;
             default:
                 break;
             }
             break;
         case SDL_KEYUP:
-            this->keyDown = this->keyEsc = this->keyLeft = this->keyRight = this->keyUp = false;
+            this->mDownKey = this->mEscapeKey = this->mLeftKey = this->mRightKey = this->mUpKey = false;
             break;
         }
     }
 }
 
-//
 // gefülltest Viereck zeichnen
-//
-
 void MEDIAWrapper::fillRect(int posX, int posY, int width, int height, int r, int g, int b, int imageID)
 {
     SDL_Rect dstrect = { posX, posY, width, height };
-    SDL_FillRect(imageID == -1 ? screen_game : images[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? screen_game->format : images[imageID]->format, r, g, b));
+    SDL_FillRect(imageID == -1 ? mScreenGame : mImages[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? mScreenGame->format : mImages[imageID]->format, r, g, b));
 }
 
-//
 // Palette laden für spätere Pixel Aktionen
-//
 void MEDIAWrapper::loadPal(char* filename)
 {
     FILE* palfile;
     unsigned char pal[768];
     int filesize;
 
-    //
     // Palette laden
-    //
-
     palfile = NULL;
     palfile = fopen(filename, "rb");
     if (palfile == NULL) {
@@ -667,49 +609,40 @@ void MEDIAWrapper::loadPal(char* filename)
     fread(pal, 1, 768, palfile);
     fclose(palfile);
 
-    //
     // SDL Surface erstellen
-    //
-
     int colorcount = 0;
     for (int i = 0; i < 768; i += 3) {
         //6 Bit Palette der .PAL Files auf 8 Bit Palette portieren
-        current_colors[colorcount].r = pal[i] << 2;
-        current_colors[colorcount].g = pal[i + 1] << 2;
-        current_colors[colorcount].b = pal[i + 2] << 2;
+        mCurrentColors[colorcount].r = pal[i] << 2;
+        mCurrentColors[colorcount].g = pal[i + 1] << 2;
+        mCurrentColors[colorcount].b = pal[i + 2] << 2;
         colorcount++;
     }
 }
 
-//
 // Pixel zeichnen mit aktueller Palette
-//
-
 void MEDIAWrapper::drawPixel(int posX, int posY, int palOffset, int imageID = -1)
 {
     SDL_Rect dstrect = { posX, posY, 2, 1 };
-    SDL_FillRect(imageID == -1 ? screen_game : images[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? screen_game->format : images[imageID]->format, current_colors[palOffset].r, current_colors[palOffset].g, current_colors[palOffset].b));
+    SDL_FillRect(imageID == -1 ? mScreenGame : mImages[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? mScreenGame->format : mImages[imageID]->format, mCurrentColors[palOffset].r, mCurrentColors[palOffset].g, mCurrentColors[palOffset].b));
 }
 
-//
 // Gamescreen in echten screen surface kopieren und alles anzeigen
-//
-
 void MEDIAWrapper::updateVideo()
 {
     // Skalierung nur nötig wenn Auflösung != screen_game
-    if (this->screenWidth > 320 && this->screenHeight > 200) {
+    if (this->mScreenWidth > 320 && this->mScreenHeight > 200) {
         SDL_Rect from = { 0, 0, 0, 0 };
         SDL_Rect to = { 0, 0, 0, 0 };
         float xfactor = 0;
         float yfactor = 0;
         float temp = 0;
 
-        xfactor = (float)((float)(screen->w - 0) / (float)(screen_game->w - 0));
-        yfactor = (float)((float)(screen->h - 0) / (float)(screen_game->h - 0));
+        xfactor = (float)((float)(mScreenWidth - 0) / (float)(mScreenWidth - 0));
+        yfactor = (float)((float)(mScreenHeight - 0) / (float)(mScreenHeight - 0));
 
-        for (float y = 0; y < screen_game->h; y++) {
-            for (float x = 0; x < screen_game->w; x++) {
+        for (float y = 0; y < mScreenGame->h; y++) {
+            for (float x = 0; x < mScreenGame->w; x++) {
                 from.x = x;
                 from.y = y;
                 from.w = 1;
@@ -722,32 +655,32 @@ void MEDIAWrapper::updateVideo()
                         to.y = 0 + y * yfactor - yf;
                         to.w = 1;
                         to.h = 1;
-                        SDL_BlitSurface(screen_game, &from, screen, &to);
+#ifdef FIXME
+                        SDL_BlitSurface(mScreenGame, &from, mWindow, &to);
+#endif
                     }
             }
         }
     } else {
-        SDL_Rect rcSrc = { 0, 0, screen_game->w, screen_game->h };
+        SDL_Rect rcSrc = { 0, 0, mScreenGame->w, mScreenGame->h };
         SDL_Rect rcDst = { 0, 0, 0, 0 };
-        SDL_BlitSurface(screen_game, &rcSrc, screen, &rcDst);
+#ifdef FIXME
+        SDL_BlitSurface(mScreenGame, &rcSrc, mWindow, &rcDst);
+#endif
     }
 
-    SDL_UpdateRect(screen, 0, 0, screen->w, screen->h);
+    SDL_RenderPresent(mRenderer);
 }
 
-//
 //Gammewert setzen
-//
-
 void MEDIAWrapper::setGamma(int r, int g, int b)
 {
+#ifdef SDL_V1
     SDL_SetGamma(r, g, b);
+#endif
 }
 
-//
 //Millisekunden auslesen
-//
-
 int MEDIAWrapper::getMilliSeconds()
 {
     return SDL_GetTicks();

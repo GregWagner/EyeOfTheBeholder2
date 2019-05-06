@@ -1,17 +1,10 @@
 #pragma warning(disable : 4996)
 
-/**********************************
-Class C3DEngine
-***********************************/
-
 #include "3DEngine.h"
 #include <cstdio>
 #include <cstdlib>
 
-//
 // 3D window initialisation, loading of bitmaps eg.
-//
-
 void C3DEngine::initViewArea()
 {
     //allg. Setup
@@ -21,7 +14,7 @@ void C3DEngine::initViewArea()
     mapEvent = new CEvent;
 
     //Konfiguration laden
-    configuration.openConf("spectalum.conf");
+    configuration.openConf("eob2.conf");
 
     //Media Wrapper
     if (configuration.resolution == 0)
@@ -1383,7 +1376,7 @@ bool C3DEngine::checkWallCollision(short direction)
 // auf Tastendruch "rechts" reagieren
 //
 
-void C3DEngine::keyRight()
+void C3DEngine::mRightKey()
 {
     //
     //	Hintergrundbild wechseln
@@ -1410,7 +1403,7 @@ void C3DEngine::keyRight()
 // auf Tastendruch "links" reagieren
 //
 
-void C3DEngine::keyLeft()
+void C3DEngine::mLeftKey()
 {
     //
     //	Hintergrundbild wechseln
@@ -1437,7 +1430,7 @@ void C3DEngine::keyLeft()
 // auf Tastendruch "hoch" reagieren
 //
 
-void C3DEngine::keyUp()
+void C3DEngine::mUpKey()
 {
     //
     //	Hintergrundbild wechseln
@@ -1481,7 +1474,7 @@ void C3DEngine::keyUp()
 // auf Tastendruch "runter" reagieren
 //
 
-void C3DEngine::keyDown()
+void C3DEngine::mDownKey()
 {
     //
     //	Hintergrundbild wechseln
@@ -1741,19 +1734,19 @@ void C3DEngine::mouseMove()
 {
     //nach links rotieren
     if (mousePosX >= 5 && mousePosX <= 24 && mousePosY >= 128 && mousePosY <= 145)
-        keyLeft();
+        mLeftKey();
 
     //nach rechts rotieren
     else if (mousePosX >= 44 && mousePosX <= 64 && mousePosY >= 128 && mousePosY <= 145)
-        keyRight();
+        mRightKey();
 
     //vorwärts
     else if (mousePosX >= 24 && mousePosX <= 44 && mousePosY >= 128 && mousePosY <= 145)
-        keyUp();
+        mUpKey();
 
     //rückwärts
     else if (mousePosX >= 24 && mousePosX <= 44 && mousePosY >= 145 && mousePosY <= 162)
-        keyDown();
+        mDownKey();
 
     //strafe left
     else if (mousePosX >= 5 && mousePosX <= 24 && mousePosY >= 145 && mousePosY <= 162) {
@@ -1848,27 +1841,27 @@ void C3DEngine::run()
         mediaObject.updateKeys();
 
         //auf Taste-loslassen reagieren
-        if (!mediaObject.keyDown && !mediaObject.keyLeft && !mediaObject.keyRight && !mediaObject.keyUp)
+        if (!mediaObject.mDownKey && !mediaObject.mLeftKey && !mediaObject.mRightKey && !mediaObject.mUpKey)
             keyPressed = false;
 
         //auf Taste ESC reagieren
-        if (mediaObject.keyEsc)
+        if (mediaObject.mEscapeKey)
             mediaObject.quit();
 
         //auf Taste DOWN reagieren
-        else if (mediaObject.keyDown && !keyPressed)
-            keyDown();
+        else if (mediaObject.mDownKey && !keyPressed)
+            mDownKey();
 
         //auf Taste UP reagieren
-        else if (mediaObject.keyUp && !keyPressed)
-            keyUp();
+        else if (mediaObject.mUpKey && !keyPressed)
+            mUpKey();
 
         //auf Taste LEFT reagieren
-        else if (mediaObject.keyLeft && !keyPressed)
-            keyLeft();
+        else if (mediaObject.mLeftKey && !keyPressed)
+            mLeftKey();
 
         //auf Taste RIGHT reagieren
-        else if (mediaObject.keyRight && !keyPressed)
-            keyRight();
+        else if (mediaObject.mRightKey && !keyPressed)
+            mRightKey();
     }
 }

@@ -3,7 +3,7 @@
 Class CMonster 
 ***********************************/
 #include "monster.h"
-#include <string>
+#include <cstdlib>
 
 void CMonster::init(CMap* gameMap, MEDIAWrapper* mediaObject, CLanguage* languageData, CEvent* mapEvent, short monsterType, short monsterPos, short mapId, short monsterFace, short friendly)
 {

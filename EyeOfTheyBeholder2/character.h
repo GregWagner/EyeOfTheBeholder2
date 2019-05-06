@@ -1,5 +1,8 @@
 #pragma once
 
+#include "map.h"
+#include "mediawrapper.h"
+
 class CChar {
 public:
     //Init

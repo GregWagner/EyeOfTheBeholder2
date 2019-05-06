@@ -1,5 +1,10 @@
 #pragma once
 
+#include "character.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
+
 class CEvent {
 public:
     //Init

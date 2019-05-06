@@ -3,7 +3,7 @@
 Class CEvent 
 ***********************************/
 #include "event.h"
-#include <string>
+#include <cstdio>
 
 void CEvent::init(CMap* map, MEDIAWrapper* mediaObject)
 {

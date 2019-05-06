@@ -3,6 +3,7 @@
 Class CItem
 ***********************************/
 #include "item.h"
+#include <cstdio>
 
 //
 // Initialisierung

@@ -3,6 +3,8 @@
 Class CLanguage
 ***********************************/
 #include "language.h"
+#include <cstdio>
+#include <string>
 
 //
 // Initialisierung

@@ -3,7 +3,6 @@
 Class CConfig
 ***********************************/
 #include "config.h"
-#include <string>
 
 //
 // Konfigurationsfile lesen und Werte zuordnen

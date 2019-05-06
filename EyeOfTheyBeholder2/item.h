@@ -1,5 +1,10 @@
 #pragma once
 
+#include "event.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
+
 class CItem {
 public:
     //Init

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "language.h"
+#include "mediawrapper.h"
+
 class CIntro {
 public:
     //Init

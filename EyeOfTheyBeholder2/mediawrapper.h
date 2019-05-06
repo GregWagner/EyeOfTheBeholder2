@@ -1,9 +1,11 @@
 #pragma once
 
 #include <SDL.h>
+#ifdef SDL_V1
 #include <SDL_mixer.h>
-#include <SFont.c>
-#include <SFont.h>
+#endif
+#include "SFont.h"
+#include <array>
 
 //
 // class initialisation
@@ -123,7 +125,9 @@ public:
     int imageCounter;
 
     //Sounds
+#ifdef SDL_V1
     Mix_Chunk* sound[512];
+#endif
     int soundCounter;
 
     //Tasten

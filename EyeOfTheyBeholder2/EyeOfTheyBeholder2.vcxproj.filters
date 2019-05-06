@@ -21,9 +21,6 @@
     <ClCompile Include="monster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mediawrapper_ce.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mediawrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

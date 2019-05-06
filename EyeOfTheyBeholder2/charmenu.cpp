@@ -4,6 +4,7 @@ Class CCharMenu
 ***********************************/
 
 #include "charmenu.h"
+#include <cstdio>
 
 void CCharMenu::initMenu(MEDIAWrapper* mediaObject, CEvent* mapEvent)
 {

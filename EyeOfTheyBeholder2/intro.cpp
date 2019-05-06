@@ -3,7 +3,7 @@
 Class CIntro
 ***********************************/
 #include "intro.h"
-#include <string>
+#include <cstdio>
 
 //
 // Initialisierung

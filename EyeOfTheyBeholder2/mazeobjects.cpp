@@ -3,6 +3,12 @@
 Class CMazeObjects
 ***********************************/
 #include "mazeobjects.h"
+#include <cstdio>
+#include <ctype.h>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <sys/stat.h>
 
 //
 // Wall initialisation

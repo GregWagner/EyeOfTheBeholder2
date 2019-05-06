@@ -1,5 +1,7 @@
 #pragma once
 
+#include "mediawrapper.h"
+
 class CMazeObjects {
 public:
     void init(short maze_id);

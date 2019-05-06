@@ -1,5 +1,8 @@
 #pragma once
 
+#include "mazeobjects.h"
+#include "mediawrapper.h"
+
 class CMap {
 public:
     //Init

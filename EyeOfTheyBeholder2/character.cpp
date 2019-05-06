@@ -4,6 +4,8 @@ Class CChar
 ***********************************/
 
 #include "character.h"
+#include <cstdio>
+#include <cstdlib>
 
 //
 // Initialisierung

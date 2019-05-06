@@ -4,6 +4,8 @@ Class C3DEngine
 ***********************************/
 
 #include "3DEngine.h"
+#include <cstdio>
+#include <cstdlib>
 
 //
 // 3D window initialisation, loading of bitmaps eg.

@@ -3,7 +3,9 @@
 Class CMap 
 ***********************************/
 #include "map.h"
-#include <string>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 //
 // Basis Setup

@@ -1,5 +1,11 @@
 #pragma once
 
+#include "character.h"
+#include "event.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
+
 class CMonster {
 public:
     //Init

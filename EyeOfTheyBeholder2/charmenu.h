@@ -1,5 +1,12 @@
 #pragma once
 
+#include "character.h"
+#include "event.h"
+#include "item.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
+
 class CCharMenu {
 public:
     //Init

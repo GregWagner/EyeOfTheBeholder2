@@ -4,6 +4,12 @@ Class MEDIAWrapper
 ***********************************/
 
 #include "mediawrapper.h"
+#include <cstdio>
+#include <cstring>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <sys/stat.h>
 
 //
 // Fenster erzeugen

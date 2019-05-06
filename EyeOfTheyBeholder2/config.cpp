@@ -1,3 +1,4 @@
+#pragma warning(disable : 4996)
 
 /**********************************
 Class CConfig
@@ -8,7 +9,7 @@ Class CConfig
 // Konfigurationsfile lesen und Werte zuordnen
 //
 
-void CConfig::openConf(char* fileName)
+void CConfig::openConf(std::string fileName)
 {
     this->fullscreen = false;
     this->language = 0;
@@ -23,7 +24,7 @@ void CConfig::openConf(char* fileName)
     sprintf_s(realFileName, "\\eob2\\%s", fileName);
     file = fopen(realFileName, "r");
 #else
-    file = fopen(fileName, "r");
+    file = fopen(fileName.c_str(), "r");
 #endif
 
     if (!file) {

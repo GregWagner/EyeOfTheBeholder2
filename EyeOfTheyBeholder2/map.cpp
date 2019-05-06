@@ -1,3 +1,4 @@
+#pragma warning(disable : 4996)
 
 /**********************************
 Class CMap 
@@ -65,7 +66,7 @@ bool CMap::isSolidWall(short direction, short wallpos)
 // Initialisierung
 //
 
-void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit = false)
+void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
 {
     /*
 		Parameter fastinit bedeutet daß NUR die Bilder der Karte geladen werden müssen

@@ -20,7 +20,7 @@ public:
     void initViewArea();
 
     //Karte laden
-    void loadMap(short mapID, bool savedMap);
+    void loadMap(short mapID, bool savedMap = false);
 
     //Intro spielen
     bool playIntro();

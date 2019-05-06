@@ -5,7 +5,7 @@
 class CConfig {
 public:
     //Konfigurationsfile einlesen
-    void openConf(char* fileName);
+    void openConf(std::string fileName);
 
     //Werte zuweisen
     void setValue(short key, short val);

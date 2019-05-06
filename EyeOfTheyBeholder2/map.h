@@ -6,7 +6,7 @@
 class CMap {
 public:
     //Init
-    void init(short mapID, MEDIAWrapper* mediaObject, bool fastinit);
+    void init(short mapID, MEDIAWrapper* mediaObject, bool fastinit = false);
 
     //Wandfront zeichnen - level 4 (ganz hinten) bis 1 (neben Player)
     void drawWalls(int level);

@@ -123,7 +123,7 @@ void CEvent::update()
             //Musik laden und starten
             if (!sequenceEvent && map->mapEventParam[mapPos][5] > 0) {
                 char musicfile[128];
-                sprintf(musicfile, "sound/event%d", map->mapEventParam[mapPos][5]);
+                sprintf_s(musicfile, "sound/event%d", map->mapEventParam[mapPos][5]);
                 mediaObject->loadSound(1, musicfile);
                 mediaObject->playSound(1);
             }
@@ -191,9 +191,9 @@ void CEvent::update()
             //Character Namen vor Text setzen wenn nötig
             if (languageData != NULL && map != NULL) {
                 if (map->mapEventParam[mapPos][2] > 0)
-                    sprintf(line, "\"%s\": %s", chars[map->mapEventParam[mapPos][3]]->name, languageData->text[map->mapEventParam[mapPos][0]]);
+                    sprintf_s(line, "\"%s\": %s", chars[map->mapEventParam[mapPos][3]]->name, languageData->text[map->mapEventParam[mapPos][0]]);
                 else
-                    sprintf(line, "%s", languageData->text[map->mapEventParam[mapPos][0]]);
+                    sprintf_s(line, "%s", languageData->text[map->mapEventParam[mapPos][0]]);
                 progress = 1;
             }
         } else if (progress == 1) {
@@ -312,7 +312,7 @@ void CEvent::update()
             //Musik laden und starten
             if (!sequenceEvent && map->mapEventParam[mapPos][6] > 0) {
                 char musicfile[128];
-                sprintf(musicfile, "sound/event%d", map->mapEventParam[mapPos][6]);
+                sprintf_s(musicfile, "sound/event%d", map->mapEventParam[mapPos][6]);
                 mediaObject->loadSound(1, musicfile);
                 mediaObject->playSound(1);
             }
@@ -430,7 +430,7 @@ void CEvent::update()
                 //Tür öffnen
                 if (map->cell_info[mapPos].is_door && !map->cell_info[mapPos].door_is_open) {
                     char musicfile[128];
-                    sprintf(musicfile, "sound/door1_open", map->mapEventParam[mapPos][6]);
+                    sprintf_s(musicfile, "sound/door1_open", map->mapEventParam[mapPos][6]);
                     mediaObject->loadSound(1, musicfile);
                     mediaObject->playSound(1);
                     map->cell_info[mapPos].door_is_open = true;
@@ -440,7 +440,7 @@ void CEvent::update()
                 //Tür schließen
                 else if (map->cell_info[mapPos].is_door && map->cell_info[mapPos].door_is_open) {
                     char musicfile[128];
-                    sprintf(musicfile, "sound/door1_close", map->mapEventParam[mapPos][6]);
+                    sprintf_s(musicfile, "sound/door1_close", map->mapEventParam[mapPos][6]);
                     mediaObject->loadSound(1, musicfile);
                     mediaObject->playSound(1);
                     map->cell_info[mapPos].door_is_open = false;
@@ -478,7 +478,7 @@ void CEvent::update()
             //Musik/Sound laden und starten
             if (map->mapEventParam[clickedMapPos][1] > 0) {
                 char musicfile[128];
-                sprintf(musicfile, "sound/event%d", map->mapEventParam[clickedMapPos][1]);
+                sprintf_s(musicfile, "sound/event%d", map->mapEventParam[clickedMapPos][1]);
                 mediaObject->loadSound(1, musicfile);
                 mediaObject->playSound(1);
             }
@@ -544,7 +544,7 @@ void CEvent::updateStatusMessage()
     time = mediaObject->getMilliSeconds();
     //alle 10 Sekunden Statustexte um 1 Text scrollen
     if (time >= time_change) {
-        sprintf(statusText[0], " %s", statusText[1]);
+        sprintf_s(statusText[0], " %s", statusText[1]);
         statusText[1][0] = '\0';
         time_change = time + 10000;
     }
@@ -557,8 +557,8 @@ void CEvent::updateStatusMessage()
 void CEvent::statusMessage(char text[128])
 {
     if (statusText[1][0] != '\0')
-        sprintf(statusText[0], " %s", statusText[1]);
-    sprintf(statusText[1], " %s", text);
+        sprintf_s(statusText[0], " %s", statusText[1]);
+    sprintf_s(statusText[1], " %s", text);
     time = mediaObject->getMilliSeconds();
     time_change = time + 20000;
 }

@@ -20,7 +20,7 @@ void CConfig::openConf(char* fileName)
 
 #ifdef WINCE
     char realFileName[128];
-    sprintf(realFileName, "\\eob2\\%s", fileName);
+    sprintf_s(realFileName, "\\eob2\\%s", fileName);
     file = fopen(realFileName, "r");
 #else
     file = fopen(fileName, "r");

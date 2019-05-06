@@ -1,5 +1,16 @@
 #pragma once
 
+#include "character.h"
+#include "charmenu.h"
+#include "config.h"
+#include "event.h"
+#include "intro.h"
+#include "item.h"
+#include "language.h"
+#include "map.h"
+#include "mediawrapper.h"
+#include "monster.h"
+
 class C3DEngine {
 public:
     //allgemeine Debug-Funktion zum Testen diverser Aktionen

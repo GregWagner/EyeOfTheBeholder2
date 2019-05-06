@@ -15,46 +15,49 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3DEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="char.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="charmenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="config.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="intro.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="language.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mazeobjects.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mediawrapper.cpp">
+    <ClCompile Include="spectalum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="monster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mediawrapper_ce.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mediawrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mazeobjects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="language.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="intro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="charmenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="3DEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="SFont.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +68,7 @@
     <ClInclude Include="3DEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="char.h">
+    <ClInclude Include="character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="charmenu.h">
@@ -92,10 +95,10 @@
     <ClInclude Include="mazeobjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="monster.h">
+    <ClInclude Include="mediawrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mediawrapper.h">
+    <ClInclude Include="monster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

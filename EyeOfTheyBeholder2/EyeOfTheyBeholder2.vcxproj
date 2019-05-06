@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DEngine.cpp" />
-    <ClCompile Include="char.cpp" />
+    <ClCompile Include="character.cpp" />
     <ClCompile Include="charmenu.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="event.cpp" />
@@ -30,13 +30,14 @@
     <ClCompile Include="map.cpp" />
     <ClCompile Include="mazeobjects.cpp" />
     <ClCompile Include="mediawrapper.cpp" />
+    <ClCompile Include="mediawrapper_ce.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="SFont.c" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="spectalum.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3DEngine.h" />
-    <ClInclude Include="char.h" />
+    <ClInclude Include="character.h" />
     <ClInclude Include="charmenu.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="event.h" />

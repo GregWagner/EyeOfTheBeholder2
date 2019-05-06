@@ -1,34 +1,69 @@
-#pragma warning(disable : 4996)
 
-#include "language.h"
-#include <cstdio>
-#include <string>
+/**********************************
+Class CLanguage
+***********************************/
+
+
+
+//
+// class initialisation
+//
+
+class CLanguage
+{
+public:
+
+	//Init
+	void init(short language);
+
+	short language;
+
+	char *text[2048];
+};
+
+//
+// Initialisierung
+//
 
 void CLanguage::init(short language = 0)
 {
-    // 0 = englisch, 1 = deutsch
-    this->language = language;
+	// 0 = englisch, 1 = deutsch
+	this->language = language;
+	
+	// Sprachfile öffnen
+	FILE *file;
+	char *fileName;
+	if(language == 0)
+		fileName = "data/english.lang";
+	if(language == 1)
+		fileName = "data/german.lang";
 
-    // Sprachfile öffnen
-    FILE* file;
-    std::string fileName;
-    if (language == 0)
-        fileName = "data/english.lang";
-    if (language == 1)
-        fileName = "data/german.lang";
+	#ifdef WINCE
+		char realFileName[128];
+		sprintf(realFileName, "\\eob2\\%s", fileName);
+		file = fopen (realFileName,"r");
+	#else
+		file = fopen (fileName,"r");
+	#endif
 
-    file = fopen(fileName.c_str(), "r");
+	//Inhalt Zeilenweise einlesen
+	char data[512];
+	short arrayPointer = 0;
+	while (!feof(file))
+	{
+		fgets (data , 512 , file);
+		if(strlen(data) > 1)
+		{
+			data[strlen(data)-1] = '\0';
+			#ifdef WINCE
+				text[arrayPointer++] = _strdup(data);
+			#else
+				text[arrayPointer++] = strdup(data);
+			#endif
+		}
+		data[0] = '\0';
+	}
+	fclose(file);
 
-    //Inhalt Zeilenweise einlesen
-    char data[512];
-    short arrayPointer = 0;
-    while (!feof(file)) {
-        fgets(data, 512, file);
-        if (strlen(data) > 1) {
-            data[strlen(data) - 1] = '\0';
-            text[arrayPointer++] = strdup(data);
-        }
-        data[0] = '\0';
-    }
-    fclose(file);
 }
+

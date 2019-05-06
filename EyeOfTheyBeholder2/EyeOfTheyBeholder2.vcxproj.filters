@@ -51,10 +51,10 @@
     <ClCompile Include="monster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="spectalum.cpp">
+    <ClCompile Include="SFont.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SFont.c">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

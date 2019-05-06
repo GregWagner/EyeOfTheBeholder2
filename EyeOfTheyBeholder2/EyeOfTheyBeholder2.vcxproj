@@ -32,7 +32,7 @@
     <ClCompile Include="mediawrapper.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="SFont.c" />
-    <ClCompile Include="spectalum.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3DEngine.h" />

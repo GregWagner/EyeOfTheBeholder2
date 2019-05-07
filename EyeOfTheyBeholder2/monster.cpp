@@ -498,14 +498,14 @@ void Monster::doAttack()
         short randnr = rand() % 2 + 1;
         if (randnr == 1) {
             for (short c = 0; c < 4; c++) {
-                if (character[c]->charID == charToAttack1) {
+                if (character[c]->mCharacterID == charToAttack1) {
                     character[c]->doDamage(damage);
                 }
             }
         }
         if (randnr == 2) {
             for (short c = 0; c < 4; c++) {
-                if (character[c]->charID == charToAttack2) {
+                if (character[c]->mCharacterID == charToAttack2) {
                     character[c]->doDamage(damage);
                 }
             }

@@ -2,10 +2,9 @@
 
 class Language {
 public:
-    //Init
     void init(short mLanguage);
 
-    short mLanguage;
+    char* mText[2048];
 
-    char* text[2048];
+private:
 };

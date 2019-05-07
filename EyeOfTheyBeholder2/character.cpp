@@ -7,21 +7,21 @@ void Char::init(MediaWrapper* mediaObject, Map* gameMap)
 {
     //Item Init
     this->mediaObject = mediaObject;
-    this->gameMap = gameMap;
-    this->itemHand[0] = 85;
-    this->itemHand[1] = 86;
+    this->mGameMap = gameMap;
+    this->mItemsInHand[0] = 85;
+    this->mItemsInHand[1] = 86;
     for (short i = 0; i < 14; i++)
-        this->itemInventar[i] = 52;
-    this->itemHead = 52;
-    this->itemNeck = 52;
-    this->itemTorso = 52;
-    this->itemBelt[0] = this->itemBelt[1] = this->itemBelt[2] = 52;
-    this->itemFoot = 52;
-    this->itemWrist = 52;
+        this->mItemsInInventory[i] = 52;
+    this->mItemOnHead = 52;
+    this->mItemAroundNeck = 52;
+    this->mItemOnTorso = 52;
+    this->mItemsOnBelt[0] = this->mItemsOnBelt[1] = this->mItemsOnBelt[2] = 52;
+    this->mItemOnFeet = 52;
+    this->mItemOnWrist = 52;
     this->damageTaken = this->damageDone[0] = this->damageDone[1] = false;
     this->damageDoneValue[0] = this->damageDoneValue[1] = 0;
     this->doDamageToMonster = -1;
-    this->menuPos = 0;
+    this->mMenuPos = 0;
 }
 
 // Schaden hinzufügen (diesem Char)
@@ -46,19 +46,19 @@ void Char::attackNow(short handPos)
 
     //Map-Position vor dem Spieler finden
     short frontPos = 0;
-    if (gameMap->playerFace == 0)
-        frontPos = gameMap->playerPos - 32;
-    if (gameMap->playerFace == 1)
-        frontPos = gameMap->playerPos + 32;
-    if (gameMap->playerFace == 2)
-        frontPos = gameMap->playerPos + 1;
-    if (gameMap->playerFace == 3)
-        frontPos = gameMap->playerPos - 1;
+    if (mGameMap->playerFace == 0)
+        frontPos = mGameMap->playerPos - 32;
+    if (mGameMap->playerFace == 1)
+        frontPos = mGameMap->playerPos + 32;
+    if (mGameMap->playerFace == 2)
+        frontPos = mGameMap->playerPos + 1;
+    if (mGameMap->playerFace == 3)
+        frontPos = mGameMap->playerPos - 1;
 
     //prüfen ob sich Monster vor dem Char befinden
     short monsterID = -1;
-    for (short m = 0; m < gameMap->monsterCount; m++)
-        if (gameMap->monsterInfo[m][0] == frontPos)
+    for (short m = 0; m < mGameMap->monsterCount; m++)
+        if (mGameMap->monsterInfo[m][0] == frontPos)
             monsterID = m;
 
     //wurde ein Monster gefunden diesem Schaden zufügen
@@ -79,60 +79,60 @@ void Char::attackNow(short handPos)
 void Char::saveChar(FILE* saveFile)
 {
     //ID des Chars im Spiel
-    fwrite(&charID, sizeof(short), 1, saveFile);
+    fwrite(&mCharacterID, sizeof(short), 1, saveFile);
 
     //Pos des Chars im Charmenu
-    fwrite(&menuPos, sizeof(short), 1, saveFile);
+    fwrite(&mMenuPos, sizeof(short), 1, saveFile);
 
     //Bild dieses Chars
-    fwrite(&imageID, sizeof(short), 1, saveFile);
+    fwrite(&mImageID, sizeof(short), 1, saveFile);
 
     //Items in den Händen des Chars
     for (int i = 0; i < 2; i++)
-        fwrite(&itemHand[i], sizeof(short), 1, saveFile);
+        fwrite(&mItemsInHand[i], sizeof(short), 1, saveFile);
 
     //Items im Inventar
     for (int i = 0; i < 14; i++)
-        fwrite(&itemInventar[i], sizeof(short), 1, saveFile);
+        fwrite(&mItemsInInventory[i], sizeof(short), 1, saveFile);
 
     //Kopf Item
-    fwrite(&itemHead, sizeof(short), 1, saveFile);
+    fwrite(&mItemOnHead, sizeof(short), 1, saveFile);
 
     //Hals Item
-    fwrite(&itemNeck, sizeof(short), 1, saveFile);
+    fwrite(&mItemAroundNeck, sizeof(short), 1, saveFile);
 
     //Brust Item
-    fwrite(&itemTorso, sizeof(short), 1, saveFile);
+    fwrite(&mItemOnTorso, sizeof(short), 1, saveFile);
 
     //Handgelenk Item
-    fwrite(&itemWrist, sizeof(short), 1, saveFile);
+    fwrite(&mItemOnWrist, sizeof(short), 1, saveFile);
 
     //Fuss Item
-    fwrite(&itemFoot, sizeof(short), 1, saveFile);
+    fwrite(&mItemOnFeet, sizeof(short), 1, saveFile);
 
     //Gürtel Items
     for (int i = 0; i < 3; i++)
-        fwrite(&itemBelt[i], sizeof(short), 1, saveFile);
+        fwrite(&mItemsOnBelt[i], sizeof(short), 1, saveFile);
 
     //Name des Chars
     for (int i = 0; i < 32; i++)
-        fwrite(&name[i], sizeof(char), 1, saveFile);
+        fwrite(&mName[i], sizeof(char), 1, saveFile);
 
     //Klasse
     for (int i = 0; i < 32; i++)
-        fwrite(&charclass[i], sizeof(char), 1, saveFile);
+        fwrite(&mClass[i], sizeof(char), 1, saveFile);
 
     //Ausrichtung
     for (int i = 0; i < 32; i++)
-        fwrite(&social[i], sizeof(char), 1, saveFile);
+        fwrite(&mSocial[i], sizeof(char), 1, saveFile);
 
     //Rasse
     for (int i = 0; i < 32; i++)
-        fwrite(&race[i], sizeof(char), 1, saveFile);
+        fwrite(&mRace[i], sizeof(char), 1, saveFile);
 
     //Geschlecht
     for (int i = 0; i < 8; i++)
-        fwrite(&gender[i], sizeof(char), 1, saveFile);
+        fwrite(&mGender[i], sizeof(char), 1, saveFile);
 
     //Hitpoints
     fwrite(&hp, sizeof(short), 1, saveFile);
@@ -173,67 +173,67 @@ void Char::saveChar(FILE* saveFile)
     fwrite(&lvl, sizeof(short), 1, saveFile);
 
     //Pfeile im Inv.
-    fwrite(&arrows, sizeof(short), 1, saveFile);
+    fwrite(&mNumberOfArrows, sizeof(short), 1, saveFile);
 }
 
 // Char laden
 void Char::loadChar(FILE* saveFile)
 {
     //ID des Chars im Spiel
-    fread(&charID, sizeof(short), 1, saveFile);
+    fread(&mCharacterID, sizeof(short), 1, saveFile);
 
     //Pos des Chars im Charmenu
-    fread(&menuPos, sizeof(short), 1, saveFile);
+    fread(&mMenuPos, sizeof(short), 1, saveFile);
 
     //Bild dieses Chars
-    fread(&imageID, sizeof(short), 1, saveFile);
+    fread(&mImageID, sizeof(short), 1, saveFile);
 
     //Items in den Händen des Chars
     for (int i = 0; i < 2; i++)
-        fread(&itemHand[i], sizeof(short), 1, saveFile);
+        fread(&mItemsInHand[i], sizeof(short), 1, saveFile);
 
     //Items im Inventar
     for (int i = 0; i < 14; i++)
-        fread(&itemInventar[i], sizeof(short), 1, saveFile);
+        fread(&mItemsInInventory[i], sizeof(short), 1, saveFile);
 
     //Kopf Item
-    fread(&itemHead, sizeof(short), 1, saveFile);
+    fread(&mItemOnHead, sizeof(short), 1, saveFile);
 
     //Hals Item
-    fread(&itemNeck, sizeof(short), 1, saveFile);
+    fread(&mItemAroundNeck, sizeof(short), 1, saveFile);
 
     //Brust Item
-    fread(&itemTorso, sizeof(short), 1, saveFile);
+    fread(&mItemOnTorso, sizeof(short), 1, saveFile);
 
     //Handgelenk Item
-    fread(&itemWrist, sizeof(short), 1, saveFile);
+    fread(&mItemOnWrist, sizeof(short), 1, saveFile);
 
     //Fuss Item
-    fread(&itemFoot, sizeof(short), 1, saveFile);
+    fread(&mItemOnFeet, sizeof(short), 1, saveFile);
 
     //Gürtel Items
     for (int i = 0; i < 3; i++)
-        fread(&itemBelt[i], sizeof(short), 1, saveFile);
+        fread(&mItemsOnBelt[i], sizeof(short), 1, saveFile);
 
     //Name des Chars
     for (int i = 0; i < 32; i++)
-        fread(&name[i], sizeof(char), 1, saveFile);
+        fread(&mName[i], sizeof(char), 1, saveFile);
 
     //Klasse
     for (int i = 0; i < 32; i++)
-        fread(&charclass[i], sizeof(char), 1, saveFile);
+        fread(&mClass[i], sizeof(char), 1, saveFile);
 
     //Ausrichtung
     for (int i = 0; i < 32; i++)
-        fread(&social[i], sizeof(char), 1, saveFile);
+        fread(&mSocial[i], sizeof(char), 1, saveFile);
 
     //Rasse
     for (int i = 0; i < 32; i++)
-        fread(&race[i], sizeof(char), 1, saveFile);
+        fread(&mRace[i], sizeof(char), 1, saveFile);
 
     //Geschlecht
     for (int i = 0; i < 8; i++)
-        fread(&gender[i], sizeof(char), 1, saveFile);
+        fread(&mGender[i], sizeof(char), 1, saveFile);
 
     //Hitpoints
     fread(&hp, sizeof(short), 1, saveFile);
@@ -274,5 +274,5 @@ void Char::loadChar(FILE* saveFile)
     fread(&lvl, sizeof(short), 1, saveFile);
 
     //Pfeile im Inv.
-    fread(&arrows, sizeof(short), 1, saveFile);
+    fread(&mNumberOfArrows, sizeof(short), 1, saveFile);
 }

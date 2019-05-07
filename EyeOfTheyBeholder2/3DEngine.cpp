@@ -44,7 +44,7 @@ Engine::Engine()
     // Initialize items
     mMediaObject.drawText(0, 20, 60, 255, 255, 255, "ITEM DATA ... ");
     mMediaObject.refresh();
-    mItem.init(&mMediaObject, mMapEvent, &mLanguageData);
+    mItem.init(&mMediaObject, &mLanguageData);
     mMediaObject.drawText(0, 140, 60, 255, 255, 255, "OK");
     mMediaObject.refresh();
 
@@ -52,14 +52,14 @@ Engine::Engine()
     mMediaObject.drawText(0, 20, 70, 255, 255, 255, "CHARACTER DATA ...");
     mMediaObject.refresh();
     mCharacter[0].init(&mMediaObject, mGameMap);
-    mCharacter[0].menuPos = 0;
-    mCharacter[0].charID = 0;
-    mCharacter[0].imageID = 0;
-    sprintf_s(mCharacter[0].name, "%s", "SHADUM");
-    sprintf_s(mCharacter[0].charclass, "%s", "PALADIN");
-    sprintf_s(mCharacter[0].social, "%s", "LAWFUL GOOD");
-    sprintf_s(mCharacter[0].race, "%s", "HUMAN");
-    sprintf_s(mCharacter[0].gender, "%s", "MALE");
+    mCharacter[0].mMenuPos = 0;
+    mCharacter[0].mCharacterID = 0;
+    mCharacter[0].mImageID = 0;
+    sprintf_s(mCharacter[0].mName, "%s", "SHADUM");
+    sprintf_s(mCharacter[0].mClass, "%s", "PALADIN");
+    sprintf_s(mCharacter[0].mSocial, "%s", "LAWFUL GOOD");
+    sprintf_s(mCharacter[0].mRace, "%s", "HUMAN");
+    sprintf_s(mCharacter[0].mGender, "%s", "MALE");
     mCharacter[0].hp = mCharacter[0].currenthp = 100;
     mCharacter[0].food = mCharacter[0].currentfood = 100;
     mCharacter[0].strength = 18;
@@ -72,18 +72,18 @@ Engine::Engine()
     mCharacter[0].armorclass = 1;
     mCharacter[0].exp = 69000;
     mCharacter[0].lvl = 6;
-    mCharacter[0].arrows = 0;
-    mCharacter[0].itemHand[0] = 1;
-    mCharacter[0].itemHand[1] = 23;
+    mCharacter[0].mNumberOfArrows = 0;
+    mCharacter[0].mItemsInHand[0] = 1;
+    mCharacter[0].mItemsInHand[1] = 23;
     mCharacter[1].init(&mMediaObject, mGameMap);
-    mCharacter[1].menuPos = 1;
-    mCharacter[1].charID = 1;
-    mCharacter[1].imageID = 1;
-    sprintf_s(mCharacter[1].name, "%s", "ZORG");
-    sprintf_s(mCharacter[1].charclass, "%s", "FIGHTER");
-    sprintf_s(mCharacter[1].social, "%s", "TRUE NEUTRAL");
-    sprintf_s(mCharacter[1].race, "%s", "DWARF");
-    sprintf_s(mCharacter[1].gender, "%s", "MALE");
+    mCharacter[1].mMenuPos = 1;
+    mCharacter[1].mCharacterID = 1;
+    mCharacter[1].mImageID = 1;
+    sprintf_s(mCharacter[1].mName, "%s", "ZORG");
+    sprintf_s(mCharacter[1].mClass, "%s", "FIGHTER");
+    sprintf_s(mCharacter[1].mSocial, "%s", "TRUE NEUTRAL");
+    sprintf_s(mCharacter[1].mRace, "%s", "DWARF");
+    sprintf_s(mCharacter[1].mGender, "%s", "MALE");
     mCharacter[1].hp = mCharacter[1].currenthp = 60;
     mCharacter[1].food = mCharacter[1].currentfood = 100;
     mCharacter[1].strength = 18;
@@ -96,18 +96,18 @@ Engine::Engine()
     mCharacter[1].armorclass = 0;
     mCharacter[1].exp = 69000;
     mCharacter[1].lvl = 6;
-    mCharacter[1].arrows = 0;
-    mCharacter[1].itemHand[0] = 1;
-    mCharacter[1].itemHand[1] = 23;
+    mCharacter[1].mNumberOfArrows = 0;
+    mCharacter[1].mItemsInHand[0] = 1;
+    mCharacter[1].mItemsInHand[1] = 23;
     mCharacter[2].init(&mMediaObject, mGameMap);
-    mCharacter[2].menuPos = 2;
-    mCharacter[2].charID = 2;
-    mCharacter[2].imageID = 2;
-    sprintf_s(mCharacter[2].name, "%s", "MERLIN");
-    sprintf_s(mCharacter[2].charclass, "%s", "CLERIC");
-    sprintf_s(mCharacter[2].social, "%s", "CHAOTIC GOOD");
-    sprintf_s(mCharacter[2].race, "%s", "HUMAN");
-    sprintf_s(mCharacter[2].gender, "%s", "MALE");
+    mCharacter[2].mMenuPos = 2;
+    mCharacter[2].mCharacterID = 2;
+    mCharacter[2].mImageID = 2;
+    sprintf_s(mCharacter[2].mName, "%s", "MERLIN");
+    sprintf_s(mCharacter[2].mClass, "%s", "CLERIC");
+    sprintf_s(mCharacter[2].mSocial, "%s", "CHAOTIC GOOD");
+    sprintf_s(mCharacter[2].mRace, "%s", "HUMAN");
+    sprintf_s(mCharacter[2].mGender, "%s", "MALE");
     mCharacter[2].hp = mCharacter[2].currenthp = 80;
     mCharacter[2].food = mCharacter[2].currentfood = 100;
     mCharacter[2].strength = 15;
@@ -120,18 +120,18 @@ Engine::Engine()
     mCharacter[2].armorclass = 6;
     mCharacter[2].exp = 69000;
     mCharacter[2].lvl = 7;
-    mCharacter[2].arrows = 0;
-    mCharacter[2].itemHand[0] = 1;
-    mCharacter[2].itemHand[1] = 23;
+    mCharacter[2].mNumberOfArrows = 0;
+    mCharacter[2].mItemsInHand[0] = 1;
+    mCharacter[2].mItemsInHand[1] = 23;
     mCharacter[3].init(&mMediaObject, mGameMap);
-    mCharacter[3].menuPos = 3;
-    mCharacter[3].charID = 3;
-    mCharacter[3].imageID = 31;
-    sprintf_s(mCharacter[3].name, "%s", "VALERIA");
-    sprintf_s(mCharacter[3].charclass, "%s", "MAGE");
-    sprintf_s(mCharacter[3].social, "%s", "GOOD");
-    sprintf_s(mCharacter[3].race, "%s", "ELF");
-    sprintf_s(mCharacter[3].gender, "%s", "FEMALE");
+    mCharacter[3].mMenuPos = 3;
+    mCharacter[3].mCharacterID = 3;
+    mCharacter[3].mImageID = 31;
+    sprintf_s(mCharacter[3].mName, "%s", "VALERIA");
+    sprintf_s(mCharacter[3].mClass, "%s", "MAGE");
+    sprintf_s(mCharacter[3].mSocial, "%s", "GOOD");
+    sprintf_s(mCharacter[3].mRace, "%s", "ELF");
+    sprintf_s(mCharacter[3].mGender, "%s", "FEMALE");
     mCharacter[3].hp = mCharacter[3].currenthp = 50;
     mCharacter[3].food = mCharacter[3].currentfood = 100;
     mCharacter[3].strength = 12;
@@ -144,9 +144,9 @@ Engine::Engine()
     mCharacter[3].armorclass = 1;
     mCharacter[3].exp = 69000;
     mCharacter[3].lvl = 7;
-    mCharacter[3].arrows = 0;
-    mCharacter[3].itemHand[0] = 1;
-    mCharacter[3].itemHand[1] = 23;
+    mCharacter[3].mNumberOfArrows = 0;
+    mCharacter[3].mItemsInHand[0] = 1;
+    mCharacter[3].mItemsInHand[1] = 23;
     mMediaObject.drawText(0, 140, 70, 255, 255, 255, "OK");
     mMediaObject.refresh();
 
@@ -163,7 +163,7 @@ Engine::Engine()
     mCharMenu.mouseItem = &mMouseItem;
 
     for (short i = 0; i < 4; i++) {
-        mMapEvent->chars[i] = &mCharacter[i];
+        mMapEvent->mChars[i] = &mCharacter[i];
     }
     mMediaObject.drawText(0, 140, 80, 255, 255, 255, "OK");
     mMediaObject.refresh();
@@ -222,7 +222,7 @@ void Engine::loadMap(short mapID, bool savedMap)
     // Forward the map to all the objects that need it
     mCharMenu.gameMap = mGameMap;
     for (short i = 0; i < 4; i++) {
-        mCharacter[i].gameMap = mGameMap;
+        mCharacter[i].mGameMap = mGameMap;
     }
 
     // Initialize monsters
@@ -250,11 +250,11 @@ void Engine::loadMap(short mapID, bool savedMap)
     }
     mMapEvent = new Event;
     for (short i = 0; i < 4; i++) {
-        mMapEvent->chars[i] = &mCharacter[i];
+        mMapEvent->mChars[i] = &mCharacter[i];
     }
     mMapEvent->init(mGameMap, &mMediaObject);
-    mMapEvent->languageData = &mLanguageData;
-    mMapEvent->statusMessage(mLanguageData.text[41]);
+    mMapEvent->mLanguageData = &mLanguageData;
+    mMapEvent->statusMessage(mLanguageData.mText[41]);
     mCharMenu.mapEvent = mMapEvent;
 }
 
@@ -357,7 +357,7 @@ void Engine::saveGame()
     }
     fclose(saveFile);
 
-    mMapEvent->statusMessage(mLanguageData.text[195]);
+    mMapEvent->statusMessage(mLanguageData.mText[195]);
 }
 
 // Redraw 3D windows
@@ -390,7 +390,7 @@ void Engine::updateView()
     mCharMenu.update();
     mMapEvent->updateStatusMessage();
 
-    if (mMapEvent->eventInProgress) {
+    if (mMapEvent->mEventInProgress) {
         // draw background
         mMediaObject.drawImage(150, 0, 0);
 
@@ -398,7 +398,7 @@ void Engine::updateView()
         // Update events and draw
         mMapEvent->update();
 
-        if (mMapEvent->showGameWindow) {
+        if (mMapEvent->mShowGameWindow) {
             if (mDrawBackground) {
                 mMediaObject.drawImage(163, 0, 0, 0, 0, 176, 120);
             } else {
@@ -408,15 +408,15 @@ void Engine::updateView()
         }
 
         // Check for map changes
-        if (mMapEvent->mapChange) {
+        if (mMapEvent->mMapChange) {
             mSaveStatusGameMap[mCurrentMapID] = nullptr;
             mSaveStatusGameMap[mCurrentMapID] = new Map;
             *mSaveStatusGameMap[mCurrentMapID] = *mGameMap;
 
-            mMapEvent->mapChange = false;
-            short mapID = mMapEvent->newMapID;
-            short warpToPos = mMapEvent->warpToPos;
-            short faceTo = mMapEvent->faceTo;
+            mMapEvent->mMapChange = false;
+            short mapID = mMapEvent->mNewMapID;
+            short warpToPos = mMapEvent->mWarpToPos;
+            short faceTo = mMapEvent->mFaceTo;
 
             // Delete all monsters
             for (short m = 0; m < 128; m++) {
@@ -501,13 +501,13 @@ void Engine::drawStuff(short mapWall, short wNr)
             //         printf("map %d: %d, %d\n", mapWall, item.largePicID[gameMap->item[mapWall][i]], wNr);
 
             // check which image is taken: ITEMS1.CPS (0-30), then ITEML1.CPS (31-45)
-            imageID = mItem.largePicID[mGameMap->item[mapWall][i]] < 31 ? 211 : 212;
+            imageID = mItem.mLargePicID[mGameMap->item[mapWall][i]] < 31 ? 211 : 212;
             if (imageID == 211) {
-                fromPosX = (mItem.largePicID[mGameMap->item[mapWall][i]] * 32) % 128;
-                fromPosY = (mItem.largePicID[mGameMap->item[mapWall][i]] / 4) * 24;
+                fromPosX = (mItem.mLargePicID[mGameMap->item[mapWall][i]] * 32) % 128;
+                fromPosY = (mItem.mLargePicID[mGameMap->item[mapWall][i]] / 4) * 24;
             } else if (imageID == 212) {
-                fromPosX = ((mItem.largePicID[mGameMap->item[mapWall][i]] - 31) * 64) % 128;
-                fromPosY = ((mItem.largePicID[mGameMap->item[mapWall][i]] - 31) / 2) * 24;
+                fromPosX = ((mItem.mLargePicID[mGameMap->item[mapWall][i]] - 31) * 64) % 128;
+                fromPosY = ((mItem.mLargePicID[mGameMap->item[mapWall][i]] - 31) / 2) * 24;
             }
 
             // left or right
@@ -1057,27 +1057,27 @@ bool Engine::checkWallCollision(short direction)
     if (direction == 0) {
         if (mGameMap->playerFace == 0) {
             if (mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols];
-                mMapEvent->mapPos = mGameMap->playerPos - mGameMap->mapCols;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols];
+                mMapEvent->mMapPos = mGameMap->playerPos - mGameMap->mapCols;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos - mGameMap->mapCols))
                 collision = true;
         }
         if (mGameMap->playerFace == 1) {
             if (mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols];
-                mMapEvent->mapPos = mGameMap->playerPos + mGameMap->mapCols;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols];
+                mMapEvent->mMapPos = mGameMap->playerPos + mGameMap->mapCols;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos + mGameMap->mapCols))
                 collision = true;
         }
         if (mGameMap->playerFace == 3) {
             if (mGameMap->mapEvent[mGameMap->playerPos - 1] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos - 1];
-                mMapEvent->mapPos = mGameMap->playerPos - 1;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos - 1];
+                mMapEvent->mMapPos = mGameMap->playerPos - 1;
+                mMapEvent->mEventInProgress = true;
             }
 
             if (mGameMap->isSolidWall(0, mGameMap->playerPos - 1))
@@ -1085,9 +1085,9 @@ bool Engine::checkWallCollision(short direction)
         }
         if (mGameMap->playerFace == 2) {
             if (mGameMap->mapEvent[mGameMap->playerPos + 1] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos + 1];
-                mMapEvent->mapPos = mGameMap->playerPos + 1;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos + 1];
+                mMapEvent->mMapPos = mGameMap->playerPos + 1;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos + 1))
                 collision = true;
@@ -1098,36 +1098,36 @@ bool Engine::checkWallCollision(short direction)
     if (direction == 1) {
         if (mGameMap->playerFace == 0) {
             if (mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols];
-                mMapEvent->mapPos = mGameMap->playerPos + mGameMap->mapCols;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols];
+                mMapEvent->mMapPos = mGameMap->playerPos + mGameMap->mapCols;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos + mGameMap->mapCols))
                 collision = true;
         }
         if (mGameMap->playerFace == 1) {
             if (mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols];
-                mMapEvent->mapPos = mGameMap->playerPos - mGameMap->mapCols;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols];
+                mMapEvent->mMapPos = mGameMap->playerPos - mGameMap->mapCols;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos - mGameMap->mapCols))
                 collision = true;
         }
         if (mGameMap->playerFace == 3) {
             if (mGameMap->mapEvent[mGameMap->playerPos + 1] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos + 1];
-                mMapEvent->mapPos = mGameMap->playerPos + 1;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos + 1];
+                mMapEvent->mMapPos = mGameMap->playerPos + 1;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos + 1))
                 collision = true;
         }
         if (mGameMap->playerFace == 2) {
             if (mGameMap->mapEvent[mGameMap->playerPos - 1] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos - 1];
-                mMapEvent->mapPos = mGameMap->playerPos - 1;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos - 1];
+                mMapEvent->mMapPos = mGameMap->playerPos - 1;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos - 1))
                 collision = true;
@@ -1138,36 +1138,36 @@ bool Engine::checkWallCollision(short direction)
     if (direction == 2) {
         if (mGameMap->playerFace == 0) {
             if (mGameMap->mapEvent[mGameMap->playerPos - 1] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos - 1];
-                mMapEvent->mapPos = mGameMap->playerPos - 1;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos - 1];
+                mMapEvent->mMapPos = mGameMap->playerPos - 1;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos - 1))
                 collision = true;
         }
         if (mGameMap->playerFace == 1) {
             if (mGameMap->mapEvent[mGameMap->playerPos + 1] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos + 1];
-                mMapEvent->mapPos = mGameMap->playerPos + 1;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos + 1];
+                mMapEvent->mMapPos = mGameMap->playerPos + 1;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos + 1))
                 collision = true;
         }
         if (mGameMap->playerFace == 3) {
             if (mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols];
-                mMapEvent->mapPos = mGameMap->playerPos + mGameMap->mapCols;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols];
+                mMapEvent->mMapPos = mGameMap->playerPos + mGameMap->mapCols;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos + mGameMap->mapCols))
                 collision = true;
         }
         if (mGameMap->playerFace == 2) {
             if (mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols];
-                mMapEvent->mapPos = mGameMap->playerPos - mGameMap->mapCols;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols];
+                mMapEvent->mMapPos = mGameMap->playerPos - mGameMap->mapCols;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos - mGameMap->mapCols))
                 collision = true;
@@ -1178,36 +1178,36 @@ bool Engine::checkWallCollision(short direction)
     if (direction == 3) {
         if (mGameMap->playerFace == 0) {
             if (mGameMap->mapEvent[mGameMap->playerPos + 1] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos + 1];
-                mMapEvent->mapPos = mGameMap->playerPos + 1;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos + 1];
+                mMapEvent->mMapPos = mGameMap->playerPos + 1;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos + 1))
                 collision = true;
         }
         if (mGameMap->playerFace == 1) {
             if (mGameMap->mapEvent[mGameMap->playerPos - 1] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos - 1];
-                mMapEvent->mapPos = mGameMap->playerPos - 1;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos - 1];
+                mMapEvent->mMapPos = mGameMap->playerPos - 1;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos - 1))
                 collision = true;
         }
         if (mGameMap->playerFace == 3) {
             if (mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols];
-                mMapEvent->mapPos = mGameMap->playerPos - mGameMap->mapCols;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos - mGameMap->mapCols];
+                mMapEvent->mMapPos = mGameMap->playerPos - mGameMap->mapCols;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos - mGameMap->mapCols))
                 collision = true;
         }
         if (mGameMap->playerFace == 2) {
             if (mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols] > 0) {
-                mMapEvent->eventTyp = mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols];
-                mMapEvent->mapPos = mGameMap->playerPos + mGameMap->mapCols;
-                mMapEvent->eventInProgress = true;
+                mMapEvent->mEventType = mGameMap->mapEvent[mGameMap->playerPos + mGameMap->mapCols];
+                mMapEvent->mMapPos = mGameMap->playerPos + mGameMap->mapCols;
+                mMapEvent->mEventInProgress = true;
             }
             if (mGameMap->isSolidWall(0, mGameMap->playerPos + mGameMap->mapCols))
                 collision = true;
@@ -1362,10 +1362,10 @@ void Engine::mouseState()
     mCharMenu.mouseY = this->mRealMouseY;
 
     // Process events
-    mMapEvent->mousePosX = mMousePosX;
-    mMapEvent->mousePosY = mMousePosY;
+    mMapEvent->mMousePosX = mMousePosX;
+    mMapEvent->mMousePosY = mMousePosY;
 
-    if (mMapEvent->eventInProgress) {
+    if (mMapEvent->mEventInProgress) {
         if (mButtonLeft) {
             mMapEvent->mouseState(mMousePosX, mMousePosY);
         }
@@ -1405,9 +1405,9 @@ void Engine::mouseState()
 
                 // Trigger even if available
                 if (mGameMap->mapEvent[wallToCheck] > 0) {
-                    mMapEvent->eventTyp = mGameMap->mapEvent[wallToCheck];
-                    mMapEvent->clickedMapPos = wallToCheck;
-                    mMapEvent->eventInProgress = true;
+                    mMapEvent->mEventType = mGameMap->mapEvent[wallToCheck];
+                    mMapEvent->mClickedMapPos = wallToCheck;
+                    mMapEvent->mEventInProgress = true;
                 }
                 // printf("%d\n", wallToCheck);
             }
@@ -1527,7 +1527,7 @@ void Engine::handleGameWindowClick(int mousePosX, int mousePosY)
 
     if (mMouseItemOld != mMouseItem && mMouseItem != 0) {
         char temp[256];
-        sprintf_s(temp, "%s %s", mItem.itemName[mMouseItem], mLanguageData.text[42]);
+        sprintf_s(temp, "%s %s", mItem.mItemName[mMouseItem], mLanguageData.mText[42]);
         mMapEvent->statusMessage(temp);
     }
 }

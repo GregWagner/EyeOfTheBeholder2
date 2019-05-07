@@ -7,70 +7,69 @@
 
 class Event {
 public:
-    //Init
     void init(Map* map, MediaWrapper* mediaObject);
 
-    //Events löschen
+    // Delete events
     void clear();
 
-    //Maus Events verarbeiten
+    // Process mouse events
     void mouseState(short posX, short posY);
 
-    //diverse Zeichenoperationen
+    // Various drawing operations
     void drawEventMessageBackground();
     void drawEventButton(char* text, short posX, short posY);
 
-    //Eventimage laden
+    // Event image load
     void loadEventImage(short imageID, short image);
 
-    //updaten, Events verarbeiten
     void update();
     void updateStatusMessage();
 
-    //Statustext im Statusfenster ausgeben
+    // Send statu message to status window
     void statusMessage(char text[128]);
 
-    //Media Objekt
-    MediaWrapper* mediaObject;
+    // Texts
+    Language* mLanguageData { nullptr };
 
-    //Texte
-    Language* languageData;
+    // Characters
+    Char* mChars[4];
 
-    //Charactere
-    Char* chars[4];
+    short mEventType { -1 };
 
-    //Event Typ
-    short eventTyp;
+    // Map Position
+    short mMapPos {};
+    short mClickedMapPos {};
 
-    //Map Position
-    short mapPos;
-    short clickedMapPos;
+    bool mShowGameWindow {};
+    bool mMapChange {};
 
-    //Event Forschritt
-    short progress;
+    short mNewMapID {};
+    short mWarpToPos {};
+    short mFaceTo {};
 
-    //3D Fenster weiterhin anzeigen
-    bool showGameWindow;
+    short mMousePosX {};
+    short mMousePosY {};
 
-    //Map
-    Map* map;
-    bool mapChange;
-    short newMapID, warpToPos, faceTo;
+    // Pause game when true
+    bool mEventInProgress {};
 
-    //Maus
-    short mousePosX, mousePosY;
-    bool mouseClicked;
+private:
+    MediaWrapper* mMediaObject { nullptr };
 
-    //wenn true = Game Pause
-    bool eventInProgress;
+    // Event step forward
+    short mProgress {};
 
-    //Statustext - 2 Zeilen
-    char statusText[2][256];
-    char line[256];
+    Map* mMap { nullptr };
 
-    //Timer
-    long time, time_change, next_anim_frame;
+    bool mMouseClicked {};
 
-    //Event Folge
-    bool sequenceEvent;
+    // Status text - 2 lines
+    char mStatusText[2][256];
+    char mLine[256];
+
+    // Timers
+    long mTime, mTimeChange, mNextAnimFrame;
+
+    // Event episode
+    bool mSequenceEvent {};
 };

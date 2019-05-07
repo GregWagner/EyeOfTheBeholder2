@@ -4,30 +4,25 @@
 #include <cstdio>
 #include <string>
 
-// Initialisierung
-void Language::init(short mLanguage = 0)
+void Language::init(short language = 0)
 {
-    // 0 = englisch, 1 = deutsch
-    this->mLanguage = mLanguage;
-
-    // Sprachfile öffnen
+    // 0 = English, 1 = German
     FILE* file;
     std::string fileName;
-    if (mLanguage == 0)
+    if (language == 0)
         fileName = "data/english.lang";
-    if (mLanguage == 1)
+    if (language == 1)
         fileName = "data/german.lang";
 
     file = fopen(fileName.c_str(), "r");
 
-    //Inhalt Zeilenweise einlesen
     char data[512];
     short arrayPointer = 0;
     while (!feof(file)) {
         fgets(data, 512, file);
         if (strlen(data) > 1) {
             data[strlen(data) - 1] = '\0';
-            text[arrayPointer++] = strdup(data);
+            mText[arrayPointer++] = strdup(data);
         }
         data[0] = '\0';
     }

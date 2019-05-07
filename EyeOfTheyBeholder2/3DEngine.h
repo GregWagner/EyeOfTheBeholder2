@@ -67,7 +67,7 @@ private:
     Language mLanguageData;
 
     Char mCharacter[4];
-    Monster* mMonster[128];
+    Monster* mMonster[128] {};
 
     Item mItem;
 

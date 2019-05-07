@@ -30,20 +30,20 @@ void CharMenu::initMenu(MediaWrapper* mediaObject, Event* mapEvent)
     mediaObject->loadCPS(202, "original/INVENT.CPS", "original/SILVER.PAL", 178, 0, 142, 167);
 
     //Character Portrait Grafiken laden, Quelle: CHARGENA.CPS und SILVER.PAL
-    short posX = ((character[menuPosID[0]]->imageID % 10)) * 32;
-    short posY = character[menuPosID[0]]->imageID / 10 * 32;
+    short posX = ((character[menuPosID[0]]->mImageID % 10)) * 32;
+    short posY = character[menuPosID[0]]->mImageID / 10 * 32;
     mediaObject->loadCPS(220, "original/CHARGENA.CPS", "original/SILVER.PAL", posX, posY, 31, 32);
 
-    posX = ((character[menuPosID[1]]->imageID % 10)) * 32;
-    posY = character[menuPosID[1]]->imageID / 10 * 32;
+    posX = ((character[menuPosID[1]]->mImageID % 10)) * 32;
+    posY = character[menuPosID[1]]->mImageID / 10 * 32;
     mediaObject->loadCPS(221, "original/CHARGENA.CPS", "original/SILVER.PAL", posX, posY, 31, 32);
 
-    posX = ((character[menuPosID[2]]->imageID % 10)) * 32;
-    posY = character[menuPosID[2]]->imageID / 10 * 32;
+    posX = ((character[menuPosID[2]]->mImageID % 10)) * 32;
+    posY = character[menuPosID[2]]->mImageID / 10 * 32;
     mediaObject->loadCPS(222, "original/CHARGENA.CPS", "original/SILVER.PAL", posX, posY, 31, 32);
 
-    posX = ((character[menuPosID[3]]->imageID % 10)) * 32;
-    posY = character[menuPosID[3]]->imageID / 10 * 32;
+    posX = ((character[menuPosID[3]]->mImageID % 10)) * 32;
+    posY = character[menuPosID[3]]->mImageID / 10 * 32;
     mediaObject->loadCPS(223, "original/CHARGENA.CPS", "original/SILVER.PAL", posX, posY, 31, 32);
 }
 
@@ -140,8 +140,8 @@ void CharMenu::drawItemOverlayNotReachable(short posX, short posY)
     mediaObject->fillRect(posX, posY + 15, 31, 1, 112, 8, 32);
     mediaObject->fillRect(posX, posY, 1, 16, 112, 8, 32);
     mediaObject->fillRect(posX + 1, posY + 1, 29, 14, 184, 8, 8);
-    mediaObject->drawText(0, posX + 1, posY, 255, 255, 255, languageData->text[180]);
-    mediaObject->drawText(0, posX + 1, posY + 6, 255, 255, 255, languageData->text[181]);
+    mediaObject->drawText(0, posX + 1, posY, 255, 255, 255, languageData->mText[180]);
+    mediaObject->drawText(0, posX + 1, posY + 6, 255, 255, 255, languageData->mText[181]);
 }
 
 // Maus Klicks verarbeiten
@@ -230,7 +230,7 @@ void CharMenu::mouseState(short posX, short posY, bool buttonLeft = true)
 
     if (this->mouseItem != NULL && mouseItemOld != *this->mouseItem && *this->mouseItem != 0) {
         char temp[256];
-        sprintf_s(temp, "%s %s", item->itemName[*this->mouseItem], languageData->text[42]);
+        sprintf_s(temp, "%s %s", item->mItemName[*this->mouseItem], languageData->mText[42]);
         mapEvent->statusMessage(temp);
     }
 }
@@ -245,17 +245,17 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
     //Char 0
     if (posX >= 217 && posX <= 246 && posY >= 12 && posY <= 26) {
         if (buttonLeft && posX <= 246 - ppc_offset) {
-            if (character[menuPosID[0]]->itemHand[0] != 85) {
+            if (character[menuPosID[0]]->mItemsInHand[0] != 85) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[0]]->itemHand[0];
+                *this->mouseItem = character[menuPosID[0]]->mItemsInHand[0];
                 if (memory > 0)
-                    character[menuPosID[0]]->itemHand[0] = memory;
+                    character[menuPosID[0]]->mItemsInHand[0] = memory;
                 else
-                    character[menuPosID[0]]->itemHand[0] = 85;
+                    character[menuPosID[0]]->mItemsInHand[0] = 85;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[0]]->itemHand[0];
-                    character[menuPosID[0]]->itemHand[0] = *this->mouseItem;
+                    memory = character[menuPosID[0]]->mItemsInHand[0];
+                    character[menuPosID[0]]->mItemsInHand[0] = *this->mouseItem;
                     if (memory == 85)
                         *this->mouseItem = 0;
                     else
@@ -263,28 +263,28 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
                 }
             }
         } else if (character[menuPosID[0]]->currenthp > 10) {
-            if (!attackInProgress[menuPosID[0]][0] && item->itemTyp[character[menuPosID[0]]->itemHand[0]] == 1) {
+            if (!attackInProgress[menuPosID[0]][0] && item->mItemTyp[character[menuPosID[0]]->mItemsInHand[0]] == 1) {
                 attackTimer[menuPosID[0]][0] = mediaObject->getMilliSeconds() + attackInterval;
                 attackInProgress[menuPosID[0]][0] = true;
-                if (character[menuPosID[0]]->charID <= 1)
+                if (character[menuPosID[0]]->mCharacterID <= 1)
                     character[menuPosID[0]]->attackNow(0);
-            } else if (!attackInProgress[menuPosID[0]][0] && item->itemTyp[character[menuPosID[0]]->itemHand[0]] != 1)
-                mapEvent->statusMessage(languageData->text[165]);
+            } else if (!attackInProgress[menuPosID[0]][0] && item->mItemTyp[character[menuPosID[0]]->mItemsInHand[0]] != 1)
+                mapEvent->statusMessage(languageData->mText[165]);
         }
     }
     if (posX >= 217 && posX <= 246 && posY >= 28 && posY <= 42) {
         if (buttonLeft && posX <= 246 - ppc_offset) {
-            if (character[menuPosID[0]]->itemHand[1] != 86) {
+            if (character[menuPosID[0]]->mItemsInHand[1] != 86) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[0]]->itemHand[1];
+                *this->mouseItem = character[menuPosID[0]]->mItemsInHand[1];
                 if (memory > 0)
-                    character[menuPosID[0]]->itemHand[1] = memory;
+                    character[menuPosID[0]]->mItemsInHand[1] = memory;
                 else
-                    character[menuPosID[0]]->itemHand[1] = 86;
+                    character[menuPosID[0]]->mItemsInHand[1] = 86;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[0]]->itemHand[1];
-                    character[menuPosID[0]]->itemHand[1] = *this->mouseItem;
+                    memory = character[menuPosID[0]]->mItemsInHand[1];
+                    character[menuPosID[0]]->mItemsInHand[1] = *this->mouseItem;
                     if (memory == 86)
                         *this->mouseItem = 0;
                     else
@@ -292,30 +292,30 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
                 }
             }
         } else if (character[menuPosID[0]]->currenthp > 10) {
-            if (!attackInProgress[menuPosID[0]][1] && item->itemTyp[character[menuPosID[0]]->itemHand[1]] == 1) {
+            if (!attackInProgress[menuPosID[0]][1] && item->mItemTyp[character[menuPosID[0]]->mItemsInHand[1]] == 1) {
                 attackTimer[menuPosID[0]][1] = mediaObject->getMilliSeconds() + attackInterval;
                 attackInProgress[menuPosID[0]][1] = true;
-                if (character[menuPosID[0]]->charID <= 1)
+                if (character[menuPosID[0]]->mCharacterID <= 1)
                     character[menuPosID[0]]->attackNow(1);
-            } else if (!attackInProgress[menuPosID[0]][1] && item->itemTyp[character[menuPosID[0]]->itemHand[1]] != 1)
-                mapEvent->statusMessage(languageData->text[165]);
+            } else if (!attackInProgress[menuPosID[0]][1] && item->mItemTyp[character[menuPosID[0]]->mItemsInHand[1]] != 1)
+                mapEvent->statusMessage(languageData->mText[165]);
         }
     }
 
     //Char 1
     if (posX >= 289 && posX <= 318 && posY >= 12 && posY <= 26) {
         if (buttonLeft && posX <= 318 - ppc_offset) {
-            if (character[menuPosID[1]]->itemHand[0] != 85) {
+            if (character[menuPosID[1]]->mItemsInHand[0] != 85) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[1]]->itemHand[0];
+                *this->mouseItem = character[menuPosID[1]]->mItemsInHand[0];
                 if (memory > 0)
-                    character[menuPosID[1]]->itemHand[0] = memory;
+                    character[menuPosID[1]]->mItemsInHand[0] = memory;
                 else
-                    character[menuPosID[1]]->itemHand[0] = 85;
+                    character[menuPosID[1]]->mItemsInHand[0] = 85;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[1]]->itemHand[0];
-                    character[menuPosID[1]]->itemHand[0] = *this->mouseItem;
+                    memory = character[menuPosID[1]]->mItemsInHand[0];
+                    character[menuPosID[1]]->mItemsInHand[0] = *this->mouseItem;
                     if (memory == 85)
                         *this->mouseItem = 0;
                     else
@@ -323,28 +323,28 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
                 }
             }
         } else if (character[menuPosID[1]]->currenthp > 10) {
-            if (!attackInProgress[menuPosID[1]][0] && item->itemTyp[character[menuPosID[1]]->itemHand[0]] == 1) {
+            if (!attackInProgress[menuPosID[1]][0] && item->mItemTyp[character[menuPosID[1]]->mItemsInHand[0]] == 1) {
                 attackTimer[menuPosID[1]][0] = mediaObject->getMilliSeconds() + attackInterval;
                 attackInProgress[menuPosID[1]][0] = true;
-                if (character[menuPosID[1]]->charID <= 1)
+                if (character[menuPosID[1]]->mCharacterID <= 1)
                     character[menuPosID[1]]->attackNow(0);
-            } else if (!attackInProgress[menuPosID[1]][0] && item->itemTyp[character[menuPosID[1]]->itemHand[0]] != 1)
-                mapEvent->statusMessage(languageData->text[165]);
+            } else if (!attackInProgress[menuPosID[1]][0] && item->mItemTyp[character[menuPosID[1]]->mItemsInHand[0]] != 1)
+                mapEvent->statusMessage(languageData->mText[165]);
         }
     }
     if (posX >= 289 && posX <= 318 && posY >= 28 && posY <= 42) {
         if (buttonLeft && posX <= 318 - ppc_offset) {
-            if (character[menuPosID[1]]->itemHand[1] != 86) {
+            if (character[menuPosID[1]]->mItemsInHand[1] != 86) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[1]]->itemHand[1];
+                *this->mouseItem = character[menuPosID[1]]->mItemsInHand[1];
                 if (memory > 0)
-                    character[menuPosID[1]]->itemHand[1] = memory;
+                    character[menuPosID[1]]->mItemsInHand[1] = memory;
                 else
-                    character[menuPosID[1]]->itemHand[1] = 86;
+                    character[menuPosID[1]]->mItemsInHand[1] = 86;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[1]]->itemHand[1];
-                    character[menuPosID[1]]->itemHand[1] = *this->mouseItem;
+                    memory = character[menuPosID[1]]->mItemsInHand[1];
+                    character[menuPosID[1]]->mItemsInHand[1] = *this->mouseItem;
                     if (memory == 86)
                         *this->mouseItem = 0;
                     else
@@ -352,30 +352,30 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
                 }
             }
         } else if (character[menuPosID[1]]->currenthp > 10) {
-            if (!attackInProgress[menuPosID[1]][1] && item->itemTyp[character[menuPosID[1]]->itemHand[1]] == 1) {
+            if (!attackInProgress[menuPosID[1]][1] && item->mItemTyp[character[menuPosID[1]]->mItemsInHand[1]] == 1) {
                 attackTimer[menuPosID[1]][1] = mediaObject->getMilliSeconds() + attackInterval;
                 attackInProgress[menuPosID[1]][1] = true;
-                if (character[menuPosID[1]]->charID <= 1)
+                if (character[menuPosID[1]]->mCharacterID <= 1)
                     character[menuPosID[1]]->attackNow(1);
-            } else if (!attackInProgress[menuPosID[1]][1] && item->itemTyp[character[menuPosID[1]]->itemHand[1]] != 1)
-                mapEvent->statusMessage(languageData->text[165]);
+            } else if (!attackInProgress[menuPosID[1]][1] && item->mItemTyp[character[menuPosID[1]]->mItemsInHand[1]] != 1)
+                mapEvent->statusMessage(languageData->mText[165]);
         }
     }
 
     //Char 2
     if (posX >= 217 && posX <= 246 && posY >= 64 && posY <= 78) {
         if (buttonLeft && posX <= 246 - ppc_offset) {
-            if (character[menuPosID[2]]->itemHand[0] != 85) {
+            if (character[menuPosID[2]]->mItemsInHand[0] != 85) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[2]]->itemHand[0];
+                *this->mouseItem = character[menuPosID[2]]->mItemsInHand[0];
                 if (memory > 0)
-                    character[menuPosID[2]]->itemHand[0] = memory;
+                    character[menuPosID[2]]->mItemsInHand[0] = memory;
                 else
-                    character[menuPosID[2]]->itemHand[0] = 85;
+                    character[menuPosID[2]]->mItemsInHand[0] = 85;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[2]]->itemHand[0];
-                    character[menuPosID[2]]->itemHand[0] = *this->mouseItem;
+                    memory = character[menuPosID[2]]->mItemsInHand[0];
+                    character[menuPosID[2]]->mItemsInHand[0] = *this->mouseItem;
                     if (memory == 85)
                         *this->mouseItem = 0;
                     else
@@ -383,28 +383,28 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
                 }
             }
         } else if (character[menuPosID[2]]->currenthp > 10) {
-            if (!attackInProgress[menuPosID[2]][0] && item->itemTyp[character[menuPosID[2]]->itemHand[0]] == 1) {
+            if (!attackInProgress[menuPosID[2]][0] && item->mItemTyp[character[menuPosID[2]]->mItemsInHand[0]] == 1) {
                 attackTimer[menuPosID[2]][0] = mediaObject->getMilliSeconds() + attackInterval;
                 attackInProgress[menuPosID[2]][0] = true;
-                if (character[menuPosID[2]]->charID <= 1)
+                if (character[menuPosID[2]]->mCharacterID <= 1)
                     character[menuPosID[2]]->attackNow(0);
-            } else if (!attackInProgress[menuPosID[2]][0] && item->itemTyp[character[menuPosID[2]]->itemHand[0]] != 1)
-                mapEvent->statusMessage(languageData->text[165]);
+            } else if (!attackInProgress[menuPosID[2]][0] && item->mItemTyp[character[menuPosID[2]]->mItemsInHand[0]] != 1)
+                mapEvent->statusMessage(languageData->mText[165]);
         }
     }
     if (posX >= 217 && posX <= 246 && posY >= 80 && posY <= 94) {
         if (buttonLeft && posX <= 246 - ppc_offset) {
-            if (character[menuPosID[2]]->itemHand[1] != 86) {
+            if (character[menuPosID[2]]->mItemsInHand[1] != 86) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[2]]->itemHand[1];
+                *this->mouseItem = character[menuPosID[2]]->mItemsInHand[1];
                 if (memory > 0)
-                    character[menuPosID[2]]->itemHand[1] = memory;
+                    character[menuPosID[2]]->mItemsInHand[1] = memory;
                 else
-                    character[menuPosID[2]]->itemHand[1] = 86;
+                    character[menuPosID[2]]->mItemsInHand[1] = 86;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[2]]->itemHand[1];
-                    character[menuPosID[2]]->itemHand[1] = *this->mouseItem;
+                    memory = character[menuPosID[2]]->mItemsInHand[1];
+                    character[menuPosID[2]]->mItemsInHand[1] = *this->mouseItem;
                     if (memory == 86)
                         *this->mouseItem = 0;
                     else
@@ -412,30 +412,30 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
                 }
             }
         } else if (character[menuPosID[2]]->currenthp > 10) {
-            if (!attackInProgress[menuPosID[2]][1] && item->itemTyp[character[menuPosID[2]]->itemHand[1]] == 1) {
+            if (!attackInProgress[menuPosID[2]][1] && item->mItemTyp[character[menuPosID[2]]->mItemsInHand[1]] == 1) {
                 attackTimer[menuPosID[2]][1] = mediaObject->getMilliSeconds() + attackInterval;
                 attackInProgress[menuPosID[2]][1] = true;
-                if (character[menuPosID[2]]->charID <= 1)
+                if (character[menuPosID[2]]->mCharacterID <= 1)
                     character[menuPosID[2]]->attackNow(1);
-            } else if (!attackInProgress[menuPosID[2]][1] && item->itemTyp[character[menuPosID[2]]->itemHand[1]] != 1)
-                mapEvent->statusMessage(languageData->text[165]);
+            } else if (!attackInProgress[menuPosID[2]][1] && item->mItemTyp[character[menuPosID[2]]->mItemsInHand[1]] != 1)
+                mapEvent->statusMessage(languageData->mText[165]);
         }
     }
 
     //Char 3
     if (posX >= 289 && posX <= 318 && posY >= 64 && posY <= 78) {
         if (buttonLeft && posX <= 318 - ppc_offset) {
-            if (character[menuPosID[3]]->itemHand[0] != 85) {
+            if (character[menuPosID[3]]->mItemsInHand[0] != 85) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[3]]->itemHand[0];
+                *this->mouseItem = character[menuPosID[3]]->mItemsInHand[0];
                 if (memory > 0)
-                    character[menuPosID[3]]->itemHand[0] = memory;
+                    character[menuPosID[3]]->mItemsInHand[0] = memory;
                 else
-                    character[menuPosID[3]]->itemHand[0] = 85;
+                    character[menuPosID[3]]->mItemsInHand[0] = 85;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[3]]->itemHand[0];
-                    character[menuPosID[3]]->itemHand[0] = *this->mouseItem;
+                    memory = character[menuPosID[3]]->mItemsInHand[0];
+                    character[menuPosID[3]]->mItemsInHand[0] = *this->mouseItem;
                     if (memory == 85)
                         *this->mouseItem = 0;
                     else
@@ -443,28 +443,28 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
                 }
             }
         } else if (character[menuPosID[3]]->currenthp > 10) {
-            if (!attackInProgress[menuPosID[3]][0] && item->itemTyp[character[menuPosID[3]]->itemHand[0]] == 1) {
+            if (!attackInProgress[menuPosID[3]][0] && item->mItemTyp[character[menuPosID[3]]->mItemsInHand[0]] == 1) {
                 attackTimer[menuPosID[3]][0] = mediaObject->getMilliSeconds() + attackInterval;
                 attackInProgress[menuPosID[3]][0] = true;
-                if (character[menuPosID[3]]->charID <= 1)
+                if (character[menuPosID[3]]->mCharacterID <= 1)
                     character[menuPosID[3]]->attackNow(0);
-            } else if (!attackInProgress[menuPosID[3]][0] && item->itemTyp[character[menuPosID[3]]->itemHand[0]] != 1)
-                mapEvent->statusMessage(languageData->text[165]);
+            } else if (!attackInProgress[menuPosID[3]][0] && item->mItemTyp[character[menuPosID[3]]->mItemsInHand[0]] != 1)
+                mapEvent->statusMessage(languageData->mText[165]);
         }
     }
     if (posX >= 289 && posX <= 318 && posY >= 80 && posY <= 94) {
         if (buttonLeft && posX <= 318 - ppc_offset) {
-            if (character[menuPosID[3]]->itemHand[1] != 86) {
+            if (character[menuPosID[3]]->mItemsInHand[1] != 86) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[3]]->itemHand[1];
+                *this->mouseItem = character[menuPosID[3]]->mItemsInHand[1];
                 if (memory > 0)
-                    character[menuPosID[3]]->itemHand[1] = memory;
+                    character[menuPosID[3]]->mItemsInHand[1] = memory;
                 else
-                    character[menuPosID[3]]->itemHand[1] = 86;
+                    character[menuPosID[3]]->mItemsInHand[1] = 86;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[3]]->itemHand[1];
-                    character[menuPosID[3]]->itemHand[1] = *this->mouseItem;
+                    memory = character[menuPosID[3]]->mItemsInHand[1];
+                    character[menuPosID[3]]->mItemsInHand[1] = *this->mouseItem;
                     if (memory == 86)
                         *this->mouseItem = 0;
                     else
@@ -472,13 +472,13 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
                 }
             }
         } else if (character[menuPosID[3]]->currenthp > 10) {
-            if (!attackInProgress[menuPosID[3]][1] && item->itemTyp[character[menuPosID[3]]->itemHand[1]] == 1) {
+            if (!attackInProgress[menuPosID[3]][1] && item->mItemTyp[character[menuPosID[3]]->mItemsInHand[1]] == 1) {
                 attackTimer[menuPosID[3]][1] = mediaObject->getMilliSeconds() + attackInterval;
                 attackInProgress[menuPosID[3]][1] = true;
-                if (character[menuPosID[3]]->charID <= 1)
+                if (character[menuPosID[3]]->mCharacterID <= 1)
                     character[menuPosID[3]]->attackNow(1);
-            } else if (!attackInProgress[menuPosID[3]][1] && item->itemTyp[character[menuPosID[3]]->itemHand[1]] != 1)
-                mapEvent->statusMessage(languageData->text[165]);
+            } else if (!attackInProgress[menuPosID[3]][1] && item->mItemTyp[character[menuPosID[3]]->mItemsInHand[1]] != 1)
+                mapEvent->statusMessage(languageData->mText[165]);
         }
     }
 
@@ -539,10 +539,10 @@ void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
         }
     }
 
-    character[menuPosID[0]]->charID = 0;
-    character[menuPosID[1]]->charID = 1;
-    character[menuPosID[2]]->charID = 2;
-    character[menuPosID[3]]->charID = 3;
+    character[menuPosID[0]]->mCharacterID = 0;
+    character[menuPosID[1]]->mCharacterID = 1;
+    character[menuPosID[2]]->mCharacterID = 2;
+    character[menuPosID[3]]->mCharacterID = 3;
 
     if (!swapNewClick) {
         swapping = false;
@@ -562,17 +562,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
     //14 Platz-Inventar
     for (short i = 0; i < 14; i++) {
         if (posX >= 185 + col * 18 && posX <= 202 + col * 18 && posY >= 39 + row * 18 && posY <= 56 + row * 18) {
-            if (character[menuPosID[charID]]->itemInventar[i] != 52) {
+            if (character[menuPosID[charID]]->mItemsInInventory[i] != 52) {
                 memory = *this->mouseItem;
-                *this->mouseItem = character[menuPosID[charID]]->itemInventar[i];
+                *this->mouseItem = character[menuPosID[charID]]->mItemsInInventory[i];
                 if (memory > 0)
-                    character[menuPosID[charID]]->itemInventar[i] = memory;
+                    character[menuPosID[charID]]->mItemsInInventory[i] = memory;
                 else
-                    character[menuPosID[charID]]->itemInventar[i] = 52;
+                    character[menuPosID[charID]]->mItemsInInventory[i] = 52;
             } else {
                 if (*this->mouseItem != 0) {
-                    memory = character[menuPosID[charID]]->itemInventar[i];
-                    character[menuPosID[charID]]->itemInventar[i] = *this->mouseItem;
+                    memory = character[menuPosID[charID]]->mItemsInInventory[i];
+                    character[menuPosID[charID]]->mItemsInInventory[i] = *this->mouseItem;
                     if (memory == 52)
                         *this->mouseItem = 0;
                     else
@@ -589,17 +589,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Kopf
     if (posX >= 302 && posX <= 319 && posY >= 54 && posY <= 71) {
-        if (character[menuPosID[charID]]->itemHead != 52) {
+        if (character[menuPosID[charID]]->mItemOnHead != 52) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemHead;
+            *this->mouseItem = character[menuPosID[charID]]->mItemOnHead;
             if (memory > 0)
-                character[menuPosID[charID]]->itemHead = memory;
+                character[menuPosID[charID]]->mItemOnHead = memory;
             else
-                character[menuPosID[charID]]->itemHead = 52;
+                character[menuPosID[charID]]->mItemOnHead = 52;
         } else {
-            if (*this->mouseItem != 0 && this->item->itemTyp[*this->mouseItem] == 4) {
-                memory = character[menuPosID[charID]]->itemHead;
-                character[menuPosID[charID]]->itemHead = *this->mouseItem;
+            if (*this->mouseItem != 0 && this->item->mItemTyp[*this->mouseItem] == 4) {
+                memory = character[menuPosID[charID]]->mItemOnHead;
+                character[menuPosID[charID]]->mItemOnHead = *this->mouseItem;
                 if (memory == 52)
                     *this->mouseItem = 0;
                 else
@@ -610,17 +610,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Hals
     if (posX >= 291 && posX <= 308 && posY >= 74 && posY <= 91) {
-        if (character[menuPosID[charID]]->itemNeck != 52) {
+        if (character[menuPosID[charID]]->mItemAroundNeck != 52) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemNeck;
+            *this->mouseItem = character[menuPosID[charID]]->mItemAroundNeck;
             if (memory > 0)
-                character[menuPosID[charID]]->itemNeck = memory;
+                character[menuPosID[charID]]->mItemAroundNeck = memory;
             else
-                character[menuPosID[charID]]->itemNeck = 52;
+                character[menuPosID[charID]]->mItemAroundNeck = 52;
         } else {
-            if (*this->mouseItem != 0 && this->item->itemTyp[*this->mouseItem] == 5) {
-                memory = character[menuPosID[charID]]->itemNeck;
-                character[menuPosID[charID]]->itemNeck = *this->mouseItem;
+            if (*this->mouseItem != 0 && this->item->mItemTyp[*this->mouseItem] == 5) {
+                memory = character[menuPosID[charID]]->mItemAroundNeck;
+                character[menuPosID[charID]]->mItemAroundNeck = *this->mouseItem;
                 if (memory == 52)
                     *this->mouseItem = 0;
                 else
@@ -631,17 +631,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Brust
     if (posX >= 228 && posX <= 245 && posY >= 75 && posY <= 92) {
-        if (character[menuPosID[charID]]->itemTorso != 52) {
+        if (character[menuPosID[charID]]->mItemOnTorso != 52) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemTorso;
+            *this->mouseItem = character[menuPosID[charID]]->mItemOnTorso;
             if (memory > 0)
-                character[menuPosID[charID]]->itemTorso = memory;
+                character[menuPosID[charID]]->mItemOnTorso = memory;
             else
-                character[menuPosID[charID]]->itemTorso = 52;
+                character[menuPosID[charID]]->mItemOnTorso = 52;
         } else {
-            if (*this->mouseItem != 0 && this->item->itemTyp[*this->mouseItem] == 3) {
-                memory = character[menuPosID[charID]]->itemTorso;
-                character[menuPosID[charID]]->itemTorso = *this->mouseItem;
+            if (*this->mouseItem != 0 && this->item->mItemTyp[*this->mouseItem] == 3) {
+                memory = character[menuPosID[charID]]->mItemOnTorso;
+                character[menuPosID[charID]]->mItemOnTorso = *this->mouseItem;
                 if (memory == 52)
                     *this->mouseItem = 0;
                 else
@@ -652,17 +652,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Handgelenk
     if (posX >= 229 && posX <= 246 && posY >= 95 && posY <= 112) {
-        if (character[menuPosID[charID]]->itemWrist != 52) {
+        if (character[menuPosID[charID]]->mItemOnWrist != 52) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemWrist;
+            *this->mouseItem = character[menuPosID[charID]]->mItemOnWrist;
             if (memory > 0)
-                character[menuPosID[charID]]->itemWrist = memory;
+                character[menuPosID[charID]]->mItemOnWrist = memory;
             else
-                character[menuPosID[charID]]->itemWrist = 52;
+                character[menuPosID[charID]]->mItemOnWrist = 52;
         } else {
-            if (*this->mouseItem != 0 && this->item->itemTyp[*this->mouseItem] == 6) {
-                memory = character[menuPosID[charID]]->itemWrist;
-                character[menuPosID[charID]]->itemWrist = *this->mouseItem;
+            if (*this->mouseItem != 0 && this->item->mItemTyp[*this->mouseItem] == 6) {
+                memory = character[menuPosID[charID]]->mItemOnWrist;
+                character[menuPosID[charID]]->mItemOnWrist = *this->mouseItem;
                 if (memory == 52)
                     *this->mouseItem = 0;
                 else
@@ -673,17 +673,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Fuss
     if (posX >= 281 && posX <= 298 && posY >= 136 && posY <= 153) {
-        if (character[menuPosID[charID]]->itemFoot != 52) {
+        if (character[menuPosID[charID]]->mItemOnFeet != 52) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemFoot;
+            *this->mouseItem = character[menuPosID[charID]]->mItemOnFeet;
             if (memory > 0)
-                character[menuPosID[charID]]->itemFoot = memory;
+                character[menuPosID[charID]]->mItemOnFeet = memory;
             else
-                character[menuPosID[charID]]->itemFoot = 52;
+                character[menuPosID[charID]]->mItemOnFeet = 52;
         } else {
-            if (*this->mouseItem != 0 && this->item->itemTyp[*this->mouseItem] == 8) {
-                memory = character[menuPosID[charID]]->itemFoot;
-                character[menuPosID[charID]]->itemFoot = *this->mouseItem;
+            if (*this->mouseItem != 0 && this->item->mItemTyp[*this->mouseItem] == 8) {
+                memory = character[menuPosID[charID]]->mItemOnFeet;
+                character[menuPosID[charID]]->mItemOnFeet = *this->mouseItem;
                 if (memory == 52)
                     *this->mouseItem = 0;
                 else
@@ -694,17 +694,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Gürtel 1
     if (posX >= 304 && posX <= 320 && posY >= 93 && posY <= 110) {
-        if (character[menuPosID[charID]]->itemBelt[0] != 52) {
+        if (character[menuPosID[charID]]->mItemsOnBelt[0] != 52) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemBelt[0];
+            *this->mouseItem = character[menuPosID[charID]]->mItemsOnBelt[0];
             if (memory > 0)
-                character[menuPosID[charID]]->itemBelt[0] = memory;
+                character[menuPosID[charID]]->mItemsOnBelt[0] = memory;
             else
-                character[menuPosID[charID]]->itemBelt[0] = 52;
+                character[menuPosID[charID]]->mItemsOnBelt[0] = 52;
         } else {
             if (*this->mouseItem != 0) {
-                memory = character[menuPosID[charID]]->itemBelt[0];
-                character[menuPosID[charID]]->itemBelt[0] = *this->mouseItem;
+                memory = character[menuPosID[charID]]->mItemsOnBelt[0];
+                character[menuPosID[charID]]->mItemsOnBelt[0] = *this->mouseItem;
                 if (memory == 52)
                     *this->mouseItem = 0;
                 else
@@ -715,17 +715,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Gürtel 2
     if (posX >= 304 && posX <= 320 && posY >= 111 && posY <= 128) {
-        if (character[menuPosID[charID]]->itemBelt[1] != 52) {
+        if (character[menuPosID[charID]]->mItemsOnBelt[1] != 52) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemBelt[1];
+            *this->mouseItem = character[menuPosID[charID]]->mItemsOnBelt[1];
             if (memory > 0)
-                character[menuPosID[charID]]->itemBelt[1] = memory;
+                character[menuPosID[charID]]->mItemsOnBelt[1] = memory;
             else
-                character[menuPosID[charID]]->itemBelt[1] = 52;
+                character[menuPosID[charID]]->mItemsOnBelt[1] = 52;
         } else {
             if (*this->mouseItem != 0) {
-                memory = character[menuPosID[charID]]->itemBelt[1];
-                character[menuPosID[charID]]->itemBelt[1] = *this->mouseItem;
+                memory = character[menuPosID[charID]]->mItemsOnBelt[1];
+                character[menuPosID[charID]]->mItemsOnBelt[1] = *this->mouseItem;
                 if (memory == 52)
                     *this->mouseItem = 0;
                 else
@@ -736,17 +736,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Gürtel 3
     if (posX >= 304 && posX <= 320 && posY >= 129 && posY <= 146) {
-        if (character[menuPosID[charID]]->itemBelt[2] != 52) {
+        if (character[menuPosID[charID]]->mItemsOnBelt[2] != 52) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemBelt[2];
+            *this->mouseItem = character[menuPosID[charID]]->mItemsOnBelt[2];
             if (memory > 0)
-                character[menuPosID[charID]]->itemBelt[2] = memory;
+                character[menuPosID[charID]]->mItemsOnBelt[2] = memory;
             else
-                character[menuPosID[charID]]->itemBelt[2] = 52;
+                character[menuPosID[charID]]->mItemsOnBelt[2] = 52;
         } else {
             if (*this->mouseItem != 0) {
-                memory = character[menuPosID[charID]]->itemBelt[2];
-                character[menuPosID[charID]]->itemBelt[2] = *this->mouseItem;
+                memory = character[menuPosID[charID]]->mItemsOnBelt[2];
+                character[menuPosID[charID]]->mItemsOnBelt[2] = *this->mouseItem;
                 if (memory == 52)
                     *this->mouseItem = 0;
                 else
@@ -757,17 +757,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Hand links
     if (posX >= 234 && posX <= 251 && posY >= 115 && posY <= 132) {
-        if (character[menuPosID[charID]]->itemHand[0] != 85) {
+        if (character[menuPosID[charID]]->mItemsInHand[0] != 85) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemHand[0];
+            *this->mouseItem = character[menuPosID[charID]]->mItemsInHand[0];
             if (memory > 0)
-                character[menuPosID[charID]]->itemHand[0] = memory;
+                character[menuPosID[charID]]->mItemsInHand[0] = memory;
             else
-                character[menuPosID[charID]]->itemHand[0] = 85;
+                character[menuPosID[charID]]->mItemsInHand[0] = 85;
         } else {
             if (*this->mouseItem != 0) {
-                memory = character[menuPosID[charID]]->itemHand[0];
-                character[menuPosID[charID]]->itemHand[0] = *this->mouseItem;
+                memory = character[menuPosID[charID]]->mItemsInHand[0];
+                character[menuPosID[charID]]->mItemsInHand[0] = *this->mouseItem;
                 if (memory == 85)
                     *this->mouseItem = 0;
                 else
@@ -778,17 +778,17 @@ void CharMenu::handleInventarFull(short posX, short posY, short charID)
 
     //Hand rechts
     if (posX >= 282 && posX <= 299 && posY >= 115 && posY <= 132) {
-        if (character[menuPosID[charID]]->itemHand[1] != 86) {
+        if (character[menuPosID[charID]]->mItemsInHand[1] != 86) {
             memory = *this->mouseItem;
-            *this->mouseItem = character[menuPosID[charID]]->itemHand[1];
+            *this->mouseItem = character[menuPosID[charID]]->mItemsInHand[1];
             if (memory > 0)
-                character[menuPosID[charID]]->itemHand[1] = memory;
+                character[menuPosID[charID]]->mItemsInHand[1] = memory;
             else
-                character[menuPosID[charID]]->itemHand[1] = 86;
+                character[menuPosID[charID]]->mItemsInHand[1] = 86;
         } else {
             if (*this->mouseItem != 0) {
-                memory = character[menuPosID[charID]]->itemHand[1];
-                character[menuPosID[charID]]->itemHand[1] = *this->mouseItem;
+                memory = character[menuPosID[charID]]->mItemsInHand[1];
+                character[menuPosID[charID]]->mItemsInHand[1] = *this->mouseItem;
                 if (memory == 86)
                     *this->mouseItem = 0;
                 else
@@ -816,47 +816,47 @@ void CharMenu::update()
         drawPortrait(menuPosID[0], 185, 11);
         //Char Name
         if (!swapping || (swapping && swapFromPos != 0))
-            mediaObject->drawText(0, 186, 1, 0x00, 0x00, 0x00, character[menuPosID[0]]->name);
+            mediaObject->drawText(0, 186, 1, 0x00, 0x00, 0x00, character[menuPosID[0]]->mName);
         if (swapping && swapFromPos == 0)
-            mediaObject->drawText(0, 186, 1, 0xFF, 0xFF, 0xFF, languageData->text[166]);
+            mediaObject->drawText(0, 186, 1, 0xFF, 0xFF, 0xFF, languageData->mText[166]);
         // String "HP"
-        mediaObject->drawText(0, 186, 42, 0x00, 0x00, 0x00, languageData->text[0]);
+        mediaObject->drawText(0, 186, 42, 0x00, 0x00, 0x00, languageData->mText[0]);
         // Gesundheitsbalken
         drawSmallBar(198, 45, character[menuPosID[0]]->currenthp, character[menuPosID[0]]->hp);
 
         drawPortrait(menuPosID[1], 257, 11);
         if (!swapping || (swapping && swapFromPos != 1))
-            mediaObject->drawText(0, 258, 1, 0x00, 0x00, 0x00, character[menuPosID[1]]->name);
+            mediaObject->drawText(0, 258, 1, 0x00, 0x00, 0x00, character[menuPosID[1]]->mName);
         if (swapping && swapFromPos == 1)
-            mediaObject->drawText(0, 258, 1, 0xFF, 0xFF, 0xFF, languageData->text[166]);
-        mediaObject->drawText(0, 258, 42, 0x00, 0x00, 0x00, languageData->text[0]);
+            mediaObject->drawText(0, 258, 1, 0xFF, 0xFF, 0xFF, languageData->mText[166]);
+        mediaObject->drawText(0, 258, 42, 0x00, 0x00, 0x00, languageData->mText[0]);
         drawSmallBar(270, 45, character[menuPosID[1]]->currenthp, character[menuPosID[1]]->hp);
 
         drawPortrait(menuPosID[2], 185, 63);
         if (!swapping || (swapping && swapFromPos != 2))
-            mediaObject->drawText(0, 186, 53, 0x00, 0x00, 0x00, character[menuPosID[2]]->name);
+            mediaObject->drawText(0, 186, 53, 0x00, 0x00, 0x00, character[menuPosID[2]]->mName);
         if (swapping && swapFromPos == 2)
-            mediaObject->drawText(0, 186, 53, 0xFF, 0xFF, 0xFF, languageData->text[166]);
-        mediaObject->drawText(0, 186, 94, 0x00, 0x00, 0x00, languageData->text[0]);
+            mediaObject->drawText(0, 186, 53, 0xFF, 0xFF, 0xFF, languageData->mText[166]);
+        mediaObject->drawText(0, 186, 94, 0x00, 0x00, 0x00, languageData->mText[0]);
         drawSmallBar(198, 97, character[menuPosID[2]]->currenthp, character[menuPosID[2]]->hp);
 
         drawPortrait(menuPosID[3], 257, 63);
         if (!swapping || (swapping && swapFromPos != 3))
-            mediaObject->drawText(0, 258, 53, 0x00, 0x00, 0x00, character[menuPosID[3]]->name);
+            mediaObject->drawText(0, 258, 53, 0x00, 0x00, 0x00, character[menuPosID[3]]->mName);
         if (swapping && swapFromPos == 3)
-            mediaObject->drawText(0, 258, 53, 0xFF, 0xFF, 0xFF, languageData->text[166]);
-        mediaObject->drawText(0, 258, 94, 0x00, 0x00, 0x00, languageData->text[0]);
+            mediaObject->drawText(0, 258, 53, 0xFF, 0xFF, 0xFF, languageData->mText[166]);
+        mediaObject->drawText(0, 258, 94, 0x00, 0x00, 0x00, languageData->mText[0]);
         drawSmallBar(270, 97, character[menuPosID[3]]->currenthp, character[menuPosID[3]]->hp);
 
         //Items in den Händen der Chars
-        item->drawIcon(character[menuPosID[0]]->itemHand[0], 223, 11);
-        item->drawIcon(character[menuPosID[0]]->itemHand[1], 223, 27);
-        item->drawIcon(character[menuPosID[1]]->itemHand[0], 295, 11);
-        item->drawIcon(character[menuPosID[1]]->itemHand[1], 295, 27);
-        item->drawIcon(character[menuPosID[2]]->itemHand[0], 223, 63);
-        item->drawIcon(character[menuPosID[2]]->itemHand[1], 223, 79);
-        item->drawIcon(character[menuPosID[3]]->itemHand[0], 295, 63);
-        item->drawIcon(character[menuPosID[3]]->itemHand[1], 295, 79);
+        item->drawIcon(character[menuPosID[0]]->mItemsInHand[0], 223, 11);
+        item->drawIcon(character[menuPosID[0]]->mItemsInHand[1], 223, 27);
+        item->drawIcon(character[menuPosID[1]]->mItemsInHand[0], 295, 11);
+        item->drawIcon(character[menuPosID[1]]->mItemsInHand[1], 295, 27);
+        item->drawIcon(character[menuPosID[2]]->mItemsInHand[0], 223, 63);
+        item->drawIcon(character[menuPosID[2]]->mItemsInHand[1], 223, 79);
+        item->drawIcon(character[menuPosID[3]]->mItemsInHand[0], 295, 63);
+        item->drawIcon(character[menuPosID[3]]->mItemsInHand[1], 295, 79);
 
         //Schleiher über Items legen wenn diese als Waffe gerade gebraucht wurden
         if (attackInProgress[menuPosID[0]][0] || character[menuPosID[0]]->currenthp <= 10)
@@ -911,14 +911,14 @@ void CharMenu::update()
         for (short i = 0; i < 4; i++) {
             short x_offset = 0;
 
-            if (character[menuPosID[i]]->charID > 1)
+            if (character[menuPosID[i]]->mCharacterID > 1)
                 break;
 
             if (character[menuPosID[i]]->damageDone) {
                 if (attackInProgress[menuPosID[i]][0]) {
                     damageDoneTimer[menuPosID[i]][0] = mediaObject->getMilliSeconds() + 1000;
                     if (character[menuPosID[i]]->damageDoneValue[0] == 0) {
-                        sprintf_s(damageDoneValue[menuPosID[i]][0], "%s", languageData->text[179]);
+                        sprintf_s(damageDoneValue[menuPosID[i]][0], "%s", languageData->mText[179]);
                         x_offset = 8;
                     } else
                         sprintf_s(damageDoneValue[menuPosID[i]][0], "%i", character[menuPosID[i]]->damageDoneValue[0]);
@@ -927,7 +927,7 @@ void CharMenu::update()
                 if (attackInProgress[menuPosID[i]][1]) {
                     damageDoneTimer[menuPosID[i]][1] = mediaObject->getMilliSeconds() + 1000;
                     if (character[menuPosID[i]]->damageDoneValue[1] == 0) {
-                        sprintf_s(damageDoneValue[menuPosID[i]][1], "%s", languageData->text[179]);
+                        sprintf_s(damageDoneValue[menuPosID[i]][1], "%s", languageData->mText[179]);
                         x_offset = 8;
                     } else
                         sprintf_s(damageDoneValue[menuPosID[i]][1], "%i", character[menuPosID[i]]->damageDoneValue[1]);
@@ -1000,52 +1000,52 @@ void CharMenu::update()
         //Char Portait
         drawPortrait(menuPosID[charID], 186, 3);
         //Char Name
-        mediaObject->drawText(0, 223, 4, 0xFF, 0xFF, 0xFF, character[menuPosID[charID]]->name);
+        mediaObject->drawText(0, 223, 4, 0xFF, 0xFF, 0xFF, character[menuPosID[charID]]->mName);
         //String "HP"
-        mediaObject->drawText(0, 223, 14, 0x00, 0x00, 0x00, languageData->text[0]);
+        mediaObject->drawText(0, 223, 14, 0x00, 0x00, 0x00, languageData->mText[0]);
         // Gesundheitsbalken
         drawBigBar(249, 15, character[menuPosID[charID]]->currenthp, character[menuPosID[charID]]->hp);
         //String "FOOD"
-        mediaObject->drawText(0, 223, 22, 0x00, 0x00, 0x00, languageData->text[1]);
+        mediaObject->drawText(0, 223, 22, 0x00, 0x00, 0x00, languageData->mText[1]);
         // Nahrungsbalken
         drawBigBar(249, 24, character[menuPosID[charID]]->currentfood, character[menuPosID[charID]]->food);
         //Pfeile im Inventar
         char arrows[3];
-        character[menuPosID[charID]]->arrows = 0;
+        character[menuPosID[charID]]->mNumberOfArrows = 0;
         for (short i = 0; i < 14; i++)
-            if (character[menuPosID[charID]]->itemInventar[i] == 16)
-                character[menuPosID[charID]]->arrows++;
-        if (character[menuPosID[charID]]->itemHand[0] == 16)
-            character[menuPosID[charID]]->arrows++;
-        if (character[menuPosID[charID]]->itemHand[1] == 16)
-            character[menuPosID[charID]]->arrows++;
+            if (character[menuPosID[charID]]->mItemsInInventory[i] == 16)
+                character[menuPosID[charID]]->mNumberOfArrows++;
+        if (character[menuPosID[charID]]->mItemsInHand[0] == 16)
+            character[menuPosID[charID]]->mNumberOfArrows++;
+        if (character[menuPosID[charID]]->mItemsInHand[1] == 16)
+            character[menuPosID[charID]]->mNumberOfArrows++;
         for (short i = 0; i < 3; i++)
-            if (character[menuPosID[charID]]->itemBelt[i] == 16)
-                character[menuPosID[charID]]->arrows++;
-        sprintf_s(arrows, "%d", character[menuPosID[charID]]->arrows);
+            if (character[menuPosID[charID]]->mItemsOnBelt[i] == 16)
+                character[menuPosID[charID]]->mNumberOfArrows++;
+        sprintf_s(arrows, "%d", character[menuPosID[charID]]->mNumberOfArrows);
         mediaObject->drawText(0, 233, 62, 0xFF, 0xFF, 0xFF, arrows);
         //Items im Inventar zeichnen
         short row, col;
         row = 0;
         col = 0;
         for (short i = 0; i < 14; i++) {
-            item->drawIcon(character[menuPosID[charID]]->itemInventar[i], 185 + col * 18, 40 + row * 18);
+            item->drawIcon(character[menuPosID[charID]]->mItemsInInventory[i], 185 + col * 18, 40 + row * 18);
             col++;
             if (col == 2) {
                 row++;
                 col = 0;
             }
         }
-        item->drawIcon(character[menuPosID[charID]]->itemHead, 302, 55);
-        item->drawIcon(character[menuPosID[charID]]->itemNeck, 291, 75);
-        item->drawIcon(character[menuPosID[charID]]->itemTorso, 228, 76);
-        item->drawIcon(character[menuPosID[charID]]->itemBelt[0], 304, 94);
-        item->drawIcon(character[menuPosID[charID]]->itemBelt[1], 304, 112);
-        item->drawIcon(character[menuPosID[charID]]->itemBelt[2], 304, 130);
-        item->drawIcon(character[menuPosID[charID]]->itemFoot, 281, 138);
-        item->drawIcon(character[menuPosID[charID]]->itemWrist, 229, 96);
-        item->drawIcon(character[menuPosID[charID]]->itemHand[0] == 85 ? 52 : character[menuPosID[charID]]->itemHand[0], 234, 116);
-        item->drawIcon(character[menuPosID[charID]]->itemHand[1] == 86 ? 52 : character[menuPosID[charID]]->itemHand[1], 282, 116);
+        item->drawIcon(character[menuPosID[charID]]->mItemOnHead, 302, 55);
+        item->drawIcon(character[menuPosID[charID]]->mItemAroundNeck, 291, 75);
+        item->drawIcon(character[menuPosID[charID]]->mItemOnTorso, 228, 76);
+        item->drawIcon(character[menuPosID[charID]]->mItemsOnBelt[0], 304, 94);
+        item->drawIcon(character[menuPosID[charID]]->mItemsOnBelt[1], 304, 112);
+        item->drawIcon(character[menuPosID[charID]]->mItemsOnBelt[2], 304, 130);
+        item->drawIcon(character[menuPosID[charID]]->mItemOnFeet, 281, 138);
+        item->drawIcon(character[menuPosID[charID]]->mItemOnWrist, 229, 96);
+        item->drawIcon(character[menuPosID[charID]]->mItemsInHand[0] == 85 ? 52 : character[menuPosID[charID]]->mItemsInHand[0], 234, 116);
+        item->drawIcon(character[menuPosID[charID]]->mItemsInHand[1] == 86 ? 52 : character[menuPosID[charID]]->mItemsInHand[1], 282, 116);
 
     } else if (menuStyle == 2) {
         char temp[8];
@@ -1053,66 +1053,66 @@ void CharMenu::update()
         //Char Portait
         drawPortrait(menuPosID[charID], 186, 3);
         //Char Name
-        mediaObject->drawText(0, 223, 4, 0xFF, 0xFF, 0xFF, character[menuPosID[charID]]->name);
+        mediaObject->drawText(0, 223, 4, 0xFF, 0xFF, 0xFF, character[menuPosID[charID]]->mName);
         //String "HP"
-        mediaObject->drawText(0, 223, 14, 0x00, 0x00, 0x00, languageData->text[0]);
+        mediaObject->drawText(0, 223, 14, 0x00, 0x00, 0x00, languageData->mText[0]);
         // Gesundheitsbalken
         drawBigBar(249, 15, character[menuPosID[charID]]->currenthp, character[menuPosID[charID]]->hp);
         //String "FOOD"
-        mediaObject->drawText(0, 223, 22, 0x00, 0x00, 0x00, languageData->text[1]);
+        mediaObject->drawText(0, 223, 22, 0x00, 0x00, 0x00, languageData->mText[1]);
         // Nahrungsbalken
         drawBigBar(249, 24, character[menuPosID[charID]]->currentfood, character[menuPosID[charID]]->food);
         //String "CHARACTER INFO"
-        mediaObject->drawText(0, 187, 39, 0xFF, 0xFF, 0xFF, languageData->text[2]);
+        mediaObject->drawText(0, 187, 39, 0xFF, 0xFF, 0xFF, languageData->mText[2]);
         //Char Klasse
-        mediaObject->drawText(0, 187, 51, 0x00, 0x00, 0x00, character[menuPosID[charID]]->charclass);
+        mediaObject->drawText(0, 187, 51, 0x00, 0x00, 0x00, character[menuPosID[charID]]->mClass);
         //Char typ
-        mediaObject->drawText(0, 187, 59, 0x00, 0x00, 0x00, character[menuPosID[charID]]->social);
+        mediaObject->drawText(0, 187, 59, 0x00, 0x00, 0x00, character[menuPosID[charID]]->mSocial);
         //Char Rasse
-        mediaObject->drawText(0, 187, 66, 0x00, 0x00, 0x00, character[menuPosID[charID]]->race);
+        mediaObject->drawText(0, 187, 66, 0x00, 0x00, 0x00, character[menuPosID[charID]]->mRace);
         //Char Geschlecht
-        mediaObject->drawText(0, 225, 66, 0x00, 0x00, 0x00, character[menuPosID[charID]]->gender);
+        mediaObject->drawText(0, 225, 66, 0x00, 0x00, 0x00, character[menuPosID[charID]]->mGender);
         //String "STRENGTH"
-        mediaObject->drawText(0, 187, 78, 0x00, 0x00, 0x00, languageData->text[3]);
+        mediaObject->drawText(0, 187, 78, 0x00, 0x00, 0x00, languageData->mText[3]);
         //Char Stärke
         sprintf_s(temp, "%d/%d", character[menuPosID[charID]]->strength, character[menuPosID[charID]]->maxstrength);
         mediaObject->drawText(0, 279, 78, 0xFF, 0xFF, 0xFF, temp);
         //String "INT"
-        mediaObject->drawText(0, 187, 86, 0x00, 0x00, 0x00, languageData->text[4]);
+        mediaObject->drawText(0, 187, 86, 0x00, 0x00, 0x00, languageData->mText[4]);
         //Char Int
         sprintf_s(temp, "%d", character[menuPosID[charID]]->intelligence);
         mediaObject->drawText(0, 279, 86, 0xFF, 0xFF, 0xFF, temp);
         //String "WISDOM"
-        mediaObject->drawText(0, 187, 94, 0x00, 0x00, 0x00, languageData->text[5]);
+        mediaObject->drawText(0, 187, 94, 0x00, 0x00, 0x00, languageData->mText[5]);
         //Char Wisdom
         sprintf_s(temp, "%d", character[menuPosID[charID]]->wisdom);
         mediaObject->drawText(0, 279, 94, 0xFF, 0xFF, 0xFF, temp);
         //String "DEX"
-        mediaObject->drawText(0, 187, 102, 0x00, 0x00, 0x00, languageData->text[6]);
+        mediaObject->drawText(0, 187, 102, 0x00, 0x00, 0x00, languageData->mText[6]);
         //Char Dex
         sprintf_s(temp, "%d", character[menuPosID[charID]]->dext);
         mediaObject->drawText(0, 279, 102, 0xFF, 0xFF, 0xFF, temp);
         //String "CONST"
-        mediaObject->drawText(0, 187, 110, 0x00, 0x00, 0x00, languageData->text[7]);
+        mediaObject->drawText(0, 187, 110, 0x00, 0x00, 0x00, languageData->mText[7]);
         //Char Const
         sprintf_s(temp, "%d", character[menuPosID[charID]]->constitution);
         mediaObject->drawText(0, 279, 110, 0xFF, 0xFF, 0xFF, temp);
         //String "ChARISMA"
-        mediaObject->drawText(0, 187, 118, 0x00, 0x00, 0x00, languageData->text[8]);
+        mediaObject->drawText(0, 187, 118, 0x00, 0x00, 0x00, languageData->mText[8]);
         //Char Charisma
         sprintf_s(temp, "%d", character[menuPosID[charID]]->charisma);
         mediaObject->drawText(0, 279, 118, 0xFF, 0xFF, 0xFF, temp);
         //String "ARMOR CLASS"
-        mediaObject->drawText(0, 187, 126, 0x00, 0x00, 0x00, languageData->text[9]);
+        mediaObject->drawText(0, 187, 126, 0x00, 0x00, 0x00, languageData->mText[9]);
         //Char armor class
         sprintf_s(temp, "%d", character[menuPosID[charID]]->armorclass);
         mediaObject->drawText(0, 279, 126, 0xFF, 0xFF, 0xFF, temp);
         //String "EXP"
-        mediaObject->drawText(0, 243, 138, 0x00, 0x00, 0x00, languageData->text[10]);
+        mediaObject->drawText(0, 243, 138, 0x00, 0x00, 0x00, languageData->mText[10]);
         //String "LVL"
-        mediaObject->drawText(0, 279, 138, 0x00, 0x00, 0x00, languageData->text[11]);
+        mediaObject->drawText(0, 279, 138, 0x00, 0x00, 0x00, languageData->mText[11]);
         //Char Klasse
-        mediaObject->drawText(0, 187, 146, 0x00, 0x00, 0x00, character[menuPosID[charID]]->charclass);
+        mediaObject->drawText(0, 187, 146, 0x00, 0x00, 0x00, character[menuPosID[charID]]->mClass);
         //Char Exp
         sprintf_s(temp, "%d", character[menuPosID[charID]]->exp);
         mediaObject->drawText(0, 237, 146, 0xFF, 0xFF, 0xFF, temp);
@@ -1152,16 +1152,16 @@ void CharMenu::drawCampMenu()
     mediaObject->fillRect(0, 0, 2, 144, 52, 52, 80);
 
     //CAMP
-    mediaObject->drawText(6, 4, 4, 0, 0, 0, this->languageData->text[183]);
+    mediaObject->drawText(6, 4, 4, 0, 0, 0, this->languageData->mText[183]);
 
     //REST
-    drawCampButton(12, 20, 158, this->languageData->text[184]);
+    drawCampButton(12, 20, 158, this->languageData->mText[184]);
 
     //OPTIONS
-    drawCampButton(12, 37, 158, this->languageData->text[185]);
+    drawCampButton(12, 37, 158, this->languageData->mText[185]);
 
     //EXIT
-    drawCampButton(128, 122, 40, this->languageData->text[189]);
+    drawCampButton(128, 122, 40, this->languageData->mText[189]);
 }
 
 void CharMenu::handleCampMenu(short posX, short posY)
@@ -1209,7 +1209,7 @@ void CharMenu::handleCampMenu(short posX, short posY)
             timer = this->mediaObject->getMilliSeconds() + 3000;
             menuStyle = 5;
         } else {
-            mapEvent->statusMessage(this->languageData->text[194]);
+            mapEvent->statusMessage(this->languageData->mText[194]);
             menuStyle = 0;
         }
     }
@@ -1230,19 +1230,19 @@ void CharMenu::drawSaveMenu()
     mediaObject->fillRect(0, 0, 2, 144, 52, 52, 80);
 
     //Game Options
-    mediaObject->drawText(6, 4, 4, 0, 0, 0, this->languageData->text[185]);
+    mediaObject->drawText(6, 4, 4, 0, 0, 0, this->languageData->mText[185]);
 
     //LOAD
-    drawCampButton(12, 20, 158, this->languageData->text[186]);
+    drawCampButton(12, 20, 158, this->languageData->mText[186]);
 
     //SAVE
-    drawCampButton(12, 37, 158, this->languageData->text[187]);
+    drawCampButton(12, 37, 158, this->languageData->mText[187]);
 
     //QUIT
-    drawCampButton(12, 54, 158, this->languageData->text[188]);
+    drawCampButton(12, 54, 158, this->languageData->mText[188]);
 
     //EXIT
-    drawCampButton(128, 122, 40, this->languageData->text[189]);
+    drawCampButton(128, 122, 40, this->languageData->mText[189]);
 }
 
 void CharMenu::handleSaveMenu(short posX, short posY)
@@ -1279,16 +1279,16 @@ void CharMenu::drawRestMenu()
     mediaObject->fillRect(0, 0, 2, 144, 52, 52, 80);
 
     //Resting Party Text
-    mediaObject->drawText(6, 4, 4, 0, 0, 0, this->languageData->text[190]);
+    mediaObject->drawText(6, 4, 4, 0, 0, 0, this->languageData->mText[190]);
 
     mediaObject->fillRect(8, 20, 160, 56, 108, 108, 136);
     mediaObject->fillRect(8, 20, 160, 2, 148, 148, 172);
     mediaObject->fillRect(8 + 159, 20, 2, 56, 148, 148, 172);
     mediaObject->fillRect(8, 20 + 54, 159, 2, 52, 52, 80);
     mediaObject->fillRect(8, 20, 2, 56, 52, 52, 80);
-    mediaObject->drawText(4, 20, 27, 0, 0, 0, this->languageData->text[191]);
-    mediaObject->drawText(4, 20, 37, 0, 0, 0, this->languageData->text[192]);
-    mediaObject->drawText(4, 20, 47, 0, 0, 0, this->languageData->text[193]);
+    mediaObject->drawText(4, 20, 27, 0, 0, 0, this->languageData->mText[191]);
+    mediaObject->drawText(4, 20, 37, 0, 0, 0, this->languageData->mText[192]);
+    mediaObject->drawText(4, 20, 47, 0, 0, 0, this->languageData->mText[193]);
 
     //Chars erholen
     for (short i = 0; i < 4; i++)

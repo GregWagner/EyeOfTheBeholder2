@@ -5,7 +5,7 @@
 #include <string>
 
 // Initialisierung
-void CLanguage::init(short mLanguage = 0)
+void Language::init(short mLanguage = 0)
 {
     // 0 = englisch, 1 = deutsch
     this->mLanguage = mLanguage;

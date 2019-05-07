@@ -1,6 +1,6 @@
 #pragma once
 
-class CLanguage {
+class Language {
 public:
     //Init
     void init(short mLanguage);

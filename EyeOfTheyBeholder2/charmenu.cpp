@@ -1,7 +1,7 @@
 #include "charmenu.h"
 #include <cstdio>
 
-void CCharMenu::initMenu(MEDIAWrapper* mediaObject, CEvent* mapEvent)
+void CharMenu::initMenu(MediaWrapper* mediaObject, Event* mapEvent)
 {
     this->mediaObject = mediaObject;
     this->mapEvent = mapEvent;
@@ -48,20 +48,20 @@ void CCharMenu::initMenu(MEDIAWrapper* mediaObject, CEvent* mapEvent)
 }
 
 // 4 Fenster Party Ansicht zeichnen
-void CCharMenu::drawPartyWindow()
+void CharMenu::drawPartyWindow()
 {
     mediaObject->drawImage(200, 182, 0);
 }
 
 // Inventar zeichnen
-void CCharMenu::drawInventar()
+void CharMenu::drawInventar()
 {
     mediaObject->drawImage(201, 182, 0);
     mediaObject->fillRect(219, 14, 32, 19, 108, 108, 136);
 }
 
 // Stats zeichnen
-void CCharMenu::drawStats()
+void CharMenu::drawStats()
 {
     mediaObject->drawImage(202, 182, 0);
     mediaObject->fillRect(219, 14, 32, 19, 108, 108, 136);
@@ -71,7 +71,7 @@ void CCharMenu::drawStats()
 }
 
 // Character Portraits zeichnen
-void CCharMenu::drawPortrait(short ID, short posX, short posY)
+void CharMenu::drawPortrait(short ID, short posX, short posY)
 {
     mediaObject->drawImage(220 + ID, posX, posY);
 
@@ -87,7 +87,7 @@ void CCharMenu::drawPortrait(short ID, short posX, short posY)
 }
 
 // Gesundheitsbalken klein zeichnen
-void CCharMenu::drawSmallBar(short posX, short posY, short currentPos, short maxPos)
+void CharMenu::drawSmallBar(short posX, short posY, short currentPos, short maxPos)
 {
     mediaObject->fillRect(posX + 1, posY + 0, 40, 1, 52, 52, 80);
     mediaObject->fillRect(posX + 40, posY + 1, 1, 3, 52, 52, 80);
@@ -98,7 +98,7 @@ void CCharMenu::drawSmallBar(short posX, short posY, short currentPos, short max
 }
 
 // Gesundheitsbalken gross zeichnen
-void CCharMenu::drawBigBar(short posX, short posY, short currentPos, short maxPos)
+void CharMenu::drawBigBar(short posX, short posY, short currentPos, short maxPos)
 {
     mediaObject->fillRect(posX + 1, posY + 0, 53, 1, 52, 52, 80);
     mediaObject->fillRect(posX + 53, posY + 1, 1, 5, 52, 52, 80);
@@ -109,7 +109,7 @@ void CCharMenu::drawBigBar(short posX, short posY, short currentPos, short maxPo
 }
 
 // Extra Attackbutton beim PPC
-void CCharMenu::drawAttackButton(short posX, short posY)
+void CharMenu::drawAttackButton(short posX, short posY)
 {
     mediaObject->fillRect(posX, posY, 7, 7, 255, 0, 0);
     mediaObject->fillRect(posX + 1, posY, 6, 1, 255, 96, 96);
@@ -120,7 +120,7 @@ void CCharMenu::drawAttackButton(short posX, short posY)
 }
 
 //Punkte-Overlay über Itemsymbol legen
-void CCharMenu::drawItemOverlay(short posX, short posY)
+void CharMenu::drawItemOverlay(short posX, short posY)
 {
     short x_offset = 0;
     for (short y = posY; y < posY + 16; y++) {
@@ -133,7 +133,7 @@ void CCharMenu::drawItemOverlay(short posX, short posY)
 }
 
 //Overlay "zu weit" über Itemsymbol legen
-void CCharMenu::drawItemOverlayNotReachable(short posX, short posY)
+void CharMenu::drawItemOverlayNotReachable(short posX, short posY)
 {
     mediaObject->fillRect(posX + 1, posY, 30, 1, 240, 72, 68);
     mediaObject->fillRect(posX + 30, posY, 1, 15, 240, 72, 68);
@@ -145,7 +145,7 @@ void CCharMenu::drawItemOverlayNotReachable(short posX, short posY)
 }
 
 // Maus Klicks verarbeiten
-void CCharMenu::mouseState(short posX, short posY, bool buttonLeft = true)
+void CharMenu::mouseState(short posX, short posY, bool buttonLeft = true)
 {
     mouseItemOld = *mouseItem;
 
@@ -236,7 +236,7 @@ void CCharMenu::mouseState(short posX, short posY, bool buttonLeft = true)
 }
 
 // Inventar im 4-Char-Bild Modus
-void CCharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
+void CharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
 {
     // Klick auf Hand nimmt Item auf
     short memory;
@@ -551,7 +551,7 @@ void CCharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
 }
 
 // Inventar
-void CCharMenu::handleInventarFull(short posX, short posY, short charID)
+void CharMenu::handleInventarFull(short posX, short posY, short charID)
 {
     short memory;
 
@@ -799,7 +799,7 @@ void CCharMenu::handleInventarFull(short posX, short posY, short charID)
 }
 
 // neu zeichnen usw.
-void CCharMenu::update()
+void CharMenu::update()
 {
     // Menustyles
     // 0 = 4 Fenster Char Ansicht
@@ -1142,7 +1142,7 @@ void CCharMenu::update()
 }
 
 // Camp Menu
-void CCharMenu::drawCampMenu()
+void CharMenu::drawCampMenu()
 {
     //Hintergrund zeichnen
     mediaObject->fillRect(0, 0, 175, 144, 108, 108, 136);
@@ -1164,7 +1164,7 @@ void CCharMenu::drawCampMenu()
     drawCampButton(128, 122, 40, this->languageData->text[189]);
 }
 
-void CCharMenu::handleCampMenu(short posX, short posY)
+void CharMenu::handleCampMenu(short posX, short posY)
 {
     //Exit Button
     if (posX > 128 && posY > 122 && posX < 168 && posY < 136)
@@ -1220,7 +1220,7 @@ void CCharMenu::handleCampMenu(short posX, short posY)
 }
 
 // Save/Load/Quit Menu
-void CCharMenu::drawSaveMenu()
+void CharMenu::drawSaveMenu()
 {
     //Hintergrund zeichnen
     mediaObject->fillRect(0, 0, 175, 144, 108, 108, 136);
@@ -1245,7 +1245,7 @@ void CCharMenu::drawSaveMenu()
     drawCampButton(128, 122, 40, this->languageData->text[189]);
 }
 
-void CCharMenu::handleSaveMenu(short posX, short posY)
+void CharMenu::handleSaveMenu(short posX, short posY)
 {
     //LOAD Button
     if (posX > 12 && posY > 20 && posX < 168 && posY < 34) {
@@ -1269,7 +1269,7 @@ void CCharMenu::handleSaveMenu(short posX, short posY)
 }
 
 // Rest Menu
-void CCharMenu::drawRestMenu()
+void CharMenu::drawRestMenu()
 {
     //Hintergrund zeichnen
     mediaObject->fillRect(0, 0, 175, 144, 108, 108, 136);
@@ -1300,12 +1300,12 @@ void CCharMenu::drawRestMenu()
         menuStyle = 0;
 }
 
-void CCharMenu::handleRestMenu(short posX, short posY)
+void CharMenu::handleRestMenu(short posX, short posY)
 {
 }
 
 // Button für Campstyle-Menus
-void CCharMenu::drawCampButton(short posX, short posY, short width, char text[64])
+void CharMenu::drawCampButton(short posX, short posY, short width, char text[64])
 {
     //Hintergrund zeichnen
     mediaObject->fillRect(posX, posY, width, 14, 108, 108, 136);

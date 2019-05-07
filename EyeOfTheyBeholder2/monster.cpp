@@ -1,11 +1,7 @@
-
-/**********************************
-Class CMonster 
-***********************************/
 #include "monster.h"
 #include <cstdlib>
 
-void CMonster::init(CMap* gameMap, MEDIAWrapper* mediaObject, CLanguage* languageData, CEvent* mapEvent, short monsterType, short monsterPos, short mapId, short monsterFace, short friendly)
+void Monster::init(Map* gameMap, MediaWrapper* mediaObject, Language* languageData, Event* mapEvent, short monsterType, short monsterPos, short mapId, short monsterFace, short friendly)
 {
     this->mediaObject = mediaObject;
     this->gameMap = gameMap;
@@ -85,7 +81,7 @@ void CMonster::init(CMap* gameMap, MEDIAWrapper* mediaObject, CLanguage* languag
 }
 
 //updaten
-bool CMonster::update(long timer, short pos, short destination)
+bool Monster::update(long timer, short pos, short destination)
 {
     /*
 		destination: 0 bis 11
@@ -219,7 +215,7 @@ bool CMonster::update(long timer, short pos, short destination)
 }
 
 // Hilfsfunktionen - prüfen auf Hinderniss
-bool CMonster::checkCollision(short direction)
+bool Monster::checkCollision(short direction)
 {
     //0=N, 1=S, 2=E, 3=W
     switch (direction) {
@@ -249,7 +245,7 @@ bool CMonster::checkCollision(short direction)
     return false;
 }
 
-bool CMonster::checkPlayerCollision(short direction, bool doAttack = false)
+bool Monster::checkPlayerCollision(short direction, bool doAttack = false)
 {
     //0=N, 1=S, 2=E, 3=W
     switch (direction) {
@@ -293,7 +289,7 @@ bool CMonster::checkPlayerCollision(short direction, bool doAttack = false)
 }
 
 // prüfen ob sich Spieler in direktem Sichtfeld befindet
-bool CMonster::checkPlayerInLine(short direction, bool setMoveToPos)
+bool Monster::checkPlayerInLine(short direction, bool setMoveToPos)
 {
     //0=N, 1=S, 2=E, 3=W
     switch (direction) {
@@ -361,7 +357,7 @@ bool CMonster::checkPlayerInLine(short direction, bool setMoveToPos)
 }
 
 // Angriff ausführen
-void CMonster::doAttack()
+void Monster::doAttack()
 {
     short damage = 0;
 
@@ -521,7 +517,7 @@ void CMonster::doAttack()
 }
 
 // Schaden hinzufügen (diesem Monster)
-void CMonster::doDamage(short damage)
+void Monster::doDamage(short damage)
 {
     friendly = false;
     isMoving = true;
@@ -541,7 +537,7 @@ void CMonster::doDamage(short damage)
 }
 
 // Position und Movement updaten
-void CMonster::updatePos()
+void Monster::updatePos()
 {
     switch (this->monsterType) {
     //Wolf
@@ -566,7 +562,7 @@ void CMonster::updatePos()
 }
 
 // die verschiedenen Arten der Pfadfindung
-void CMonster::doPathFinding(short pathType)
+void Monster::doPathFinding(short pathType)
 {
     switch (pathType) {
         //
@@ -901,7 +897,7 @@ void CMonster::doPathFinding(short pathType)
 }
 
 // prüfen wieviele Monster sich in der Position befinden
-short CMonster::countMonster(short mapPos)
+short Monster::countMonster(short mapPos)
 {
     short count = 0;
 

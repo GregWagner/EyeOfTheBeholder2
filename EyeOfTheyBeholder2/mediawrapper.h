@@ -7,7 +7,7 @@
 #include "SFont.h"
 #include <array>
 
-class MEDIAWrapper {
+class MediaWrapper {
 public:
     //neues Fenster erzueugen
     void setupWindow(int posX, int posY, int width, int height, bool mFullscreen);

@@ -55,21 +55,21 @@ public:
 
 private:
     // Map info
-    CMap* mGameMap { nullptr };
-    CMap* mSaveStatusGameMap[33] {}; // Secure map status for a maximum of 16 maps when changing maps
+    Map* mGameMap { nullptr };
+    Map* mSaveStatusGameMap[33] {}; // Secure map status for a maximum of 16 maps when changing maps
     short mCurrentMapID {};
-    CEvent* mMapEvent { nullptr };
+    Event* mMapEvent { nullptr };
 
-    MEDIAWrapper mMediaObject;
+    MediaWrapper mMediaObject;
 
-    CCharMenu mCharMenu;
+    CharMenu mCharMenu;
 
-    CLanguage mLanguageData;
+    Language mLanguageData;
 
-    CChar mCharacter[4];
-    CMonster* mMonster[128];
+    Char mCharacter[4];
+    Monster* mMonster[128];
 
-    CItem mItem;
+    Item mItem;
 
     short mMouseItem {};
     short mMouseItemOld {};

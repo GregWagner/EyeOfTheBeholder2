@@ -2,7 +2,7 @@
 #include <cstdio>
 
 // Initialisierung
-void CItem::init(MEDIAWrapper* mediaObject, CEvent* mapEvent, CLanguage* languageData)
+void Item::init(MediaWrapper* mediaObject, Event* mapEvent, Language* languageData)
 {
     this->mediaObject = mediaObject;
     this->mapEvent = mapEvent;
@@ -480,7 +480,7 @@ void CItem::init(MEDIAWrapper* mediaObject, CEvent* mapEvent, CLanguage* languag
 }
 
 // Item Icons zeichnen
-void CItem::drawIcon(short itemID, short posX, short posY)
+void Item::drawIcon(short itemID, short posX, short posY)
 {
     /* - Item Liste
 	0 Mauspfeil

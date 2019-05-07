@@ -1,7 +1,7 @@
 #include "event.h"
 #include <cstdio>
 
-void CEvent::init(CMap* map, MEDIAWrapper* mediaObject)
+void Event::init(Map* map, MediaWrapper* mediaObject)
 {
     this->mediaObject = NULL;
     this->mediaObject = mediaObject;
@@ -25,7 +25,7 @@ void CEvent::init(CMap* map, MEDIAWrapper* mediaObject)
 }
 
 // Maus Events verarbeiten
-void CEvent::mouseState(short posX, short posY)
+void Event::mouseState(short posX, short posY)
 {
     this->mousePosX = posX;
     this->mousePosY = posY;
@@ -33,7 +33,7 @@ void CEvent::mouseState(short posX, short posY)
 }
 
 // Hintergrund-Bereich für Event-Texte zeichnen
-void CEvent::drawEventMessageBackground()
+void Event::drawEventMessageBackground()
 {
     mediaObject->fillRect(0, 121, 320, 79, 108, 108, 136);
     mediaObject->fillRect(1, 121, 319, 1, 148, 148, 172);
@@ -43,7 +43,7 @@ void CEvent::drawEventMessageBackground()
 }
 
 // Button zeichnen
-void CEvent::drawEventButton(char* text, short posX, short posY)
+void Event::drawEventButton(char* text, short posX, short posY)
 {
     mediaObject->fillRect(posX, posY, 95, 1, 148, 148, 172);
     mediaObject->fillRect(posX + 95, posY, 1, 9, 148, 148, 172);
@@ -53,7 +53,7 @@ void CEvent::drawEventButton(char* text, short posX, short posY)
 }
 
 //updaten
-void CEvent::update()
+void Event::update()
 {
     bool validclick;
 
@@ -485,7 +485,7 @@ void CEvent::update()
 }
 
 // Event Image laden
-void CEvent::loadEventImage(short imageID, short image)
+void Event::loadEventImage(short imageID, short image)
 {
     switch (image) {
     case 1:
@@ -514,7 +514,7 @@ void CEvent::loadEventImage(short imageID, short image)
 }
 
 // Statustext updaten
-void CEvent::updateStatusMessage()
+void Event::updateStatusMessage()
 {
     mediaObject->drawText(0, 3, 179, 0xFF, 0xFF, 0xFF, statusText[0]);
     mediaObject->drawText(0, 5, 188, 0xFF, 0xFF, 0xFF, statusText[1]);
@@ -528,7 +528,7 @@ void CEvent::updateStatusMessage()
 }
 
 // Statustext im Statusfenster ausgeben
-void CEvent::statusMessage(char text[128])
+void Event::statusMessage(char text[128])
 {
     if (statusText[1][0] != '\0')
         sprintf_s(statusText[0], " %s", statusText[1]);
@@ -538,7 +538,7 @@ void CEvent::statusMessage(char text[128])
 }
 
 // Events löschen
-void CEvent::clear()
+void Event::clear()
 {
     eventTyp = -1;
     mapPos = 0;

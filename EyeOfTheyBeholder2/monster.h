@@ -6,10 +6,10 @@
 #include "map.h"
 #include "mediawrapper.h"
 
-class CMonster {
+class Monster {
 public:
     //Init
-    void init(CMap* gameMap, MEDIAWrapper* mediaObject, CLanguage* languageData, CEvent* mapEvent, short monsterType, short monsterPos, short mapId, short monsterFace, short friendly);
+    void init(Map* gameMap, MediaWrapper* mediaObject, Language* languageData, Event* mapEvent, short monsterType, short monsterPos, short mapId, short monsterFace, short friendly);
 
     //updaten
     bool update(long timer, short pos, short destination);
@@ -33,19 +33,19 @@ public:
     void doDamage(short damage);
 
     //Media Objekt
-    MEDIAWrapper* mediaObject;
+    MediaWrapper* mediaObject;
 
     //Texte
-    CLanguage* languageData;
+    Language* languageData;
 
     //Charactere
-    CChar* character[6];
+    Char* character[6];
 
     //Map
-    CMap* gameMap;
+    Map* gameMap;
 
     //Events
-    CEvent* mapEvent;
+    Event* mapEvent;
 
     //Position in Karte
     short monsterPos;

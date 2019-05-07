@@ -3,19 +3,19 @@
 #include "language.h"
 #include "mediawrapper.h"
 
-class CIntro {
+class Intro {
 public:
     //Init
-    void init(MEDIAWrapper* mediaObject);
+    void init(MediaWrapper* mediaObject);
 
     //Playback
     void play();
 
     //Media Wrapper Objekt
-    MEDIAWrapper* mediaObject;
+    MediaWrapper* mediaObject;
 
     //Instanz der Sprachdaten
-    CLanguage languageData;
+    Language languageData;
 
     //Struktur für Animationssequenzen
     struct animation {

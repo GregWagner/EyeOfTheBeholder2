@@ -5,10 +5,10 @@
 #include "map.h"
 #include "mediawrapper.h"
 
-class CEvent {
+class Event {
 public:
     //Init
-    void init(CMap* map, MEDIAWrapper* mediaObject);
+    void init(Map* map, MediaWrapper* mediaObject);
 
     //Events löschen
     void clear();
@@ -31,13 +31,13 @@ public:
     void statusMessage(char text[128]);
 
     //Media Objekt
-    MEDIAWrapper* mediaObject;
+    MediaWrapper* mediaObject;
 
     //Texte
-    CLanguage* languageData;
+    Language* languageData;
 
     //Charactere
-    CChar* chars[4];
+    Char* chars[4];
 
     //Event Typ
     short eventTyp;
@@ -53,7 +53,7 @@ public:
     bool showGameWindow;
 
     //Map
-    CMap* map;
+    Map* map;
     bool mapChange;
     short newMapID, warpToPos, faceTo;
 

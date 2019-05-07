@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 
 // Wall initialisation
-void CMazeObjects::init(short maze_id)
+void MazeObjects::init(short maze_id)
 {
     char realpath[128];
 
@@ -36,7 +36,7 @@ void CMazeObjects::init(short maze_id)
 }
 
 // MAZ File mit INF-Verweisen laden
-void CMazeObjects::loadMAZ(char* file)
+void MazeObjects::loadMAZ(char* file)
 {
     // File einlesen
     FILE* source = NULL;
@@ -68,7 +68,7 @@ void CMazeObjects::loadMAZ(char* file)
 }
 
 // INF File mit Level Definitionen laden
-void CMazeObjects::loadINF(char* file)
+void MazeObjects::loadINF(char* file)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     char realpath[128];
@@ -351,7 +351,7 @@ void CMazeObjects::loadINF(char* file)
 }
 
 // VMP File mit VNC-Definitionen laden
-void CMazeObjects::loadVMP(char* file)
+void MazeObjects::loadVMP(char* file)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
 
@@ -385,7 +385,7 @@ void CMazeObjects::loadVMP(char* file)
 }
 
 // VCN File mit Grafikdaten laden
-void CMazeObjects::loadVCN(char* file)
+void MazeObjects::loadVCN(char* file)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
 
@@ -446,13 +446,13 @@ void CMazeObjects::loadVCN(char* file)
 }
 
 // Bytes in einem WORD swappen
-unsigned short CMazeObjects::getSwappedWord(unsigned char byte_0, unsigned char byte_1)
+unsigned short MazeObjects::getSwappedWord(unsigned char byte_0, unsigned char byte_1)
 {
     return (byte_1 << 8) | byte_0;
 }
 
 // 8x8 Pixel Block mit aktueller Palette zeichnen
-void CMazeObjects::drawBlock(short block_nr, short posX, short posY, bool wall_palette, bool x_flipp, int imageID)
+void MazeObjects::drawBlock(short block_nr, short posX, short posY, bool wall_palette, bool x_flipp, int imageID)
 {
     //Startbyte in VCN Data, jeder Block umfasst 4x8 Byte (32 Byte) - los gehts bei Pos. 0x42
     block_nr -= 1;
@@ -500,7 +500,7 @@ void CMazeObjects::drawBlock(short block_nr, short posX, short posY, bool wall_p
 }
 
 // Wall-Hintergrund zeichnen - wenn nötig x-flipped
-void CMazeObjects::loadWallBackground(bool flipped, int imageID)
+void MazeObjects::loadWallBackground(bool flipped, int imageID)
 {
     //Hintergrund-Tile Daten beginnen bei 0x02 des VMP Files
     int background_offset = 0x02;
@@ -600,7 +600,7 @@ struct WallData {
     { -101, 3, 15, 0, 152, 0, 1 }, /*25	Q-west */
 };
 
-bool CMazeObjects::renderWall(int wallSetID, int viewportPos, int imageID)
+bool MazeObjects::renderWall(int wallSetID, int viewportPos, int imageID)
 {
     viewportPos -= 1;
 
@@ -830,7 +830,7 @@ bool CMazeObjects::renderWall(int wallSetID, int viewportPos, int imageID)
 }
 
 // Wandfront zeichnen - level 4 (ganz hinten) bis 1 (neben Player)
-void CMazeObjects::renderWalls(int level, int playerPos, int playerFace)
+void MazeObjects::renderWalls(int level, int playerPos, int playerFace)
 {
     /*
 	
@@ -1038,7 +1038,7 @@ void CMazeObjects::renderWalls(int level, int playerPos, int playerFace)
 }
 
 // .MAZ Wall ID in reale Wall ID umwandeln
-signed char CMazeObjects::getRealWallID(int maz_id, int wall_id, int maz_pos)
+signed char MazeObjects::getRealWallID(int maz_id, int wall_id, int maz_pos)
 {
     /*	
 	MAZ Value	WallMappingIndex Value
@@ -1099,7 +1099,7 @@ signed char CMazeObjects::getRealWallID(int maz_id, int wall_id, int maz_pos)
 }
 
 // Wand Dekoration rendern
-int CMazeObjects::computeDecoration(int maz_id)
+int MazeObjects::computeDecoration(int maz_id)
 {
     // *Bug-Alarm* Deco-Anpassungen für (unerklärliche) fehlende Dekos
     if (maz_id == 47)
@@ -1136,7 +1136,7 @@ int CMazeObjects::computeDecoration(int maz_id)
 }
 
 // Türen zeichnen
-int CMazeObjects::renderDoor(int maz_id, int wall_id)
+int MazeObjects::renderDoor(int maz_id, int wall_id)
 {
     wall_id -= 1;
 

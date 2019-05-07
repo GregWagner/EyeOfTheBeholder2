@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 // Initialisierung
-void CChar::init(MEDIAWrapper* mediaObject, CMap* gameMap)
+void Char::init(MediaWrapper* mediaObject, Map* gameMap)
 {
     //Item Init
     this->mediaObject = mediaObject;
@@ -25,7 +25,7 @@ void CChar::init(MEDIAWrapper* mediaObject, CMap* gameMap)
 }
 
 // Schaden hinzufügen (diesem Char)
-void CChar::doDamage(short damage)
+void Char::doDamage(short damage)
 {
     if (damage < 0)
         damage = 0;
@@ -39,7 +39,7 @@ void CChar::doDamage(short damage)
 }
 
 // Angreifen
-void CChar::attackNow(short handPos)
+void Char::attackNow(short handPos)
 {
     short damage = 0;
     mediaObject->playSound(3);
@@ -76,7 +76,7 @@ void CChar::attackNow(short handPos)
 }
 
 // Char speichern
-void CChar::saveChar(FILE* saveFile)
+void Char::saveChar(FILE* saveFile)
 {
     //ID des Chars im Spiel
     fwrite(&charID, sizeof(short), 1, saveFile);
@@ -177,7 +177,7 @@ void CChar::saveChar(FILE* saveFile)
 }
 
 // Char laden
-void CChar::loadChar(FILE* saveFile)
+void Char::loadChar(FILE* saveFile)
 {
     //ID des Chars im Spiel
     fread(&charID, sizeof(short), 1, saveFile);

@@ -7,16 +7,16 @@
 #include <iostream>
 
 // Basis Setup
-void CMap::loadBaseData(short mapID)
+void Map::loadBaseData(short mapID)
 {
-    mazeObjects = new CMazeObjects();
+    mazeObjects = new MazeObjects();
     mazeObjects->mediaObject = this->mediaObject;
     mazeObjects->init(mapID);
     lastLoadedMapID = mapID;
 }
 
 // Wandfront zeichnen - level 4 (ganz hinten) bis 1 (neben Player)
-void CMap::drawWalls(int level)
+void Map::drawWalls(int level)
 {
     for (int i = 0; i < 1024; i++) {
         mazeObjects->cell_info[i].door_is_open = cell_info[i].door_is_open;
@@ -28,7 +28,7 @@ void CMap::drawWalls(int level)
 }
 
 //auf solide Wand prüfen für Kollisionserkennung des Players
-bool CMap::isSolidWall(short direction, short wallpos)
+bool Map::isSolidWall(short direction, short wallpos)
 {
     bool value = true;
 
@@ -52,7 +52,7 @@ bool CMap::isSolidWall(short direction, short wallpos)
 }
 
 // Initialisierung
-void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
+void Map::init(short mapID, MediaWrapper* mediaObject, bool fastinit)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     /*
@@ -288,7 +288,7 @@ void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
 }
 
 // Karte zurücksetzen
-void CMap::clear()
+void Map::clear()
 {
     playerFace = 0;
     playerPos = 0;
@@ -337,7 +337,7 @@ void CMap::clear()
 }
 
 // Karte speichern
-void CMap::saveMap(FILE* saveFile)
+void Map::saveMap(FILE* saveFile)
 {
     //Blickrichtung des Spielers speichern
     fwrite(&playerFace, sizeof(short), 1, saveFile);
@@ -425,7 +425,7 @@ void CMap::saveMap(FILE* saveFile)
 }
 
 // Karte laden
-void CMap::loadMap(FILE* saveFile)
+void Map::loadMap(FILE* saveFile)
 {
     //Blickrichtung des Spielers lesen
     fread(&playerFace, sizeof(short), 1, saveFile);
@@ -516,7 +516,7 @@ void CMap::loadMap(FILE* saveFile)
 }
 
 // Funktion fügt aktuelle Position zum memoryPos Array hinzu
-void CMap::addPosToMemory()
+void Map::addPosToMemory()
 {
     short temp = 0, temp2 = 0;
 
@@ -534,7 +534,7 @@ void CMap::addPosToMemory()
 }
 
 //Item werfen
-void CMap::throwItem(short mapPos, short itemNr)
+void Map::throwItem(short mapPos, short itemNr)
 {
     if (mediaObject->getMilliSeconds() > item_flying_timer[mapPos][itemNr]) {
         short mapOffset = 0;

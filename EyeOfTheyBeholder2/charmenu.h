@@ -7,10 +7,10 @@
 #include "map.h"
 #include "mediawrapper.h"
 
-class CCharMenu {
+class CharMenu {
 public:
     //Init
-    void initMenu(MEDIAWrapper* mediaObject, CEvent* mapEvent);
+    void initMenu(MediaWrapper* mediaObject, Event* mapEvent);
 
     //updaten
     void update();
@@ -61,20 +61,20 @@ public:
     void drawCampButton(short posX, short posY, short width, char text[64]);
 
     //Media Wrapper
-    MEDIAWrapper* mediaObject;
+    MediaWrapper* mediaObject;
 
     //Events
-    CEvent* mapEvent;
+    Event* mapEvent;
 
     //4 Charachter Instanzen
-    CChar* character[6];
+    Char* character[6];
     short menuPosID[6];
 
     //Items
-    CItem* item;
+    Item* item;
 
     //Karte
-    CMap* gameMap;
+    Map* gameMap;
 
     //Mauszeiger
     short* mouseItem;
@@ -84,7 +84,7 @@ public:
     short mouseX, mouseY;
 
     //Texte
-    CLanguage* languageData;
+    Language* languageData;
 
     // Menu Styles
     short menuStyle;

@@ -5,19 +5,19 @@
 #include "map.h"
 #include "mediawrapper.h"
 
-class CItem {
+class Item {
 public:
     //Init
-    void init(MEDIAWrapper* mediaObject, CEvent* mapEvent, CLanguage* languageData);
+    void init(MediaWrapper* mediaObject, Event* mapEvent, Language* languageData);
 
     //Item Icon zeichnen
     void drawIcon(short itemID, short posX, short posY);
 
     //Events
-    CEvent* mapEvent;
+    Event* mapEvent;
 
     //Texte
-    CLanguage* languageData;
+    Language* languageData;
 
     //ID des Items im Spiel
     short itemID;
@@ -32,5 +32,5 @@ public:
     char itemName[112][128];
 
     //Media Objekt
-    MEDIAWrapper* mediaObject;
+    MediaWrapper* mediaObject;
 };

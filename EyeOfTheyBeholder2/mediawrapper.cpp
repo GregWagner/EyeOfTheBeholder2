@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 
 // Fenster erzeugen
-void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool mFullscreen)
+void MediaWrapper::setupWindow(int posX, int posY, int width, int height, bool mFullscreen)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     // initialize SDL
@@ -66,7 +66,7 @@ void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool m
 }
 
 // Bild laden
-void MEDIAWrapper::loadImage(int imageID, char* path)
+void MediaWrapper::loadImage(int imageID, char* path)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     char realpath[128];
@@ -79,7 +79,7 @@ void MEDIAWrapper::loadImage(int imageID, char* path)
 }
 
 // Surface als BMP File abspeichern
-void MEDIAWrapper::saveBMP(int imageID)
+void MediaWrapper::saveBMP(int imageID)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     if (mSurfaceImages[imageID] != NULL)
@@ -89,7 +89,7 @@ void MEDIAWrapper::saveBMP(int imageID)
 }
 
 // Bild aus Speicher löschen
-void MEDIAWrapper::freeImage(int i)
+void MediaWrapper::freeImage(int i)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     if (mSurfaceImages[i] != NULL) {
@@ -101,7 +101,7 @@ void MEDIAWrapper::freeImage(int i)
 }
 
 // prüfen ob Bild bereits erstellt wurde
-bool MEDIAWrapper::imageLoaded(int nr)
+bool MediaWrapper::imageLoaded(int nr)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     if (mSurfaceImages[nr] != NULL)
@@ -110,7 +110,7 @@ bool MEDIAWrapper::imageLoaded(int nr)
 }
 
 // CPS Bild laden
-void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palette, int posX, int posY, int width, int height, bool transp, bool sprite)
+void MediaWrapper::loadCPS(int imageID, std::string filename, std::string palette, int posX, int posY, int width, int height, bool transp, bool sprite)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     FILE *palfile, *source;
@@ -258,14 +258,14 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
 }
 
 // WORD Wert aus CPS File auslesen
-int MEDIAWrapper::getWord(unsigned char string[64000], int pos)
+int MediaWrapper::getWord(unsigned char string[64000], int pos)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     return (string[pos + 1] << 8) + string[pos];
     std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
-int MEDIAWrapper::format80decode(unsigned char image_in[], unsigned char image_out[])
+int MediaWrapper::format80decode(unsigned char image_in[], unsigned char image_out[])
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     unsigned char* copyp;
@@ -332,7 +332,7 @@ int MEDIAWrapper::format80decode(unsigned char image_in[], unsigned char image_o
 }
 
 //Bild zeichnen
-void MEDIAWrapper::drawImage(int imageID, int posX, int posY, int fromPosX, int fromPosY, int width, int height)
+void MediaWrapper::drawImage(int imageID, int posX, int posY, int fromPosX, int fromPosY, int width, int height)
 {
     SDL_Rect rcDest = { posX, posY, 0, 0 };
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
@@ -352,7 +352,7 @@ void MEDIAWrapper::drawImage(int imageID, int posX, int posY, int fromPosX, int 
 }
 
 // leeres Bild erstellen
-void MEDIAWrapper::createImage(int imageID, int paletteSourceImageID, int width, int height)
+void MediaWrapper::createImage(int imageID, int paletteSourceImageID, int width, int height)
 {
     if (mSurfaceImages[imageID] != NULL)
         mSurfaceImages[imageID] = NULL;
@@ -361,7 +361,7 @@ void MEDIAWrapper::createImage(int imageID, int paletteSourceImageID, int width,
 }
 
 // Bild zu Bild blitten
-void MEDIAWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int transpR, int transpG, int transpB)
+void MediaWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int transpR, int transpG, int transpB)
 {
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
     SDL_Rect rcDst = { toPosX, toPosY, 0, 0 };
@@ -372,7 +372,7 @@ void MEDIAWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int f
 }
 
 // Bild zu Bild blitten mit Größenänderung
-bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int toWidth, int toHeight, int transpR, int transpG, int transpB, bool mirror)
+bool MediaWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX, int fromPosY, int toPosX, int toPosY, int width, int height, int toWidth, int toHeight, int transpR, int transpG, int transpB, bool mirror)
 {
     if (toWidth != width || toHeight != height || mirror) {
         SDL_Rect from = { 0, 0, 0, 0 };
@@ -438,7 +438,7 @@ typedef struct tColorRGBA {
 } tColorRGBA;
 
 // Text zeichen
-void MEDIAWrapper::drawText(int fontID, int posX, int posY, int r, int g, int b, std::string text, bool center)
+void MediaWrapper::drawText(int fontID, int posX, int posY, int r, int g, int b, std::string text, bool center)
 {
     if (fontID < 4) {
         posY += 1;
@@ -462,20 +462,20 @@ void MEDIAWrapper::drawText(int fontID, int posX, int posY, int r, int g, int b,
 }
 
 // SDL beenden
-void MEDIAWrapper::quit()
+void MediaWrapper::quit()
 {
     SDL_Quit();
     exit(0);
 }
 
 // x ms warten
-void MEDIAWrapper::sleep(int ms)
+void MediaWrapper::sleep(int ms)
 {
     SDL_Delay(ms);
 }
 
 // Sound laden
-void MEDIAWrapper::loadSound(int nr, std::string path)
+void MediaWrapper::loadSound(int nr, std::string path)
 {
     char realpath[128];
     sprintf_s(realpath, "%s.ogg", path);
@@ -485,7 +485,7 @@ void MEDIAWrapper::loadSound(int nr, std::string path)
 }
 
 // Sound löschen
-void MEDIAWrapper::freeSound(int nr)
+void MediaWrapper::freeSound(int nr)
 {
 #ifdef SDL_V1
     if (mSound[nr] != NULL) {
@@ -496,7 +496,7 @@ void MEDIAWrapper::freeSound(int nr)
 }
 
 // Sound abspielen
-void MEDIAWrapper::playSound(int nr)
+void MediaWrapper::playSound(int nr)
 {
 #ifdef SDL_V1
     Mix_PlayChannel(-1, mSound[nr], 0);
@@ -504,7 +504,7 @@ void MEDIAWrapper::playSound(int nr)
 }
 
 // Sound stoppen
-void MEDIAWrapper::stopSound(int nr)
+void MediaWrapper::stopSound(int nr)
 {
 #ifdef SDL_V1
     if (mSound[nr] != NULL)
@@ -513,7 +513,7 @@ void MEDIAWrapper::stopSound(int nr)
 }
 
 // Sound spielt
-bool MEDIAWrapper::isPlaying(int nr)
+bool MediaWrapper::isPlaying(int nr)
 {
 #ifdef SDL_V1
     if (mSound[nr] != NULL)
@@ -525,20 +525,20 @@ bool MEDIAWrapper::isPlaying(int nr)
 }
 
 // Screen Refresh
-void MEDIAWrapper::refresh()
+void MediaWrapper::refresh()
 {
     SDL_RenderPresent(mRenderer);
 }
 
 // Maus Koordinaten zurückgeben
-void MEDIAWrapper::getMouseState(int* x, int* y)
+void MediaWrapper::getMouseState(int* x, int* y)
 {
     SDL_PumpEvents();
     SDL_GetMouseState(x, y);
 }
 
 // prüfen ob linke Maustaste gedrückt wurde
-bool MEDIAWrapper::getMouseLeft()
+bool MediaWrapper::getMouseLeft()
 {
     SDL_PumpEvents();
     if (SDL_GetMouseState(0, 0) & SDL_BUTTON(1))
@@ -548,7 +548,7 @@ bool MEDIAWrapper::getMouseLeft()
 }
 
 // prüfen ob rechte Maustaste gedrückt wurde
-bool MEDIAWrapper::getMouseRight()
+bool MediaWrapper::getMouseRight()
 {
     SDL_PumpEvents();
     if (SDL_GetMouseState(0, 0) & SDL_BUTTON(3))
@@ -558,7 +558,7 @@ bool MEDIAWrapper::getMouseRight()
 }
 
 // Taste down
-void MEDIAWrapper::updateKeys()
+void MediaWrapper::updateKeys()
 {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
@@ -593,14 +593,14 @@ void MEDIAWrapper::updateKeys()
 }
 
 // gefülltest Viereck zeichnen
-void MEDIAWrapper::fillRect(int posX, int posY, int width, int height, int r, int g, int b, int imageID)
+void MediaWrapper::fillRect(int posX, int posY, int width, int height, int r, int g, int b, int imageID)
 {
     SDL_Rect dstrect = { posX, posY, width, height };
     SDL_FillRect(imageID == -1 ? mScreen : mSurfaceImages[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? mScreen->format : mSurfaceImages[imageID]->format, r, g, b));
 }
 
 // Palette laden für spätere Pixel Aktionen
-void MEDIAWrapper::loadPal(char* filename)
+void MediaWrapper::loadPal(char* filename)
 {
     FILE* palfile;
     unsigned char pal[768];
@@ -637,14 +637,14 @@ void MEDIAWrapper::loadPal(char* filename)
 }
 
 // Pixel zeichnen mit aktueller Palette
-void MEDIAWrapper::drawPixel(int posX, int posY, int palOffset, int imageID = -1)
+void MediaWrapper::drawPixel(int posX, int posY, int palOffset, int imageID = -1)
 {
     SDL_Rect dstrect = { posX, posY, 2, 1 };
     SDL_FillRect(imageID == -1 ? mScreen : mSurfaceImages[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? mScreen->format : mSurfaceImages[imageID]->format, mCurrentColors[palOffset].r, mCurrentColors[palOffset].g, mCurrentColors[palOffset].b));
 }
 
 // Gamescreen in echten screen surface kopieren und alles anzeigen
-void MEDIAWrapper::updateVideo()
+void MediaWrapper::updateVideo()
 {
     // Skalierung nur nötig wenn Auflösung != screen_game
     if (this->mScreenWidth > 320 && this->mScreenHeight > 200) {
@@ -689,7 +689,7 @@ void MEDIAWrapper::updateVideo()
 }
 
 //Gammewert setzen
-void MEDIAWrapper::setGamma(int r, int g, int b)
+void MediaWrapper::setGamma(int r, int g, int b)
 {
 #ifdef SDL_V1
     SDL_SetGamma(r, g, b);
@@ -697,7 +697,7 @@ void MEDIAWrapper::setGamma(int r, int g, int b)
 }
 
 //Millisekunden auslesen
-int MEDIAWrapper::getMilliSeconds()
+int MediaWrapper::getMilliSeconds()
 {
     return SDL_GetTicks();
 }

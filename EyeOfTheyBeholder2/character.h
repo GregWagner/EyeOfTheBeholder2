@@ -3,10 +3,10 @@
 #include "map.h"
 #include "mediawrapper.h"
 
-class CChar {
+class Char {
 public:
     //Init
-    void init(MEDIAWrapper* mediaObject, CMap* gameMap);
+    void init(MediaWrapper* mediaObject, Map* gameMap);
 
     //Schaden
     void doDamage(short damage);
@@ -21,10 +21,10 @@ public:
     void loadChar(FILE* saveFile);
 
     //Referenz aufs MediaObject
-    MEDIAWrapper* mediaObject;
+    MediaWrapper* mediaObject;
 
     //Referenz auf Map
-    CMap* gameMap;
+    Map* gameMap;
 
     //ID des Chars im Spiel
     short charID;

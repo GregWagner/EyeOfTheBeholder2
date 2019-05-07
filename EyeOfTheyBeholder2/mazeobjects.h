@@ -2,7 +2,7 @@
 
 #include "mediawrapper.h"
 
-class CMazeObjects {
+class MazeObjects {
 public:
     void init(short maze_id);
 
@@ -43,7 +43,7 @@ public:
     signed char getRealWallID(int maz_id, int wall_id = -1, int maz_pos = 0);
 
     //Media Wrapper Objekt
-    MEDIAWrapper* mediaObject;
+    MediaWrapper* mediaObject;
 
     //Level ID
     int level_id;

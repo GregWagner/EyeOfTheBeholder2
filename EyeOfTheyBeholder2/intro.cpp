@@ -2,7 +2,7 @@
 #include <cstdio>
 
 // Initialisierung
-void CIntro::init(MEDIAWrapper* mediaObject)
+void Intro::init(MediaWrapper* mediaObject)
 {
     this->mediaObject = mediaObject;
 
@@ -510,7 +510,7 @@ void CIntro::init(MEDIAWrapper* mediaObject)
     mediaObject->loadSound(0, "sound/intro");
 }
 
-void CIntro::play()
+void Intro::play()
 {
     short running = 1;
     short currentFrame = 0;

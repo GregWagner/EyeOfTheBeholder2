@@ -3,10 +3,10 @@
 #include "mazeobjects.h"
 #include "mediawrapper.h"
 
-class CMap {
+class Map {
 public:
     //Init
-    void init(short mapID, MEDIAWrapper* mediaObject, bool fastinit = false);
+    void init(short mapID, MediaWrapper* mediaObject, bool fastinit = false);
 
     //Wandfront zeichnen - level 4 (ganz hinten) bis 1 (neben Player)
     void drawWalls(int level);
@@ -30,7 +30,7 @@ public:
     void addPosToMemory();
 
     //Object mit Grafiken und Infos zum Leveldesign
-    CMazeObjects* mazeObjects;
+    MazeObjects* mazeObjects;
 
     //Item werfen
     void throwItem(short mapPos, short itemNr);
@@ -113,5 +113,5 @@ public:
     short memoryPosPointer;
 
     //Media Objekt
-    MEDIAWrapper* mediaObject;
+    MediaWrapper* mediaObject;
 };

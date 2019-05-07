@@ -11,7 +11,7 @@ Engine::Engine()
         mSaveStatusGameMap[i] = nullptr;
     }
 
-    mMapEvent = new CEvent;
+    mMapEvent = new Event;
 
     mConfiguration.openConf("eob2.conf");
 
@@ -187,7 +187,7 @@ Engine::Engine()
 
 void Engine::playIntro()
 {
-    CIntro intro;
+    Intro intro;
 
     intro.languageData = mLanguageData;
     intro.init(&mMediaObject);
@@ -201,7 +201,7 @@ void Engine::loadMap(short mapID, bool savedMap)
     if (mSaveStatusGameMap[mapID] && !savedMap) {
         mCurrentMapID = mapID;
         if (!mGameMap) {
-            mGameMap = new CMap;
+            mGameMap = new Map;
         }
         *mGameMap = *mSaveStatusGameMap[mapID];
         mGameMap->init(mapID, &mMediaObject, true);
@@ -215,7 +215,7 @@ void Engine::loadMap(short mapID, bool savedMap)
         }
         delete (mGameMap);
         mGameMap = nullptr;
-        mGameMap = new CMap;
+        mGameMap = new Map;
         mGameMap->init(mapID, &mMediaObject);
     }
 
@@ -234,7 +234,7 @@ void Engine::loadMap(short mapID, bool savedMap)
             delete (mMonster[m]);
             mMonster[m] = nullptr;
         }
-        mMonster[m] = new CMonster;
+        mMonster[m] = new Monster;
         mMonster[m]->init(mGameMap, &mMediaObject, &mLanguageData, mMapEvent, mGameMap->monsterInfo[m][1],
             mGameMap->monsterInfo[m][0], mGameMap->monsterInfo[m][2], mGameMap->monsterInfo[m][3], mGameMap->monsterInfo[m][4]);
         for (short i = 0; i < 4; i++) {
@@ -248,7 +248,7 @@ void Engine::loadMap(short mapID, bool savedMap)
         delete (mMapEvent);
         mMapEvent = nullptr;
     }
-    mMapEvent = new CEvent;
+    mMapEvent = new Event;
     for (short i = 0; i < 4; i++) {
         mMapEvent->chars[i] = &mCharacter[i];
     }
@@ -283,7 +283,7 @@ void Engine::loadGame()
         mGameMap->clear();
         delete (mGameMap);
         mGameMap = nullptr;
-        mGameMap = new CMap;
+        mGameMap = new Map;
     }
     mGameMap->loadMap(saveFile);
 
@@ -299,7 +299,7 @@ void Engine::loadGame()
             }
             delete (mSaveStatusGameMap[i]);
             mSaveStatusGameMap[i] = nullptr;
-            mSaveStatusGameMap[i] = new CMap;
+            mSaveStatusGameMap[i] = new Map;
             mSaveStatusGameMap[i]->loadMap(saveFile);
         }
     }
@@ -410,7 +410,7 @@ void Engine::updateView()
         // Check for map changes
         if (mMapEvent->mapChange) {
             mSaveStatusGameMap[mCurrentMapID] = nullptr;
-            mSaveStatusGameMap[mCurrentMapID] = new CMap;
+            mSaveStatusGameMap[mCurrentMapID] = new Map;
             *mSaveStatusGameMap[mCurrentMapID] = *mGameMap;
 
             mMapEvent->mapChange = false;

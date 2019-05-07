@@ -1,14 +1,7 @@
-
-/**********************************
-Class CIntro
-***********************************/
 #include "intro.h"
 #include <cstdio>
 
-//
 // Initialisierung
-//
-
 void CIntro::init(MEDIAWrapper* mediaObject)
 {
     this->mediaObject = mediaObject;
@@ -289,9 +282,7 @@ void CIntro::init(MEDIAWrapper* mediaObject)
     keyframe.keyFrames[7] = 1575;
     keyframe.repeat = 0;
 
-    //
     // Bilder mit einzelnen Frames/Keyframes erstellen
-    //
 
     //Frameset 0
     mediaObject->createImage(0, 0, 1600, 200);
@@ -418,102 +409,102 @@ void CIntro::init(MEDIAWrapper* mediaObject)
 	*/
 
     //Setup der Texte
-    language[0].sringData = languageData.text[12];
-    language[0].from = 369;
-    language[0].to = 426;
-    language[0].row = 0;
-    language[1].sringData = languageData.text[13];
-    language[1].from = 369;
-    language[1].to = 426;
-    language[1].row = 1;
-    language[2].sringData = languageData.text[14];
-    language[2].from = 427;
-    language[2].to = 484;
-    language[2].row = 0;
-    language[3].sringData = languageData.text[15];
-    language[3].from = 486;
-    language[3].to = 543;
-    language[3].row = 0;
-    language[4].sringData = languageData.text[16];
-    language[4].from = 486;
-    language[4].to = 543;
-    language[4].row = 1;
-    language[5].sringData = languageData.text[17];
-    language[5].from = 545;
-    language[5].to = 619;
-    language[5].row = 0;
-    language[6].sringData = languageData.text[18];
-    language[6].from = 632;
-    language[6].to = 683;
-    language[6].row = 0;
-    language[7].sringData = languageData.text[19];
-    language[7].from = 685;
-    language[7].to = 728;
-    language[7].row = 0;
-    language[8].sringData = languageData.text[20];
-    language[8].from = 729;
-    language[8].to = 854;
-    language[8].row = 0;
-    language[9].sringData = languageData.text[21];
-    language[9].from = 946;
-    language[9].to = 1000;
-    language[9].row = 0;
-    language[10].sringData = languageData.text[22];
-    language[10].from = 1017;
-    language[10].to = 1067;
-    language[10].row = 0;
-    language[11].sringData = languageData.text[23];
-    language[11].from = 1069;
-    language[11].to = 1116;
-    language[11].row = 0;
-    language[12].sringData = languageData.text[24];
-    language[12].from = 1069;
-    language[12].to = 1116;
-    language[12].row = 1;
-    language[13].sringData = languageData.text[25];
-    language[13].from = 1118;
-    language[13].to = 1186;
-    language[13].row = 0;
-    language[14].sringData = languageData.text[26];
-    language[14].from = 1238;
-    language[14].to = 1277;
-    language[14].row = 0;
-    language[15].sringData = languageData.text[27];
-    language[15].from = 1289;
-    language[15].to = 1341;
-    language[15].row = 0;
-    language[16].sringData = languageData.text[28];
-    language[16].from = 1289;
-    language[16].to = 1341;
-    language[16].row = 1;
-    language[17].sringData = languageData.text[29];
-    language[17].from = 1343;
-    language[17].to = 1409;
-    language[17].row = 0;
-    language[18].sringData = languageData.text[30];
-    language[18].from = 1411;
-    language[18].to = 1473;
-    language[18].row = 0;
-    language[19].sringData = languageData.text[31];
-    language[19].from = 1494;
-    language[19].to = 1537;
-    language[19].row = 0;
-    language[20].sringData = languageData.text[32];
-    language[20].from = 1575;
-    language[20].to = 1628;
-    language[20].row = 0;
-    language[21].sringData = languageData.text[33];
-    language[21].from = 1629;
-    language[21].to = 1682;
-    language[21].row = 0;
-    language[22].sringData = languageData.text[34];
-    language[22].from = 1693;
-    language[22].to = 1745;
-    language[22].row = 0;
-    language[23].sringData = languageData.text[35];
-    language[23].from = 1757;
-    language[23].to = 1799;
-    language[23].row = 0;
+    mLanguage[0].sringData = languageData.text[12];
+    mLanguage[0].from = 369;
+    mLanguage[0].to = 426;
+    mLanguage[0].row = 0;
+    mLanguage[1].sringData = languageData.text[13];
+    mLanguage[1].from = 369;
+    mLanguage[1].to = 426;
+    mLanguage[1].row = 1;
+    mLanguage[2].sringData = languageData.text[14];
+    mLanguage[2].from = 427;
+    mLanguage[2].to = 484;
+    mLanguage[2].row = 0;
+    mLanguage[3].sringData = languageData.text[15];
+    mLanguage[3].from = 486;
+    mLanguage[3].to = 543;
+    mLanguage[3].row = 0;
+    mLanguage[4].sringData = languageData.text[16];
+    mLanguage[4].from = 486;
+    mLanguage[4].to = 543;
+    mLanguage[4].row = 1;
+    mLanguage[5].sringData = languageData.text[17];
+    mLanguage[5].from = 545;
+    mLanguage[5].to = 619;
+    mLanguage[5].row = 0;
+    mLanguage[6].sringData = languageData.text[18];
+    mLanguage[6].from = 632;
+    mLanguage[6].to = 683;
+    mLanguage[6].row = 0;
+    mLanguage[7].sringData = languageData.text[19];
+    mLanguage[7].from = 685;
+    mLanguage[7].to = 728;
+    mLanguage[7].row = 0;
+    mLanguage[8].sringData = languageData.text[20];
+    mLanguage[8].from = 729;
+    mLanguage[8].to = 854;
+    mLanguage[8].row = 0;
+    mLanguage[9].sringData = languageData.text[21];
+    mLanguage[9].from = 946;
+    mLanguage[9].to = 1000;
+    mLanguage[9].row = 0;
+    mLanguage[10].sringData = languageData.text[22];
+    mLanguage[10].from = 1017;
+    mLanguage[10].to = 1067;
+    mLanguage[10].row = 0;
+    mLanguage[11].sringData = languageData.text[23];
+    mLanguage[11].from = 1069;
+    mLanguage[11].to = 1116;
+    mLanguage[11].row = 0;
+    mLanguage[12].sringData = languageData.text[24];
+    mLanguage[12].from = 1069;
+    mLanguage[12].to = 1116;
+    mLanguage[12].row = 1;
+    mLanguage[13].sringData = languageData.text[25];
+    mLanguage[13].from = 1118;
+    mLanguage[13].to = 1186;
+    mLanguage[13].row = 0;
+    mLanguage[14].sringData = languageData.text[26];
+    mLanguage[14].from = 1238;
+    mLanguage[14].to = 1277;
+    mLanguage[14].row = 0;
+    mLanguage[15].sringData = languageData.text[27];
+    mLanguage[15].from = 1289;
+    mLanguage[15].to = 1341;
+    mLanguage[15].row = 0;
+    mLanguage[16].sringData = languageData.text[28];
+    mLanguage[16].from = 1289;
+    mLanguage[16].to = 1341;
+    mLanguage[16].row = 1;
+    mLanguage[17].sringData = languageData.text[29];
+    mLanguage[17].from = 1343;
+    mLanguage[17].to = 1409;
+    mLanguage[17].row = 0;
+    mLanguage[18].sringData = languageData.text[30];
+    mLanguage[18].from = 1411;
+    mLanguage[18].to = 1473;
+    mLanguage[18].row = 0;
+    mLanguage[19].sringData = languageData.text[31];
+    mLanguage[19].from = 1494;
+    mLanguage[19].to = 1537;
+    mLanguage[19].row = 0;
+    mLanguage[20].sringData = languageData.text[32];
+    mLanguage[20].from = 1575;
+    mLanguage[20].to = 1628;
+    mLanguage[20].row = 0;
+    mLanguage[21].sringData = languageData.text[33];
+    mLanguage[21].from = 1629;
+    mLanguage[21].to = 1682;
+    mLanguage[21].row = 0;
+    mLanguage[22].sringData = languageData.text[34];
+    mLanguage[22].from = 1693;
+    mLanguage[22].to = 1745;
+    mLanguage[22].row = 0;
+    mLanguage[23].sringData = languageData.text[35];
+    mLanguage[23].from = 1757;
+    mLanguage[23].to = 1799;
+    mLanguage[23].row = 0;
 
     //Musik
     mediaObject->loadSound(0, "sound/intro");
@@ -555,15 +546,15 @@ void CIntro::play()
 
             //Texte rendern
             for (short t = 0; t < 24; t++) {
-                if (currentFrame >= language[t].from && currentFrame <= language[t].to) {
-                    if (language[t].row == 0) {
+                if (currentFrame >= mLanguage[t].from && currentFrame <= mLanguage[t].to) {
+                    if (mLanguage[t].row == 0) {
                         mediaObject->fillRect(0, 140, 320, 60, 0, 0, 0);
                     }
 
                     if (currentFrame < 685)
-                        mediaObject->drawText(0, 150, 150 + (10 * language[t].row), 116, 232, 252, language[t].sringData, true);
+                        mediaObject->drawText(0, 150, 150 + (10 * mLanguage[t].row), 116, 232, 252, mLanguage[t].sringData, true);
                     else
-                        mediaObject->drawText(0, 150, 150 + (10 * language[t].row), 255, 255, 255, language[t].sringData, true);
+                        mediaObject->drawText(0, 150, 150 + (10 * mLanguage[t].row), 255, 255, 255, mLanguage[t].sringData, true);
                 }
             }
 
@@ -576,12 +567,8 @@ void CIntro::play()
             //Screen Update
             mediaObject->refresh();
 
-#ifdef WINCE
-//
-#else
             //Bildschirmrefresh
             mediaObject->updateVideo();
-#endif
 
             tick2 = tick1 + 100;
             currentFrame++;

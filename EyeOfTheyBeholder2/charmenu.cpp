@@ -1,8 +1,3 @@
-
-/**********************************
-Class CCharMenu
-***********************************/
-
 #include "charmenu.h"
 #include <cstdio>
 
@@ -52,29 +47,20 @@ void CCharMenu::initMenu(MEDIAWrapper* mediaObject, CEvent* mapEvent)
     mediaObject->loadCPS(223, "original/CHARGENA.CPS", "original/SILVER.PAL", posX, posY, 31, 32);
 }
 
-//
 // 4 Fenster Party Ansicht zeichnen
-//
-
 void CCharMenu::drawPartyWindow()
 {
     mediaObject->drawImage(200, 182, 0);
 }
 
-//
 // Inventar zeichnen
-//
-
 void CCharMenu::drawInventar()
 {
     mediaObject->drawImage(201, 182, 0);
     mediaObject->fillRect(219, 14, 32, 19, 108, 108, 136);
 }
 
-//
 // Stats zeichnen
-//
-
 void CCharMenu::drawStats()
 {
     mediaObject->drawImage(202, 182, 0);
@@ -84,10 +70,7 @@ void CCharMenu::drawStats()
     mediaObject->fillRect(277, 148, 29, 18, 108, 108, 136);
 }
 
-//
 // Character Portraits zeichnen
-//
-
 void CCharMenu::drawPortrait(short ID, short posX, short posY)
 {
     mediaObject->drawImage(220 + ID, posX, posY);
@@ -103,10 +86,7 @@ void CCharMenu::drawPortrait(short ID, short posX, short posY)
     }
 }
 
-//
 // Gesundheitsbalken klein zeichnen
-//
-
 void CCharMenu::drawSmallBar(short posX, short posY, short currentPos, short maxPos)
 {
     mediaObject->fillRect(posX + 1, posY + 0, 40, 1, 52, 52, 80);
@@ -117,10 +97,7 @@ void CCharMenu::drawSmallBar(short posX, short posY, short currentPos, short max
     mediaObject->fillRect(posX + 1, posY + 1, (float)currentPos / (float)maxPos * 39, 3, 0, 168, 0);
 }
 
-//
 // Gesundheitsbalken gross zeichnen
-//
-
 void CCharMenu::drawBigBar(short posX, short posY, short currentPos, short maxPos)
 {
     mediaObject->fillRect(posX + 1, posY + 0, 53, 1, 52, 52, 80);
@@ -131,10 +108,7 @@ void CCharMenu::drawBigBar(short posX, short posY, short currentPos, short maxPo
     mediaObject->fillRect(posX + 1, posY + 1, (float)currentPos / (float)maxPos * 52, 5, 0, 168, 0);
 }
 
-//
 // Extra Attackbutton beim PPC
-//
-
 void CCharMenu::drawAttackButton(short posX, short posY)
 {
     mediaObject->fillRect(posX, posY, 7, 7, 255, 0, 0);
@@ -145,10 +119,7 @@ void CCharMenu::drawAttackButton(short posX, short posY)
     mediaObject->drawText(1, posX + 1, posY - 2, 255, 255, 255, "A");
 }
 
-//
 //Punkte-Overlay über Itemsymbol legen
-//
-
 void CCharMenu::drawItemOverlay(short posX, short posY)
 {
     short x_offset = 0;
@@ -161,10 +132,7 @@ void CCharMenu::drawItemOverlay(short posX, short posY)
     }
 }
 
-//
 //Overlay "zu weit" über Itemsymbol legen
-//
-
 void CCharMenu::drawItemOverlayNotReachable(short posX, short posY)
 {
     mediaObject->fillRect(posX + 1, posY, 30, 1, 240, 72, 68);
@@ -176,28 +144,20 @@ void CCharMenu::drawItemOverlayNotReachable(short posX, short posY)
     mediaObject->drawText(0, posX + 1, posY + 6, 255, 255, 255, languageData->text[181]);
 }
 
-//
 // Maus Klicks verarbeiten
-//
-
 void CCharMenu::mouseState(short posX, short posY, bool buttonLeft = true)
 {
     mouseItemOld = *mouseItem;
 
     if (menuStyle == 0) {
-        //
         // bei Klick auf Camp Button Camp Menu öffnen
-        //
-
         if (buttonLeft) {
             if (posX >= 290 && posX <= 320 && posY >= 179 && posY <= 198) {
                 menuStyle = 3;
             }
         }
 
-        //
         // bei Klick auf ein Char Icon in Inventar Ansicht wechseln
-        //
         if (buttonLeft) {
             if (posX >= 185 && posX <= 216 && posY >= 11 && posY <= 43) {
                 //Char mit ID 0 wurde gewählt
@@ -275,23 +235,12 @@ void CCharMenu::mouseState(short posX, short posY, bool buttonLeft = true)
     }
 }
 
-//
 // Inventar im 4-Char-Bild Modus
-//
-
 void CCharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
 {
-    //
     // Klick auf Hand nimmt Item auf
-    //
-
     short memory;
     short ppc_offset = 0;
-
-//Platz für Extra Attack-Button beim Pocket PC
-#ifdef WINCE
-    ppc_offset = 7;
-#endif
 
     //Char 0
     if (posX >= 217 && posX <= 246 && posY >= 12 && posY <= 26) {
@@ -601,13 +550,9 @@ void CCharMenu::handleInventar4Char(short posX, short posY, bool buttonLeft)
     }
 }
 
-//
 // Inventar
-//
-
 void CCharMenu::handleInventarFull(short posX, short posY, short charID)
 {
-
     short memory;
 
     short row, col;
@@ -853,10 +798,7 @@ void CCharMenu::handleInventarFull(short posX, short posY, short charID)
     }
 }
 
-//
 // neu zeichnen usw.
-//
-
 void CCharMenu::update()
 {
     // Menustyles
@@ -934,20 +876,7 @@ void CCharMenu::update()
         if (attackInProgress[menuPosID[3]][1] || character[menuPosID[3]]->currenthp <= 10)
             drawItemOverlayNotReachable(288, 79);
 
-//beim PocketPC Extra-Attack Button einblenden
-#ifdef WINCE
-        drawAttackButton(240, 11);
-        drawAttackButton(240, 27);
-        drawAttackButton(312, 11);
-        drawAttackButton(312, 27);
-        drawAttackButton(240, 63);
-        drawAttackButton(240, 79);
-        drawAttackButton(312, 63);
-        drawAttackButton(312, 79);
-#endif
-
         //wenn der Char gerade Schaden nimmt Schadensanzeige
-
         for (short i = 0; i < 4; i++) {
             if (character[menuPosID[i]]->damageTaken) {
                 damageTakenTimer[menuPosID[i]] = mediaObject->getMilliSeconds() + 1000;
@@ -979,7 +908,6 @@ void CCharMenu::update()
         }
 
         //wenn der Char gerade Schaden verteilt Schadensanzeige
-
         for (short i = 0; i < 4; i++) {
             short x_offset = 0;
 
@@ -1213,10 +1141,7 @@ void CCharMenu::update()
     }
 }
 
-//
 // Camp Menu
-//
-
 void CCharMenu::drawCampMenu()
 {
     //Hintergrund zeichnen
@@ -1238,6 +1163,7 @@ void CCharMenu::drawCampMenu()
     //EXIT
     drawCampButton(128, 122, 40, this->languageData->text[189]);
 }
+
 void CCharMenu::handleCampMenu(short posX, short posY)
 {
     //Exit Button
@@ -1293,10 +1219,7 @@ void CCharMenu::handleCampMenu(short posX, short posY)
         menuStyle = 4;
 }
 
-//
 // Save/Load/Quit Menu
-//
-
 void CCharMenu::drawSaveMenu()
 {
     //Hintergrund zeichnen
@@ -1321,6 +1244,7 @@ void CCharMenu::drawSaveMenu()
     //EXIT
     drawCampButton(128, 122, 40, this->languageData->text[189]);
 }
+
 void CCharMenu::handleSaveMenu(short posX, short posY)
 {
     //LOAD Button
@@ -1344,10 +1268,7 @@ void CCharMenu::handleSaveMenu(short posX, short posY)
         menuStyle = 3;
 }
 
-//
 // Rest Menu
-//
-
 void CCharMenu::drawRestMenu()
 {
     //Hintergrund zeichnen
@@ -1378,14 +1299,12 @@ void CCharMenu::drawRestMenu()
     if (mediaObject->getMilliSeconds() > timer)
         menuStyle = 0;
 }
+
 void CCharMenu::handleRestMenu(short posX, short posY)
 {
 }
 
-//
 // Button für Campstyle-Menus
-//
-
 void CCharMenu::drawCampButton(short posX, short posY, short width, char text[64])
 {
     //Hintergrund zeichnen

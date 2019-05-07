@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 
 // Fenster erzeugen
-void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool fullscreen)
+void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool mFullscreen)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
     // initialize SDL
@@ -18,7 +18,7 @@ void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool f
     }
 
     // create the window where we will draw
-    if (fullscreen) {
+    if (mFullscreen) {
         mWindow = SDL_CreateWindow("Spectalum", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
             0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL);
     } else {

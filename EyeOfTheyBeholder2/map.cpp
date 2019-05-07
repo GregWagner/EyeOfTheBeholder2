@@ -1,18 +1,12 @@
 #pragma warning(disable : 4996)
 
-/**********************************
-Class CMap 
-***********************************/
 #include "map.h"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
 
-//
 // Basis Setup
-//
-
 void CMap::loadBaseData(short mapID)
 {
     mazeObjects = new CMazeObjects();
@@ -21,10 +15,7 @@ void CMap::loadBaseData(short mapID)
     lastLoadedMapID = mapID;
 }
 
-//
 // Wandfront zeichnen - level 4 (ganz hinten) bis 1 (neben Player)
-//
-
 void CMap::drawWalls(int level)
 {
     for (int i = 0; i < 1024; i++) {
@@ -36,10 +27,7 @@ void CMap::drawWalls(int level)
     mazeObjects->renderWalls(level, playerPos, playerFace);
 }
 
-//
 //auf solide Wand prüfen für Kollisionserkennung des Players
-//
-
 bool CMap::isSolidWall(short direction, short wallpos)
 {
     bool value = true;
@@ -63,10 +51,7 @@ bool CMap::isSolidWall(short direction, short wallpos)
     return value;
 }
 
-//
 // Initialisierung
-//
-
 void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
 {
     std::cout << "Entering " << __FUNCTION__ << '\n';
@@ -74,15 +59,10 @@ void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
 		Parameter fastinit bedeutet daß NUR die Bilder der Karte geladen werden müssen
 	*/
 
-    //
     // diverse Variablen initialisieren
-    //
-
     this->mediaObject = mediaObject;
-    //
-    // Default Daten der Karte nur einlesen wenn keine gespeicherte Version existiert (fastinit = true)
-    //
 
+    // Default Daten der Karte nur einlesen wenn keine gespeicherte Version existiert (fastinit = true)
     if (!fastinit) {
         char linedata[512];
         char temp[5];
@@ -307,20 +287,13 @@ void CMap::init(short mapID, MEDIAWrapper* mediaObject, bool fastinit)
     std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
-//
 // Karte zurücksetzen
-//
-
 void CMap::clear()
 {
     playerFace = 0;
-
     playerPos = 0;
-
     mapOffset = 0;
-
     monsterCount = 0;
-
     memoryPosPointer = 0;
 
     for (short i = 0; i < 1089; i++) {
@@ -363,10 +336,7 @@ void CMap::clear()
     }
 }
 
-//
 // Karte speichern
-//
-
 void CMap::saveMap(FILE* saveFile)
 {
     //Blickrichtung des Spielers speichern
@@ -454,10 +424,7 @@ void CMap::saveMap(FILE* saveFile)
     }
 }
 
-//
 // Karte laden
-//
-
 void CMap::loadMap(FILE* saveFile)
 {
     //Blickrichtung des Spielers lesen
@@ -548,10 +515,7 @@ void CMap::loadMap(FILE* saveFile)
     memoryPosPointer = 0;
 }
 
-//
 // Funktion fügt aktuelle Position zum memoryPos Array hinzu
-//
-
 void CMap::addPosToMemory()
 {
     short temp = 0, temp2 = 0;
@@ -569,10 +533,7 @@ void CMap::addPosToMemory()
     memoryFace[0] = this->playerFace;
 }
 
-//
 //Item werfen
-//
-
 void CMap::throwItem(short mapPos, short itemNr)
 {
     if (mediaObject->getMilliSeconds() > item_flying_timer[mapPos][itemNr]) {

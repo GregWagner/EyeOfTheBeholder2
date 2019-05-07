@@ -1,22 +1,11 @@
 #pragma warning(disable : 4996)
 
-/**********************************
-Class CConfig
-***********************************/
 #include "config.h"
 #include <iostream>
-//
+
 // Konfigurationsfile lesen und Werte zuordnen
-//
-
-void CConfig::openConf(std::string fileName)
+void Config::openConf(std::string fileName)
 {
-    std::cout << "Entering " << __FUNCTION__ << '\n';
-
-    this->fullscreen = false;
-    this->language = 0;
-    this->resolution = 0;
-
     //Config File öffnen
     FILE* file;
     char filedata[8192];
@@ -24,9 +13,9 @@ void CConfig::openConf(std::string fileName)
     file = fopen(fileName.c_str(), "r");
     std::cout << "Opening configuration file: " << fileName << '\n';
     if (!file) {
-        this->fullscreen = true;
-        this->language = 0;
-        this->startMapID = 0;
+        mFullscreen = true;
+        mLanguage = 0;
+        mStartMapID = 0;
         printf("Configuration file not found!\n");
         exit(0);
     } else {
@@ -82,39 +71,35 @@ void CConfig::openConf(std::string fileName)
         }
         fclose(file);
     }
-    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
-//
 // Werte setzen
-//
-
-void CConfig::setValue(short key, short val)
+void Config::setValue(short key, short val)
 {
     switch (key) {
     //Fullscreen
     case 0:
         if (val == 0) {
-            this->fullscreen = false;
+            this->mFullscreen = false;
         } else if (val == 1) {
-            this->fullscreen = true;
+            this->mFullscreen = true;
         }
         break;
     //Sprache
     case 1:
         if (val == 0) {
-            this->language = 0;
+            this->mLanguage = 0;
         } else if (val == 1) {
-            this->language = 1;
+            this->mLanguage = 1;
         }
         break;
     //Start Map
     case 2:
-        this->startMapID = val;
+        this->mStartMapID = val;
         break;
     //Auflösung
     case 3:
-        this->resolution = val;
+        this->mResolution = val;
         break;
     }
 }

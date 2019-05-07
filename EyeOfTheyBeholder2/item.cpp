@@ -1,14 +1,7 @@
-
-/**********************************
-Class CItem
-***********************************/
 #include "item.h"
 #include <cstdio>
 
-//
 // Initialisierung
-//
-
 void CItem::init(MEDIAWrapper* mediaObject, CEvent* mapEvent, CLanguage* languageData)
 {
     this->mediaObject = mediaObject;
@@ -486,10 +479,7 @@ void CItem::init(MEDIAWrapper* mediaObject, CEvent* mapEvent, CLanguage* languag
     itemTyp[111] = 0;
 }
 
-//
 // Item Icons zeichnen
-//
-
 void CItem::drawIcon(short itemID, short posX, short posY)
 {
     /* - Item Liste

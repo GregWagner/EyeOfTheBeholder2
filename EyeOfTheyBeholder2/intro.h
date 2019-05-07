@@ -32,7 +32,7 @@ public:
         short to;
         short row;
     };
-    lang language[24];
+    lang mLanguage[24];
 
     //Instanzen der 32 Animationsstufen
     animation anim[33];

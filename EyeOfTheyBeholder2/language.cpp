@@ -1,36 +1,24 @@
 #pragma warning(disable : 4996)
 
-/**********************************
-Class CLanguage
-***********************************/
 #include "language.h"
 #include <cstdio>
 #include <string>
 
-//
 // Initialisierung
-//
-
-void CLanguage::init(short language = 0)
+void CLanguage::init(short mLanguage = 0)
 {
     // 0 = englisch, 1 = deutsch
-    this->language = language;
+    this->mLanguage = mLanguage;
 
     // Sprachfile öffnen
     FILE* file;
     std::string fileName;
-    if (language == 0)
+    if (mLanguage == 0)
         fileName = "data/english.lang";
-    if (language == 1)
+    if (mLanguage == 1)
         fileName = "data/german.lang";
 
-#ifdef WINCE
-    char realFileName[128];
-    sprintf_s(realFileName, "\\eob2\\%s", fileName);
-    file = fopen(realFileName, "r");
-#else
     file = fopen(fileName.c_str(), "r");
-#endif
 
     //Inhalt Zeilenweise einlesen
     char data[512];
@@ -39,11 +27,7 @@ void CLanguage::init(short language = 0)
         fgets(data, 512, file);
         if (strlen(data) > 1) {
             data[strlen(data) - 1] = '\0';
-#ifdef WINCE
-            text[arrayPointer++] = _strdup(data);
-#else
             text[arrayPointer++] = strdup(data);
-#endif
         }
         data[0] = '\0';
     }

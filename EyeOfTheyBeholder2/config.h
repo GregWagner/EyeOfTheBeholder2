@@ -2,23 +2,23 @@
 
 #include <string>
 
-class CConfig {
+class Config {
 public:
-    //Konfigurationsfile einlesen
+    // Konfigurationsfile einlesen
     void openConf(std::string fileName);
 
-    //Werte zuweisen
+    // Werte zuweisen
     void setValue(short key, short val);
 
-    //Sprache
-    short language;
+    // Sprache
+    short mLanguage {};
 
-    //Fullscreen
-    bool fullscreen;
+    // Fullscreen
+    bool mFullscreen {};
 
-    //Auflösung
-    short resolution;
+    // Auflösung
+    short mResolution {};
 
-    //Start Map
-    short startMapID;
+    // Starting map
+    short mStartMapID;
 };

@@ -1,16 +1,8 @@
-
-/**********************************
-Class CChar
-***********************************/
-
 #include "character.h"
 #include <cstdio>
 #include <cstdlib>
 
-//
 // Initialisierung
-//
-
 void CChar::init(MEDIAWrapper* mediaObject, CMap* gameMap)
 {
     //Item Init
@@ -32,10 +24,7 @@ void CChar::init(MEDIAWrapper* mediaObject, CMap* gameMap)
     this->menuPos = 0;
 }
 
-//
 // Schaden hinzufügen (diesem Char)
-//
-
 void CChar::doDamage(short damage)
 {
     if (damage < 0)
@@ -49,10 +38,7 @@ void CChar::doDamage(short damage)
     damageTaken = true;
 }
 
-//
 // Angreifen
-//
-
 void CChar::attackNow(short handPos)
 {
     short damage = 0;
@@ -89,10 +75,7 @@ void CChar::attackNow(short handPos)
     damageDone[handPos] = true;
 }
 
-//
 // Char speichern
-//
-
 void CChar::saveChar(FILE* saveFile)
 {
     //ID des Chars im Spiel
@@ -193,10 +176,7 @@ void CChar::saveChar(FILE* saveFile)
     fwrite(&arrows, sizeof(short), 1, saveFile);
 }
 
-//
 // Char laden
-//
-
 void CChar::loadChar(FILE* saveFile)
 {
     //ID des Chars im Spiel

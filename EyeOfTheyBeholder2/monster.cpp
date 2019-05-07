@@ -84,10 +84,7 @@ void CMonster::init(CMap* gameMap, MEDIAWrapper* mediaObject, CLanguage* languag
     }
 }
 
-//
 //updaten
-//
-
 bool CMonster::update(long timer, short pos, short destination)
 {
     /*
@@ -221,10 +218,7 @@ bool CMonster::update(long timer, short pos, short destination)
     return true;
 }
 
-//
 // Hilfsfunktionen - prüfen auf Hinderniss
-//
-
 bool CMonster::checkCollision(short direction)
 {
     //0=N, 1=S, 2=E, 3=W
@@ -298,10 +292,7 @@ bool CMonster::checkPlayerCollision(short direction, bool doAttack = false)
     return false;
 }
 
-//
 // prüfen ob sich Spieler in direktem Sichtfeld befindet
-//
-
 bool CMonster::checkPlayerInLine(short direction, bool setMoveToPos)
 {
     //0=N, 1=S, 2=E, 3=W
@@ -369,9 +360,7 @@ bool CMonster::checkPlayerInLine(short direction, bool setMoveToPos)
     return false;
 }
 
-//
 // Angriff ausführen
-//
 void CMonster::doAttack()
 {
     short damage = 0;
@@ -531,10 +520,7 @@ void CMonster::doAttack()
     }
 }
 
-//
 // Schaden hinzufügen (diesem Monster)
-//
-
 void CMonster::doDamage(short damage)
 {
     friendly = false;
@@ -554,10 +540,7 @@ void CMonster::doDamage(short damage)
     }
 }
 
-//
 // Position und Movement updaten
-//
-
 void CMonster::updatePos()
 {
     switch (this->monsterType) {
@@ -582,10 +565,7 @@ void CMonster::updatePos()
     }
 }
 
-//
 // die verschiedenen Arten der Pfadfindung
-//
-
 void CMonster::doPathFinding(short pathType)
 {
     switch (pathType) {
@@ -859,7 +839,6 @@ void CMonster::doPathFinding(short pathType)
         }
         break;
     case 2:
-        //
         // Typ 2 -	Spieler wird verfolgt
         //
         //0=N, 1=S, 2=E, 3=W
@@ -921,9 +900,7 @@ void CMonster::doPathFinding(short pathType)
     gameMap->monsterInfo[staticMapId][0] = monsterPos;
 }
 
-//
 // prüfen wieviele Monster sich in der Position befinden
-//
 short CMonster::countMonster(short mapPos)
 {
     short count = 0;

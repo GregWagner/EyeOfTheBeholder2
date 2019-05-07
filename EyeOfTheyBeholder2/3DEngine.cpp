@@ -14,13 +14,13 @@ void C3DEngine::initViewArea()
     mapEvent = new CEvent;
 
     //Konfiguration laden
-    configuration.openConf("eob2.conf");
+    mConfiguration.openConf("eob2.conf");
 
     //Media Wrapper
-    if (configuration.resolution == 0)
-        mediaObject.setupWindow(0, 0, 320, 200, configuration.fullscreen);
+    if (mConfiguration.mResolution == 0)
+        mediaObject.setupWindow(0, 0, 320, 200, mConfiguration.mFullscreen);
     else
-        mediaObject.setupWindow(0, 0, 640, 400, configuration.fullscreen);
+        mediaObject.setupWindow(0, 0, 640, 400, mConfiguration.mFullscreen);
 
     // Loading Screen
     mediaObject.fillRect(0, 0, 320, 240, 0, 0, 0);
@@ -38,7 +38,7 @@ void C3DEngine::initViewArea()
     // Language Setup
     mediaObject.drawText(0, 20, 50, 255, 255, 255, "LANGUAGE DATA ... ", false);
     mediaObject.refresh();
-    languageData.init(configuration.language);
+    languageData.init(mConfiguration.mLanguage);
     mediaObject.drawText(0, 140, 50, 255, 255, 255, "OK", false);
     mediaObject.refresh();
 
@@ -1413,7 +1413,7 @@ void C3DEngine::mouseState()
     this->realMouseY = this->mousePosY;
 
     //640x400
-    if (configuration.resolution == 1) {
+    if (mConfiguration.mResolution == 1) {
         mousePosX /= 2;
         mousePosY /= 2;
         this->realMouseX = this->mousePosX;

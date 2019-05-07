@@ -7,14 +7,10 @@
 #include "SFont.h"
 #include <array>
 
-//
-// class initialisation
-//
-
 class MEDIAWrapper {
 public:
     //neues Fenster erzueugen
-    void setupWindow(int posX, int posY, int width, int height, bool fullscreen);
+    void setupWindow(int posX, int posY, int width, int height, bool mFullscreen);
 
     //leeres Bild erstellen
     void createImage(int imageID, int paletteSourceImageID, int width, int height);
@@ -88,52 +84,52 @@ public:
     //Maus Koordinaten übergeben
     void getMouseState(int* x, int* y);
 
-    //Maustaste links
+    // Maustaste links
     bool getMouseLeft();
 
-    //Maustaste rechts
+    // Maustaste rechts
     bool getMouseRight();
 
-    //Tastenevents
+    // Tastenevents
     void updateKeys();
 
-    //SDL beenden
+    // SDL beenden
     void quit();
 
-    //bestimmte Zeit warten
+    // bestimmte Zeit warten
     void sleep(int ms);
 
-    //Millisekunden auslesen
+    // Millisekunden auslesen
     int getMilliSeconds();
 
-    //SDL screen
+    // SDL screen
     SDL_Surface* mScreen;
     SDL_Surface* mScreenDisplay;
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
 
-    //zu SDL Farben konvertierte 6Bit EOB-Palette
+    // zu SDL Farben konvertierte 6Bit EOB-Palette
     SDL_Color mCurrentColors[256];
 
-    //Auflösung
+    // Auflösung
     int mScreenWidth;
     int mScreenHeight;
 
-    //Fonts
+    // Fonts
     SFont_Font* mFont[10];
 
-    //Grafikspeicher
+    // Grafikspeicher
     SDL_Surface* mSurfaceImages[512];
     SDL_Texture* mTexture;
     int mImageCounter;
 
-    //Sounds
+    // Sounds
 #ifdef SDL_V1
     Mix_Chunk* mSound[512];
 #endif
     int mSoundCounter;
 
-    //Tasten
+    // Tasten
     bool mEscapeKey {};
     bool mLeftKey {};
     bool mRightKey {};

@@ -1,7 +1,3 @@
-
-/**********************************
-Class CEvent 
-***********************************/
 #include "event.h"
 #include <cstdio>
 
@@ -28,10 +24,7 @@ void CEvent::init(CMap* map, MEDIAWrapper* mediaObject)
     statusText[0][0] = statusText[1][0] = '\0';
 }
 
-//
 // Maus Events verarbeiten
-//
-
 void CEvent::mouseState(short posX, short posY)
 {
     this->mousePosX = posX;
@@ -39,10 +32,7 @@ void CEvent::mouseState(short posX, short posY)
     this->mouseClicked = true;
 }
 
-//
 // Hintergrund-Bereich für Event-Texte zeichnen
-//
-
 void CEvent::drawEventMessageBackground()
 {
     mediaObject->fillRect(0, 121, 320, 79, 108, 108, 136);
@@ -52,10 +42,7 @@ void CEvent::drawEventMessageBackground()
     mediaObject->fillRect(0, 121, 1, 79, 52, 52, 80);
 }
 
-//
 // Button zeichnen
-//
-
 void CEvent::drawEventButton(char* text, short posX, short posY)
 {
     mediaObject->fillRect(posX, posY, 95, 1, 148, 148, 172);
@@ -65,13 +52,9 @@ void CEvent::drawEventButton(char* text, short posX, short posY)
     mediaObject->drawText(0, posX + 5, posY, 0xFF, 0xFF, 0xFF, text);
 }
 
-//
 //updaten
-//
-
 void CEvent::update()
 {
-
     bool validclick;
 
     switch (eventTyp) {
@@ -501,10 +484,7 @@ void CEvent::update()
     this->mouseClicked = false;
 }
 
-//
 // Event Image laden
-//
-
 void CEvent::loadEventImage(short imageID, short image)
 {
     switch (image) {
@@ -533,10 +513,7 @@ void CEvent::loadEventImage(short imageID, short image)
     }
 }
 
-//
 // Statustext updaten
-//
-
 void CEvent::updateStatusMessage()
 {
     mediaObject->drawText(0, 3, 179, 0xFF, 0xFF, 0xFF, statusText[0]);
@@ -550,10 +527,7 @@ void CEvent::updateStatusMessage()
     }
 }
 
-//
 // Statustext im Statusfenster ausgeben
-//
-
 void CEvent::statusMessage(char text[128])
 {
     if (statusText[1][0] != '\0')
@@ -563,10 +537,7 @@ void CEvent::statusMessage(char text[128])
     time_change = time + 20000;
 }
 
-//
 // Events löschen
-//
-
 void CEvent::clear()
 {
     eventTyp = -1;

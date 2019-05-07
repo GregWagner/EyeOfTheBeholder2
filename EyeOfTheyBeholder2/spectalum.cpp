@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
     spectalum.test();
     //if(spectalum.playIntro())
     //{
-    spectalum.loadMap(spectalum.configuration.startMapID);
+    spectalum.loadMap(spectalum.mConfiguration.mStartMapID);
     spectalum.run();
     //}
     return 0;

@@ -3,9 +3,9 @@
 class CLanguage {
 public:
     //Init
-    void init(short language);
+    void init(short mLanguage);
 
-    short language;
+    short mLanguage;
 
     char* text[2048];
 };

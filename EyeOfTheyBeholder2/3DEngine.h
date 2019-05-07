@@ -69,7 +69,7 @@ public:
     short running;
 
     //Objekt für Konfigurationsdaten
-    CConfig configuration;
+    Config mConfiguration;
 
     //Intro
     CIntro intro;

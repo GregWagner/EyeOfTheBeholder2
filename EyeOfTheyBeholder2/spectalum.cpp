@@ -5,13 +5,10 @@
 
 int main(int argc, char* argv[])
 {
-    C3DEngine spectalum;
-    spectalum.initViewArea();
-    spectalum.test();
-    //if(spectalum.playIntro())
-    //{
+    Engine spectalum;
+
+    //  spectalum.playIntro())
     spectalum.loadMap(spectalum.mConfiguration.mStartMapID);
     spectalum.run();
-    //}
     return 0;
 }

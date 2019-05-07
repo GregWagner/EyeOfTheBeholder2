@@ -11,117 +11,80 @@
 #include "mediawrapper.h"
 #include "monster.h"
 
-class C3DEngine {
+class Engine {
 public:
-    //allgemeine Debug-Funktion zum Testen diverser Aktionen
-    void test();
+    // Create and view windows
+    Engine();
+    ~Engine() = default;
 
-    //Fenster erstellen und anzeigen
-    void initViewArea();
-
-    //Karte laden
     void loadMap(short mapID, bool savedMap = false);
 
-    //Intro spielen
-    bool playIntro();
-
-    //3D Karte anzeigen, Renderloop
+    void playIntro();
     void run();
 
-    //3D Ansicht neu zeichnen
+    // Recreae 3D view
     void updateView();
 
-    //3D Wände aufbauen
+    // Build 3D walls
     void drawStuffWindow(int level);
     void drawGameWindowNew();
 
-    //Kollision prüfen
+    // Check collision
     bool checkWallCollision(short direction);
     bool checkMonsterCollision(short direction);
 
-    //Stuff zeichnen
     void drawStuff(short mapWall, short wNr);
-
-    //Monster zeichnen
     void drawMonster(short mapWall, short wNr);
-
-    //Kompass zeichnen
     void drawCompass();
 
-    //Tastatur Events
-    void mDownKey();
-    void mUpKey();
-    void mLeftKey();
-    void mRightKey();
+    // Keyboard event handlers
+    void handleDownKeyPressed();
+    void handleUpKeyPressed();
+    void handleLeftKeyPressed();
+    void handleRightKeyPressed();
 
-    //Maus Events
+    // Mouse event handlers
     void mouseState();
     void mouseMove();
     void handleGameWindowClick(int mousePosX, int mousePosY);
 
-    //Spiel speichern
     void saveGame();
-
-    //Spiel laden
     void loadGame();
 
-    //Steuerung für MainLoop
-    short running;
-
-    //Objekt für Konfigurationsdaten
     Config mConfiguration;
 
-    //Intro
-    CIntro intro;
+private:
+    // Map info
+    CMap* mGameMap { nullptr };
+    CMap* mSaveStatusGameMap[33] {}; // Secure map status for a maximum of 16 maps when changing maps
+    short mCurrentMapID {};
+    CEvent* mMapEvent { nullptr };
 
-    //Karte
-    CMap* gameMap;
-    CMap* savestatus_gameMap[33]; //Kartenstatus für max. 16 Karten sichern beim Kartenwechsel
-    short mapOffset;
-    short currentMapID;
+    MEDIAWrapper mMediaObject;
 
-    //Karten Events
-    CEvent* mapEvent;
+    CCharMenu mCharMenu;
 
-    //Media Objekt
-    MEDIAWrapper mediaObject;
+    CLanguage mLanguageData;
 
-    //Instanz für Character Menus
-    CCharMenu charmenu;
+    CChar mCharacter[4];
+    CMonster* mMonster[128];
 
-    //Instanz der Sprachdaten
-    CLanguage languageData;
+    CItem mItem;
 
-    //4 Charachter Instanzen
-    CChar character[4];
+    short mMouseItem {};
+    short mMouseItemOld {};
 
-    //128 Instanzen für Monster
-    CMonster* monster[128];
+    // Specify which background to draw
+    bool mDrawBackground {};
 
-    //Items
-    CItem item;
+    bool mIsKeyPressed {};
 
-    //Item des Mauszeigers
-    short mouseItem, mouseItemOld;
-
-    //X,Y und Breite,Höhe des eigentlichen 3D Fensters
-    short posX, posY, width, height;
-
-    // Variable um anzugeben welcher Hintergrund gezeichnet wird
-    bool drawBG;
-
-    //Offset des BG Imaages
-    short bgOffset;
-
-    //speichern ob Taste geradegedrückt wurde
-    bool keyPressed {};
-
-    //Variablen für Maus Events
-    bool buttonLeft {};
-    bool buttonRight {};
-    bool buttonPressed {};
-    int mousePosX {};
-    int realMouseX;
-    int mousePosY {};
-    int realMouseY {};
+    // Mouse event
+    bool mButtonLeft {};
+    bool mButtonRight {};
+    bool mButtonPressed {};
+    int mMousePosX {};
+    int mRealMouseX {};
+    int mMousePosY {};
+    int mRealMouseY {};
 };

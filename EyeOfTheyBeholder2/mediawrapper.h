@@ -107,10 +107,10 @@ public:
     int getMilliSeconds();
 
     //SDL screen
-    SDL_Surface* mScreenGame;
+    SDL_Surface* mScreen;
+    SDL_Surface* mScreenDisplay;
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
-    SDL_Texture* mTexture;
 
     //zu SDL Farben konvertierte 6Bit EOB-Palette
     SDL_Color mCurrentColors[256];
@@ -123,7 +123,8 @@ public:
     SFont_Font* mFont[10];
 
     //Grafikspeicher
-    SDL_Surface* mImages[512];
+    SDL_Surface* mSurfaceImages[512];
+    SDL_Texture* mTexture;
     int mImageCounter;
 
     //Sounds

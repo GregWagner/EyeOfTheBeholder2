@@ -11,6 +11,7 @@
 // Fenster erzeugen
 void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool fullscreen)
 {
+    std::cout << "Entering " << __FUNCTION__ << '\n';
     // initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         return;
@@ -32,11 +33,9 @@ void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool f
     SDL_RenderSetLogicalSize(mRenderer, 640, 480);
     */
 
-    mTexture = SDL_CreateTexture(mRenderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING,
-        640, 480);
-
     // SDL screen_game erzeugen
-    mScreenGame = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 32, 0, 0, 0, 0);
+    mScreen = SDL_CreateRGBSurface(0, 640, 480, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
+    mTexture = SDL_CreateTexture(mRenderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 640, 480);
 
     // SDL screen erzeugen
     this->mScreenWidth = width;
@@ -61,26 +60,30 @@ void MEDIAWrapper::setupWindow(int posX, int posY, int width, int height, bool f
 
     // Surfaces initialisieren
     for (int s = 0; s < 512; s++) {
-        mImages[s] = NULL;
+        mSurfaceImages[s] = nullptr;
     }
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
 // Bild laden
 void MEDIAWrapper::loadImage(int imageID, char* path)
 {
+    std::cout << "Entering " << __FUNCTION__ << '\n';
     char realpath[128];
 
     this->freeImage(imageID);
 
     sprintf_s(realpath, "%s.bmp", path);
-    mImages[imageID] = SDL_LoadBMP(realpath);
+    mSurfaceImages[imageID] = SDL_LoadBMP(realpath);
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
 // Surface als BMP File abspeichern
 void MEDIAWrapper::saveBMP(int imageID)
 {
-    if (mImages[imageID] != NULL)
-        SDL_SaveBMP(mImages[imageID], "out.bmp");
+    std::cout << "Entering " << __FUNCTION__ << '\n';
+    if (mSurfaceImages[imageID] != NULL)
+        SDL_SaveBMP(mSurfaceImages[imageID], "out.bmp");
     else
         printf("error saving image: %d\n", imageID);
 }
@@ -88,18 +91,20 @@ void MEDIAWrapper::saveBMP(int imageID)
 // Bild aus Speicher löschen
 void MEDIAWrapper::freeImage(int i)
 {
-    if (mImages[i] != NULL) {
-        SDL_FreeSurface(mImages[i]);
+    std::cout << "Entering " << __FUNCTION__ << '\n';
+    if (mSurfaceImages[i] != NULL) {
+        SDL_FreeSurface(mSurfaceImages[i]);
     }
 
-    delete (mImages[i]);
-    mImages[i] = NULL;
+    delete (mSurfaceImages[i]);
+    mSurfaceImages[i] = NULL;
 }
 
 // prüfen ob Bild bereits erstellt wurde
 bool MEDIAWrapper::imageLoaded(int nr)
 {
-    if (mImages[nr] != NULL)
+    std::cout << "Entering " << __FUNCTION__ << '\n';
+    if (mSurfaceImages[nr] != NULL)
         return true;
     return false;
 }
@@ -234,23 +239,35 @@ void MEDIAWrapper::loadCPS(int imageID, std::string filename, std::string palett
         }
     }
 
-    mImages[imageID] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0, 0, 0, 0);
+    mSurfaceImages[imageID] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0, 0, 0, 0);
     SDL_Rect rcSrc = { posX, posY, width, height };
     SDL_Rect rcDst = { 0, 0, width, height };
-    ;
-    SDL_BlitSurface(tempImage, &rcSrc, mImages[imageID], &rcDst);
+    std::cout << "Rendering stuff !!!! " << __FUNCTION__ << '\n';
+    mTexture = SDL_CreateTextureFromSurface(mRenderer, mSurfaceImages[imageID]);
+    SDL_UpdateTexture(mTexture, NULL, mScreen->pixels, mScreen->pitch);
+
+    SDL_RenderClear(mRenderer);
+    SDL_RenderCopy(mRenderer, mTexture, NULL, NULL);
+    SDL_RenderPresent(mRenderer);
+    sleep(2000);
+    std::cout << "..................\n";
+    SDL_BlitSurface(tempImage, &rcSrc, mSurfaceImages[imageID], &rcDst);
     SDL_FreeSurface(tempImage);
+
     std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
 // WORD Wert aus CPS File auslesen
 int MEDIAWrapper::getWord(unsigned char string[64000], int pos)
 {
+    std::cout << "Entering " << __FUNCTION__ << '\n';
     return (string[pos + 1] << 8) + string[pos];
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
 }
 
 int MEDIAWrapper::format80decode(unsigned char image_in[], unsigned char image_out[])
 {
+    std::cout << "Entering " << __FUNCTION__ << '\n';
     unsigned char* copyp;
     unsigned char* readp = image_in;
     unsigned char* writep = image_out;
@@ -310,7 +327,7 @@ int MEDIAWrapper::format80decode(unsigned char image_in[], unsigned char image_o
             }
         }
     }
-
+    std::cout << "Leaving " << __FUNCTION__ << '\n';
     return (writep - image_out);
 }
 
@@ -320,16 +337,16 @@ void MEDIAWrapper::drawImage(int imageID, int posX, int posY, int fromPosX, int 
     SDL_Rect rcDest = { posX, posY, 0, 0 };
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
     if (width > 0 && height > 0) {
-        if (imageID >= 0 && mImages[imageID]) {
+        if (imageID >= 0 && mSurfaceImages[imageID]) {
             //weiss transparent setzen
-            SDL_SetColorKey(mImages[imageID], SDL_TRUE, SDL_MapRGB(mImages[imageID]->format, 255, 255, 255));
-            SDL_BlitSurface(mImages[imageID], &rcSrc, mScreenGame, &rcDest);
+            SDL_SetColorKey(mSurfaceImages[imageID], SDL_TRUE, SDL_MapRGB(mSurfaceImages[imageID]->format, 255, 255, 255));
+            SDL_BlitSurface(mSurfaceImages[imageID], &rcSrc, mScreen, &rcDest);
         }
     } else {
-        if (imageID >= 0 && mImages[imageID]) {
+        if (imageID >= 0 && mSurfaceImages[imageID]) {
             //weiss transparent setzen
-            SDL_SetColorKey(mImages[imageID], SDL_TRUE, SDL_MapRGB(mImages[imageID]->format, 255, 255, 255));
-            SDL_BlitSurface(mImages[imageID], NULL, mScreenGame, &rcDest);
+            SDL_SetColorKey(mSurfaceImages[imageID], SDL_TRUE, SDL_MapRGB(mSurfaceImages[imageID]->format, 255, 255, 255));
+            SDL_BlitSurface(mSurfaceImages[imageID], NULL, mScreen, &rcDest);
         }
     }
 }
@@ -337,10 +354,10 @@ void MEDIAWrapper::drawImage(int imageID, int posX, int posY, int fromPosX, int 
 // leeres Bild erstellen
 void MEDIAWrapper::createImage(int imageID, int paletteSourceImageID, int width, int height)
 {
-    if (mImages[imageID] != NULL)
-        mImages[imageID] = NULL;
+    if (mSurfaceImages[imageID] != NULL)
+        mSurfaceImages[imageID] = NULL;
 
-    mImages[imageID] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0, 0, 0, 0);
+    mSurfaceImages[imageID] = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, 0, 0, 0, 0);
 }
 
 // Bild zu Bild blitten
@@ -349,8 +366,8 @@ void MEDIAWrapper::copyImage(int imageFromID, int imageToID, int fromPosX, int f
     SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
     SDL_Rect rcDst = { toPosX, toPosY, 0, 0 };
     if (transpR != -1 && transpG != -1 && transpB != -1)
-        SDL_SetColorKey(mImages[imageFromID], SDL_TRUE, SDL_MapRGB(mImages[imageFromID]->format, transpR, transpG, transpB));
-    SDL_BlitSurface(mImages[imageFromID], &rcSrc, mImages[imageToID], &rcDst);
+        SDL_SetColorKey(mSurfaceImages[imageFromID], SDL_TRUE, SDL_MapRGB(mSurfaceImages[imageFromID]->format, transpR, transpG, transpB));
+    SDL_BlitSurface(mSurfaceImages[imageFromID], &rcSrc, mSurfaceImages[imageToID], &rcDst);
     //SDL_SaveBMP(images[imageToID], "data/out.bmp");
 }
 
@@ -383,7 +400,7 @@ bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX,
                             to.y = toPosY + (y - fromPosY) * yfactor - yf;
                             to.w = 1;
                             to.h = 1;
-                            SDL_BlitSurface(mImages[imageFromID], &from, mImages[imageToID], &to);
+                            SDL_BlitSurface(mSurfaceImages[imageFromID], &from, mSurfaceImages[imageToID], &to);
                         }
                 }
             } else {
@@ -399,7 +416,7 @@ bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX,
                             to.y = toPosY + (y - fromPosY) * yfactor - yf;
                             to.w = 1;
                             to.h = 1;
-                            SDL_BlitSurface(mImages[imageFromID], &from, mImages[imageToID], &to);
+                            SDL_BlitSurface(mSurfaceImages[imageFromID], &from, mSurfaceImages[imageToID], &to);
                         }
                 }
             }
@@ -407,7 +424,7 @@ bool MEDIAWrapper::copyScaledImage(int imageFromID, int imageToID, int fromPosX,
     } else {
         SDL_Rect rcSrc = { fromPosX, fromPosY, width, height };
         SDL_Rect rcDst = { 0, 0, 0, 0 };
-        SDL_BlitSurface(mImages[imageFromID], &rcSrc, mImages[imageToID], &rcDst);
+        SDL_BlitSurface(mSurfaceImages[imageFromID], &rcSrc, mSurfaceImages[imageToID], &rcDst);
     }
 
     return true;
@@ -426,21 +443,21 @@ void MEDIAWrapper::drawText(int fontID, int posX, int posY, int r, int g, int b,
     if (fontID < 4) {
         posY += 1;
         if (center)
-            posX = (this->mScreenGame->w / 2) - (SFont_TextWidth(mFont[0], text.c_str()) / 2);
+            posX = (this->mScreen->w / 2) - (SFont_TextWidth(mFont[0], text.c_str()) / 2);
         if (r == 0 && g == 0 && b == 0)
-            SFont_Write(mScreenGame, mFont[0], posX, posY, text.c_str());
+            SFont_Write(mScreen, mFont[0], posX, posY, text.c_str());
         if (r == 0 && g == 0 && b == 255)
-            SFont_Write(mScreenGame, mFont[1], posX, posY, text.c_str());
+            SFont_Write(mScreen, mFont[1], posX, posY, text.c_str());
         if (r == 255 && g == 255 && b == 255)
-            SFont_Write(mScreenGame, mFont[2], posX, posY, text.c_str());
+            SFont_Write(mScreen, mFont[2], posX, posY, text.c_str());
         if (r == 116 && g == 232 && b == 252)
-            SFont_Write(mScreenGame, mFont[3], posX, posY, text.c_str());
+            SFont_Write(mScreen, mFont[3], posX, posY, text.c_str());
     } else {
         //schwarzen Schatten zeichnen
-        SFont_BigWrite(mScreenGame, mFont[7], posX - 1, posY + 1, text.c_str());
+        SFont_BigWrite(mScreen, mFont[7], posX - 1, posY + 1, text.c_str());
 
         //Font zeichnen
-        SFont_BigWrite(mScreenGame, mFont[fontID], posX, posY, text.c_str());
+        SFont_BigWrite(mScreen, mFont[fontID], posX, posY, text.c_str());
     }
 }
 
@@ -510,7 +527,6 @@ bool MEDIAWrapper::isPlaying(int nr)
 // Screen Refresh
 void MEDIAWrapper::refresh()
 {
-
     SDL_RenderPresent(mRenderer);
 }
 
@@ -580,7 +596,7 @@ void MEDIAWrapper::updateKeys()
 void MEDIAWrapper::fillRect(int posX, int posY, int width, int height, int r, int g, int b, int imageID)
 {
     SDL_Rect dstrect = { posX, posY, width, height };
-    SDL_FillRect(imageID == -1 ? mScreenGame : mImages[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? mScreenGame->format : mImages[imageID]->format, r, g, b));
+    SDL_FillRect(imageID == -1 ? mScreen : mSurfaceImages[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? mScreen->format : mSurfaceImages[imageID]->format, r, g, b));
 }
 
 // Palette laden für spätere Pixel Aktionen
@@ -624,7 +640,7 @@ void MEDIAWrapper::loadPal(char* filename)
 void MEDIAWrapper::drawPixel(int posX, int posY, int palOffset, int imageID = -1)
 {
     SDL_Rect dstrect = { posX, posY, 2, 1 };
-    SDL_FillRect(imageID == -1 ? mScreenGame : mImages[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? mScreenGame->format : mImages[imageID]->format, mCurrentColors[palOffset].r, mCurrentColors[palOffset].g, mCurrentColors[palOffset].b));
+    SDL_FillRect(imageID == -1 ? mScreen : mSurfaceImages[imageID], &dstrect, SDL_MapRGB(imageID == -1 ? mScreen->format : mSurfaceImages[imageID]->format, mCurrentColors[palOffset].r, mCurrentColors[palOffset].g, mCurrentColors[palOffset].b));
 }
 
 // Gamescreen in echten screen surface kopieren und alles anzeigen
@@ -641,8 +657,8 @@ void MEDIAWrapper::updateVideo()
         xfactor = (float)((float)(mScreenWidth - 0) / (float)(mScreenWidth - 0));
         yfactor = (float)((float)(mScreenHeight - 0) / (float)(mScreenHeight - 0));
 
-        for (float y = 0; y < mScreenGame->h; y++) {
-            for (float x = 0; x < mScreenGame->w; x++) {
+        for (float y = 0; y < mScreen->h; y++) {
+            for (float x = 0; x < mScreen->w; x++) {
                 from.x = x;
                 from.y = y;
                 from.w = 1;
@@ -655,20 +671,20 @@ void MEDIAWrapper::updateVideo()
                         to.y = 0 + y * yfactor - yf;
                         to.w = 1;
                         to.h = 1;
-#ifdef FIXME
-                        SDL_BlitSurface(mScreenGame, &from, mWindow, &to);
-#endif
+                        SDL_BlitSurface(mScreen, &from, mScreenDisplay, &to); // changed from mWindow to mSurface
                     }
             }
         }
     } else {
-        SDL_Rect rcSrc = { 0, 0, mScreenGame->w, mScreenGame->h };
+        SDL_Rect rcSrc = { 0, 0, mScreen->w, mScreen->h };
         SDL_Rect rcDst = { 0, 0, 0, 0 };
-#ifdef FIXME
-        SDL_BlitSurface(mScreenGame, &rcSrc, mWindow, &rcDst);
-#endif
+        SDL_BlitSurface(mScreen, &rcSrc, mScreenDisplay, &rcDst);
     }
 
+    mTexture = SDL_CreateTextureFromSurface(mRenderer, mScreen);
+    SDL_UpdateTexture(mTexture, NULL, mScreen->pixels, mScreen->pitch);
+    SDL_RenderClear(mRenderer);
+    SDL_RenderCopy(mRenderer, mTexture, NULL, NULL);
     SDL_RenderPresent(mRenderer);
 }
 

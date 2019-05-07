@@ -49,6 +49,9 @@
     <ClInclude Include="monster.h" />
     <ClInclude Include="SFont.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="eob2.conf" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1c4c69a2-97be-4c2f-8e85-ef756329a925}</ProjectGuid>

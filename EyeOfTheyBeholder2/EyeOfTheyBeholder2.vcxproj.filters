@@ -99,4 +99,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="eob2.conf" />
+  </ItemGroup>
 </Project>

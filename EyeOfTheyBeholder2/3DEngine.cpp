@@ -22,38 +22,34 @@ void C3DEngine::initViewArea()
     else
         mediaObject.setupWindow(0, 0, 640, 400, configuration.fullscreen);
 
-    //Loading Screen
+    // Loading Screen
     mediaObject.fillRect(0, 0, 320, 240, 0, 0, 0);
-    mediaObject.drawText(0, 20, 20, 255, 255, 255, "...LOADING...", true);
+    // TODO: Centering is not working
+    mediaObject.drawText(0, 20, 20, 255, 255, 255, "...LOADING...", false);
+
+    // Engine Setup
     mediaObject.drawText(0, 20, 40, 255, 255, 255, "ENGINE ... ", false);
     mediaObject.refresh();
-
-    //Engine Setup
-    keyPressed = false;
-    buttonLeft = false;
-    buttonRight = false;
-    buttonPressed = false;
-    mousePosX = 0;
-    mousePosY = 0;
-    mouseItem = 0;
     mediaObject.loadCPS(150, "original/PLAYFLD.CPS", "original/SILVER.PAL", 0, 0, 320, 200, true);
     mediaObject.loadCPS(165, "original/DECORATE.CPS", "original/SILVER.PAL", 0, 0, 320, 200, true);
     mediaObject.loadCPS(166, "original/THROWN.CPS", "original/SILVER.PAL", 0, 0, 320, 200, true);
     mediaObject.drawText(0, 140, 40, 255, 255, 255, "OK", false);
+
+    // Language Setup
     mediaObject.drawText(0, 20, 50, 255, 255, 255, "LANGUAGE DATA ... ", false);
     mediaObject.refresh();
     languageData.init(configuration.language);
     mediaObject.drawText(0, 140, 50, 255, 255, 255, "OK", false);
     mediaObject.refresh();
 
-    //Items initialisieren
+    // Items initialisieren
     mediaObject.drawText(0, 20, 60, 255, 255, 255, "ITEM DATA ... ", false);
     mediaObject.refresh();
     item.init(&mediaObject, mapEvent, &languageData);
     mediaObject.drawText(0, 140, 60, 255, 255, 255, "OK", false);
     mediaObject.refresh();
 
-    //die 4 Charactere initialisieren
+    // die 4 Charactere initialisieren
     mediaObject.drawText(0, 20, 70, 255, 255, 255, "CHARACTER DATA ...", false);
     mediaObject.refresh();
     character[0].init(&mediaObject, gameMap);
@@ -187,17 +183,12 @@ void C3DEngine::initViewArea()
     mediaObject.refresh();
 }
 
-//
 // Funktion zum Testen diverser Aktionen
-//
-
 void C3DEngine::test()
 {
 }
 
-//
 // Intro abspielen
-//
 bool C3DEngine::playIntro()
 {
     //Intro abspielen
@@ -207,10 +198,7 @@ bool C3DEngine::playIntro()
     return true;
 }
 
-//
 // Karte laden mit allen Grafiken und Koordinaten usw.
-//
-
 void C3DEngine::loadMap(short mapID, bool savedMap)
 {
     //existiert Karte als Statusbackup dieses jetzt initialisieren
@@ -272,10 +260,7 @@ void C3DEngine::loadMap(short mapID, bool savedMap)
     charmenu.mapEvent = mapEvent;
 }
 
-//
 // Spiel laden
-//
-
 void C3DEngine::loadGame()
 {
     //Savefile öffnen
@@ -335,10 +320,7 @@ void C3DEngine::loadGame()
     gameMap->playerFace = tempPlayerFace;
 }
 
-//
 // Spiel speichern
-//
-
 void C3DEngine::saveGame()
 {
     //Savefile öffnen
@@ -386,13 +368,9 @@ void C3DEngine::saveGame()
     mapEvent->statusMessage(languageData.text[195]);
 }
 
-//
 // 3D Fenster neu zeichnen
-//
-
 void C3DEngine::updateView()
 {
-
     mediaObject.fillRect(0, 0, 3200, 200, 0, 0, 0);
 
     //auf "Spiel laden" action prüfen
@@ -413,47 +391,26 @@ void C3DEngine::updateView()
         mediaObject.drawImage(164, 0, 0, 0, 0, 176, 120);
     }
 
-    //
     // Spielefenster zeichnen
-    //
-
     drawGameWindowNew();
 
-    //
     // Hintergrund zeichnen
-    //
-
     mediaObject.drawImage(150, 0, 0);
 
-    //
     // Kompass zeichnen
-    //
-
     drawCompass();
 
-    //
     // Character Menus zeichnen
-    //
-
     charmenu.update();
 
-    //
     // Statustext updaten
-    //
-
     mapEvent->updateStatusMessage();
 
     if (mapEvent->eventInProgress) {
-        //
         // Hintergrund zeichnen
-        //
-
         mediaObject.drawImage(150, 0, 0);
 
-        //
         // Character Menus zeichnen
-        //
-
         charmenu.update();
         //Event Ereignisse updaten und zeichnen
         mapEvent->update();
@@ -516,18 +473,11 @@ void C3DEngine::updateView()
     //Refresh
     mediaObject.refresh();
 
-#ifdef WINCE
-//
-#else
     //Bildschirmrefresh
     mediaObject.updateVideo();
-#endif
 }
 
-//
 // Monster updaten und zeichnen
-//
-
 void C3DEngine::drawMonster(short mapWall, short wNr)
 {
     for (short m = 0; m < gameMap->monsterCount; m++) {
@@ -536,10 +486,7 @@ void C3DEngine::drawMonster(short mapWall, short wNr)
     }
 }
 
-//
 //Funktion um Gegenstände in Umgebungsbildschirm zu zeichnen
-//
-
 void C3DEngine::drawStuff(short mapWall, short wNr)
 {
     /*
@@ -560,9 +507,7 @@ void C3DEngine::drawStuff(short mapWall, short wNr)
 		12: ungenutzt
 	*/
 
-    //
     // Items
-    //
     short imageID = 0;
     bool left = false;
     short fromPosX = 0, fromPosY = 0;
@@ -815,10 +760,7 @@ void C3DEngine::drawStuff(short mapWall, short wNr)
     drawMonster(mapWall, wNr);
 }
 
-//
 //Funktion um den Kompass zu zeichnen
-//
-
 void C3DEngine::drawCompass()
 {
     if (gameMap->playerFace == 0) {
@@ -850,10 +792,7 @@ void C3DEngine::drawCompass()
     }
 }
 
-//
 // Rendern des Umgebungsfensters
-//
-
 void C3DEngine::drawGameWindowNew()
 {
     //Wände Ebene 1 zeichnen - ganz hinten
@@ -873,10 +812,7 @@ void C3DEngine::drawGameWindowNew()
     drawStuffWindow(4);
 }
 
-//
 // Rendern des Items und Monster
-//
-
 void C3DEngine::drawStuffWindow(int level)
 {
     short root, wallNrRoot, wallNr;
@@ -1078,10 +1014,7 @@ void C3DEngine::drawStuffWindow(int level)
     drawStuff(gameMap->playerPos, -1);
 }
 
-//
 // Kollision mit einem Monster prüfen
-//
-
 bool C3DEngine::checkMonsterCollision(short direction)
 {
     bool collision = false;
@@ -1184,17 +1117,11 @@ bool C3DEngine::checkMonsterCollision(short direction)
     return collision;
 }
 
-//
 // Kollision mit einer Wand zu prüfen
-//
-
 bool C3DEngine::checkWallCollision(short direction)
 {
     bool collision = false;
-    //
     // Bewegung nach vorn - prüfen auf Hinderniss
-    //
-
     if (direction == 0) {
 
         if (gameMap->playerFace == 0) {
@@ -1236,10 +1163,7 @@ bool C3DEngine::checkWallCollision(short direction)
         }
     }
 
-    //
     // Bewegung nach hinten - prüfen auf Hinderniss
-    //
-
     if (direction == 1) {
         if (gameMap->playerFace == 0) {
             if (gameMap->mapEvent[gameMap->playerPos + gameMap->mapCols] > 0) {
@@ -1279,10 +1203,7 @@ bool C3DEngine::checkWallCollision(short direction)
         }
     }
 
-    //
     // Bewegung nach links (Strafe left) - prüfen auf Hinderniss
-    //
-
     if (direction == 2) {
         if (gameMap->playerFace == 0) {
             if (gameMap->mapEvent[gameMap->playerPos - 1] > 0) {
@@ -1322,10 +1243,7 @@ bool C3DEngine::checkWallCollision(short direction)
         }
     }
 
-    //
     // Bewegung nach rechts (Strafe right) - prüfen auf Hinderniss
-    //
-
     if (direction == 3) {
         if (gameMap->playerFace == 0) {
             if (gameMap->mapEvent[gameMap->playerPos + 1] > 0) {
@@ -1372,15 +1290,10 @@ bool C3DEngine::checkWallCollision(short direction)
     return collision;
 }
 
-//
 // auf Tastendruch "rechts" reagieren
-//
-
 void C3DEngine::mRightKey()
 {
-    //
     //	Hintergrundbild wechseln
-    //
     gameMap->mazeObjects->p_shift++;
     drawBG = drawBG ? false : true;
 
@@ -1399,15 +1312,10 @@ void C3DEngine::mRightKey()
     keyPressed = true;
 }
 
-//
 // auf Tastendruch "links" reagieren
-//
-
 void C3DEngine::mLeftKey()
 {
-    //
     //	Hintergrundbild wechseln
-    //
     gameMap->mazeObjects->p_shift--;
     drawBG = drawBG ? false : true;
 
@@ -1426,16 +1334,10 @@ void C3DEngine::mLeftKey()
     keyPressed = true;
 }
 
-//
 // auf Tastendruch "hoch" reagieren
-//
-
 void C3DEngine::mUpKey()
 {
-    //
     //	Hintergrundbild wechseln
-    //
-
     gameMap->mazeObjects->p_shift2++;
     drawBG = drawBG ? false : true;
 
@@ -1460,25 +1362,17 @@ void C3DEngine::mUpKey()
     }
 
     if (checkWallCollision(0)) {
-        //
         // Hintergrundbildwechsel rückgängig machen da keine Bewegung erfolgen darf
-        //
-
         drawBG = drawBG ? false : true;
     }
 
     keyPressed = true;
 }
 
-//
 // auf Tastendruch "runter" reagieren
-//
-
 void C3DEngine::mDownKey()
 {
-    //
     //	Hintergrundbild wechseln
-    //
     gameMap->mazeObjects->p_shift2--;
     drawBG = drawBG ? false : true;
 
@@ -1503,20 +1397,14 @@ void C3DEngine::mDownKey()
     }
 
     if (checkWallCollision(1)) {
-        //
         // Hintergrundbildwechsel rückgängig machen da keine Bewegung erfolgen darf
-        //
-
         drawBG = drawBG ? false : true;
     }
 
     keyPressed = true;
 }
 
-//
 // auf Mausklicks reagieren
-//
-
 void C3DEngine::mouseState()
 {
     // Events updaten
@@ -1546,9 +1434,7 @@ void C3DEngine::mouseState()
     charmenu.mouseX = this->realMouseX;
     charmenu.mouseY = this->realMouseY;
 
-    //
     // Events verarbeiten
-    //
     mapEvent->mousePosX = mousePosX;
     mapEvent->mousePosY = mousePosY;
 
@@ -1613,17 +1499,10 @@ void C3DEngine::mouseState()
     buttonLeft = buttonRight = false;
 }
 
-//
 // Klicks im 3D Fenster verarbeiten
-//
-
 void C3DEngine::handleGameWindowClick(int mousePosX, int mousePosY)
 {
-
-    //
     //Items links und rechts am unteren Bildschirmrand aufheben/ablegen
-    //
-
     mouseItemOld = mouseItem;
 
     //links
@@ -1726,10 +1605,7 @@ void C3DEngine::handleGameWindowClick(int mousePosX, int mousePosY)
     }
 }
 
-//
 // Bewegung der Party
-//
-
 void C3DEngine::mouseMove()
 {
     //nach links rotieren
@@ -1750,10 +1626,7 @@ void C3DEngine::mouseMove()
 
     //strafe left
     else if (mousePosX >= 5 && mousePosX <= 24 && mousePosY >= 145 && mousePosY <= 162) {
-        //
         //	Hintergrundbild wechseln
-        //
-
         drawBG = drawBG ? false : true;
 
         if (gameMap->playerFace == 0 && !checkWallCollision(2)) {
@@ -1787,10 +1660,7 @@ void C3DEngine::mouseMove()
 
     //strafe right
     else if (mousePosX >= 44 && mousePosX <= 64 && mousePosY >= 145 && mousePosY <= 162) {
-        //
         //	Hintergrundbild wechseln
-        //
-
         drawBG = drawBG ? false : true;
 
         if (gameMap->playerFace == 0 && !checkWallCollision(3)) {
@@ -1814,22 +1684,15 @@ void C3DEngine::mouseMove()
         }
 
         if ((gameMap->playerFace == 0 && checkWallCollision(3)) || (gameMap->playerFace == 1 && checkWallCollision(3)) || (gameMap->playerFace == 3 && checkWallCollision(3)) || (gameMap->playerFace == 2 && checkWallCollision(3))) {
-            //
             // Hintergrundbildwechsel rückgängig machen da keine Bewegung erfolgen darf
-            //
-
             drawBG = drawBG ? false : true;
         }
     }
 }
 
-//
 // renderloop starten
-//
-
 void C3DEngine::run()
 {
-
     running = 1;
 
     while (running == 1) {

@@ -114,11 +114,14 @@ public:
     short bgOffset;
 
     //speichern ob Taste geradegedrückt wurde
-    bool keyPressed;
+    bool keyPressed {};
 
     //Variablen für Maus Events
-    bool buttonLeft, buttonRight;
-    bool buttonPressed;
-    int mousePosX, realMouseX;
-    int mousePosY, realMouseY;
+    bool buttonLeft {};
+    bool buttonRight {};
+    bool buttonPressed {};
+    int mousePosX {};
+    int realMouseX;
+    int mousePosY {};
+    int realMouseY {};
 };
